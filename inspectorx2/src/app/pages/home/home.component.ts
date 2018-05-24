@@ -1,11 +1,14 @@
 // src/app/pages/home/home.component.ts
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router, NavigationStart } from '@angular/router';
 import { ApiService } from './../../core/api.service';
 import { UtilsService } from './../../core/utils.service';
 import { FilterSortService } from './../../core/filter-sort.service';
 import { Subscription } from 'rxjs/Subscription';
 import { EventModel } from './../../core/models/event.model';
+import { AuthService } from './../../auth/auth.service';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +16,7 @@ import { EventModel } from './../../core/models/event.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  pageTitle = 'Events';
+  pageTitle = 'Intro';
   eventListSub: Subscription;
   eventList: EventModel[];
   filteredEvents: EventModel[];
@@ -25,7 +28,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     private title: Title,
     public utils: UtilsService,
     private api: ApiService,
-    public fs: FilterSortService) { }
+    public fs: FilterSortService,
+    private router: Router,
+    public auth: AuthService) { }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
@@ -62,6 +67,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventListSub.unsubscribe();
+  }
+
+  TesteClick(){
+    console.log("ALOOOO");
   }
 
 }

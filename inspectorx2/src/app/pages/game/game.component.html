@@ -1,0 +1,31 @@
+<app-loading *ngIf="loading"></app-loading>
+
+  <ng-template [ngIf]="questionList">
+    <ng-template [ngIf]="questionList.length">
+
+
+<!--<li *ngFor="let question of questionList">
+	<div [innerHTML]="question.code"></div>
+</li>!-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm  border border-primary">
+      <div [innerHTML]="questionList[questionIndex].code"></div>
+    </div>
+    <div class="col-sm">
+    		<div class="row">
+      			<div [innerHTML]="questionList[questionIndex].description"></div>
+      		</div>
+      		<div class="row">
+      				<div [innerHTML]="questionList[questionIndex].type"></div>
+      		</div>
+      		<div class="row">
+      			  <input #textbox type="text" [(ngModel)]="textValue" required>
+      			  <button (click)="_getAnswerForm((textbox.value))">Responder</button>
+      		</div>
+  		</div>
+    </div>
+</div>
+
+

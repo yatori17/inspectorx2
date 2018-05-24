@@ -11,6 +11,7 @@ export class UtilsService {
     return loading === false;
   }
 
+
   eventDates(start, end): string {
     // Display single-day events as "Jan 7, 2018"
     // Display multi-day events as "Aug 12, 2017 - Aug 13, 2017"

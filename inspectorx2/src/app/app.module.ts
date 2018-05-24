@@ -16,6 +16,10 @@ import { LoadingComponent } from './core/loading.component';
 import { DatePipe } from '@angular/common';
 import { UtilsService } from './core/utils.service';
 import { FilterSortService } from './core/filter-sort.service';
+import { GamelogicComponent } from './gamelogic/gamelogic.component';
+import { GameComponent } from './pages/game/game.component';
+import { LinebreakerPipe } from './linebreaker.pipe';
+import { EscapeHtmlPipe } from './escape-html.pipe';
 
 
 @NgModule({
@@ -25,7 +29,11 @@ import { FilterSortService } from './core/filter-sort.service';
     HeaderComponent,
     FooterComponent,
     CallbackComponent,
-    LoadingComponent
+    LoadingComponent,
+    GamelogicComponent,
+    GameComponent,
+    LinebreakerPipe,
+    EscapeHtmlPipe
   ],
   imports: [
     BrowserModule,

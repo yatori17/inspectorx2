@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { ENV } from './env.config';
 import { EventModel } from './models/event.model';
 import { RsvpModel } from './models/rsvp.model';
+import { QuestionModel } from './models/question.model';
 
 @Injectable()
 export class ApiService {
@@ -18,6 +19,16 @@ export class ApiService {
 
   private get _authHeader(): string {
     return `Bearer ${localStorage.getItem('access_token')}`;
+  }
+
+
+  // GET list of questions
+  getQuestions$(): Observable<QuestionModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}questions`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
   }
 
   // GET list of public, future events

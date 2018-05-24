@@ -9,6 +9,7 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const Event = require('./models/Event');
 const Rsvp = require('./models/Rsvp');
+const Question = require('./models/Question');
 
 /*
  |--------------------------------------
@@ -110,11 +111,30 @@ module.exports = function(app, config) {
     });
   });
 
+  // Get Question
+  app.get('/api/questions', (req, res) => {
+    Question.find({}, (err, questions) => {
+      let questionsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (questions) {
+        questions.forEach(question => {
+          questionsArr.push(question);
+        });
+      }
+      res.send(questionsArr);
+      });
+  });
+   //Question.
+
 
 
   // GET API root
   app.get('/api/', (req, res) => {
     res.send('API works');
   });
+
+
 
 };
