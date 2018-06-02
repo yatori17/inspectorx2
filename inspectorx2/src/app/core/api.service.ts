@@ -31,6 +31,18 @@ export class ApiService {
         );
   }
 
+  // POST partida
+
+
+
+  // ????
+
+
+
+
+
+  // ????
+
   // GET list of public, future events
   getEvents$(): Observable<EventModel[]> {
     return this.http

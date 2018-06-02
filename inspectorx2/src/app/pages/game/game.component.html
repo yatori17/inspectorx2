@@ -23,7 +23,7 @@
       		<div class="row">
       			  <input #textbox type="text" [(ngModel)]="textValue" required>
       			  <button (click)="_getAnswerForm((textbox.value))">Responder</button>
-      		</div>s
+      		</div>
 
       		 <div *ngIf="respostaCerta; else elseBlock">
 						      		 	<!--Radio group-->
@@ -33,7 +33,7 @@
 						</div>
 
 						<div class="form-check">
-						    <input class="form-check-input" name="group100" type="radio" id="radio101" checked>
+						    <input class="form-check-input" name="group100" type="radio" id="radio101">
 						    <label class="form-check-label" for="radio101">Option 2</label>
 						</div>
 

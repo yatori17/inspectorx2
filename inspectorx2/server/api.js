@@ -128,6 +128,11 @@ module.exports = function(app, config) {
   });
    //Question.
 
+   //Insert Partida
+  /* app.post('/api/partidas', jwtCheck, (req, res) => {
+
+   } )*/
+
 
 
   // GET API root
