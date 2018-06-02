@@ -23,9 +23,27 @@
       		<div class="row">
       			  <input #textbox type="text" [(ngModel)]="textValue" required>
       			  <button (click)="_getAnswerForm((textbox.value))">Responder</button>
-      		</div>
+      		</div>s
+
+      		 <div *ngIf="respostaCerta; else elseBlock">
+						      		 	<!--Radio group-->
+						<div class="form-check">
+						    <input class="form-check-input" name="group100" type="radio" id="radio100">
+						    <label class="form-check-label" for="radio100">Option 1</label>
+						</div>
+
+						<div class="form-check">
+						    <input class="form-check-input" name="group100" type="radio" id="radio101" checked>
+						    <label class="form-check-label" for="radio101">Option 2</label>
+						</div>
+
+						<div class="form-check">
+						    <input class="form-check-input" name="group100" type="radio" id="radio102">
+						    <label class="form-check-label" for="radio102">Option 3</label>
+						</div>
+						<!--Radio group-->
+      		 </div>
+   			 <ng-template #elseBlock>Aguardando inserção do trecho</ng-template>
   		</div>
     </div>
 </div>
-
-

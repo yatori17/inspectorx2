@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QuestionModel } from './../../core/models/question.model';
 import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from './../../auth/auth.service';
 
 @Component({
   selector: 'app-game',
@@ -17,6 +18,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 	gamemode: string;
   questionIndex: number;
   resposta: string;
+  respostaCerta: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
   	 this.gamemode = route.snapshot.paramMap.get('id');
@@ -49,7 +51,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       err => {
         console.error(err);
         this.loading = false;
-        this. error = true;
+        this.error = true;
       }
       )
   }
@@ -62,8 +64,12 @@ export class GameComponent implements OnInit, AfterViewInit {
   private _AnswerCompare(value1: string, value2: string){
      if (value1.trim() == value2.trim()){
        console.log("COMPARE CERTO");
+       this.respostaCerta = true;
+      }
+     else {
+       console.log("COMPARE ERRADO")
+       this.respostaCerta = false;
      }
-     else console.log("COMPARE ERRADO")
   }
 
   private _getAnswerForm(value: string){

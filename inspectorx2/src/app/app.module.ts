@@ -20,6 +20,8 @@ import { GamelogicComponent } from './gamelogic/gamelogic.component';
 import { GameComponent } from './pages/game/game.component';
 import { LinebreakerPipe } from './linebreaker.pipe';
 import { EscapeHtmlPipe } from './escape-html.pipe';
+import { CrawlerDifComponent } from './pages/crawler-dif/crawler-dif.component';
+import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { EscapeHtmlPipe } from './escape-html.pipe';
     GamelogicComponent,
     GameComponent,
     LinebreakerPipe,
-    EscapeHtmlPipe
+    EscapeHtmlPipe,
+    CrawlerDifComponent,
+    FullinspecComponent
   ],
   imports: [
     BrowserModule,
