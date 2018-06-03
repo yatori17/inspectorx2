@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QuestionModel } from './../../core/models/question.model';
+import { PartidaModel } from './../../core/models/partida.model';
 import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './../../auth/auth.service';

@@ -9,6 +9,7 @@ import { ENV } from './env.config';
 import { EventModel } from './models/event.model';
 import { RsvpModel } from './models/rsvp.model';
 import { QuestionModel } from './models/question.model';
+import { PartidaModel } from './models/partida.model';
 
 @Injectable()
 export class ApiService {
@@ -30,6 +31,16 @@ export class ApiService {
         catchError((error)=> this._handleError(error))
         );
   }
+
+  // GET list of partidas
+  getPartidas$(): Observable<PartidaModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}partidas`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
 
   // POST partida
 

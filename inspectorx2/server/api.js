@@ -10,6 +10,7 @@ const jwks = require('jwks-rsa');
 const Event = require('./models/Event');
 const Rsvp = require('./models/Rsvp');
 const Question = require('./models/Question');
+const Partida = require('./models/Partida');
 
 /*
  |--------------------------------------
@@ -126,6 +127,25 @@ module.exports = function(app, config) {
       res.send(questionsArr);
       });
   });
+
+
+
+  // Get Question
+  app.get('/api/partidas', (req, res) => {
+    Partida.find({}, (err, partidas) => {
+      let partidasArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (partidas) {
+        partidas.forEach(partidas => {
+          partidasArr.push(partidas);
+        });
+      }
+      res.send(partidasArr);
+      });
+  });
+   //Que
    //Question.
 
    //Insert Partida
