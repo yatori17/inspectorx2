@@ -16,7 +16,7 @@ const routes: Routes = [{
 	component: CallbackComponent
 },
 {
-	path:'game/:id',
+	path:'game/:id/:id2',
 	component: GameComponent
 },
 {

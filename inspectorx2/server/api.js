@@ -11,6 +11,7 @@ const Event = require('./models/Event');
 const Rsvp = require('./models/Rsvp');
 const Question = require('./models/Question');
 const Partida = require('./models/Partida');
+const Resposta = require('./models/Partida');
 
 /*
  |--------------------------------------
@@ -148,10 +149,40 @@ module.exports = function(app, config) {
    //Que
    //Question.
 
-   //Insert Partida
-  /* app.post('/api/partidas', jwtCheck, (req, res) => {
+   //TESTE
 
-   } )*/
+   app.post('/api/partidas/new', (req, res) =>{
+    console.log("eeeeee");
+    res.send(1);
+   })
+
+   //Criar Partida
+ /*app.post('/api/partidas/new', jwtCheck, (req, res) => {
+    console.log("eeeeee");
+
+    const partida = new Partida({
+        //_id: new mongoose.Types.ObjectId(),
+      UserId: req.body.UserId,
+      dificuldade: req.body.dificuldade,
+      Resposta: req.body.Resposta
+    });
+
+    partida.save((err) => {
+        if (err) { return res.status(500).send({message: err.message}); }
+        res.send(partida);
+      });
+  });
+
+    
+    
+      /*Partida.collection('partidas').save(partida, (err, result) => {
+        if (err) { 
+          return console.log(err)
+        };
+        console.log('saved to database');
+        res.redirect('/');
+        }
+    )});*/
 
 
 
