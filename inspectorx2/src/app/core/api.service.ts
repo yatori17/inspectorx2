@@ -43,10 +43,10 @@ export class ApiService {
 
 
   // POST partida
-  postPartida$(partida: PartidaModel): Observable<PartidaModel[]> {
+  postPartida$(partida: PartidaModel): Observable<PartidaModel> {
     return this.http
       .post<PartidaModel>(`${ENV.BASE_API}partidas/new`, partida, {
-        headers: new HttpHeaders().set('Authorization', this._authHeader)
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .pipe(
         catchError((error) => this._handleError(error))

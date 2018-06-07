@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private title: Title,
-        private api: ApiService,
+    private api: ApiService,
     private router: Router,
     public auth: AuthService) { }
 

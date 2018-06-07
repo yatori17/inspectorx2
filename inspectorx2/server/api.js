@@ -9,7 +9,7 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const Question = require('./models/Question');
 const Partida = require('./models/Partida');
-const Resposta = require('./models/Partida');
+//const Resposta = require('./models/Partida');
 
 /*
  |--------------------------------------
@@ -81,12 +81,33 @@ module.exports = function(app, config) {
       res.send(partidasArr);
       });
   });
-   //TESTE
+   
 
+   //Post partidas
    app.post('/api/partidas/new', (req, res) =>{
     console.log("eeeeee");
-    res.send();
-   })
+
+     var partidaObj = new Partida({userId: "aluno", dificuldade: "Fácil"});
+
+     console.log(partidaObj);
+   
+     partidaObj.save(err => {
+        if (err) return res.status(500).send(err);
+        return res.status(200).send(partidaObj);
+         });
+     });
+     
+
+     /* partida.save((err) => {
+        if (err) { 
+          return res.status(500).send({message: err.message}); 
+        }
+        res.send(partida);
+      });*/
+
+
+  //  res.send(partida);
+   /*})
 
    //Criar Partida
  /*app.post('/api/partidas/new', jwtCheck, (req, res) => {

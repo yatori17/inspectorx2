@@ -29,7 +29,7 @@ export class CrawlerDifComponent implements OnInit {
  ngOnInit() {
 
   this.idPartida = 'hey hey';
-  	this._getPartidaList();
+  	//this._getPartidaList();
   }
 
 
@@ -68,10 +68,12 @@ export class CrawlerDifComponent implements OnInit {
       );
       //this.partidaModelo = new PartidaModel();
 
+
     this.partidaListSub = this.api
       .postPartida$(this.partidaModelo)
       .subscribe(
-        data => {
+        res => {
+          this.partidaModelo = res;
           console.log("resultado createpartida");
         },
         err => {
