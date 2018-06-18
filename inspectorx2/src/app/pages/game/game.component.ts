@@ -14,6 +14,7 @@ import { AuthService } from './../../auth/auth.service';
 export class GameComponent implements OnInit, AfterViewInit {
   questionListSub: Subscription;
   questionList: QuestionModel[];
+  resolvequestList: QuestionModel[];
   loading: boolean;
   error: boolean;
 	gamemode: string;
@@ -21,6 +22,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   questionIndex: number;
   resposta: string;
   respostaCerta: boolean;
+  questionLine: Array<string>;
+  resString: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
   	 this.gamemode = route.snapshot.paramMap.get('id');
@@ -32,28 +35,53 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   	 if(this.gamemode == 'medio') { console.log ('MEDIO SIM');}
      
-    this.questionIndex = Math.floor(Math.random()*(1-0+1)+0);
+    //this.questionIndex = Math.floor(Math.random()*(1-0+1)+0);
 
      //MODO FACIL
      if(this.gamemode == 'facil'){
          
      }
+
+//     console.log(this.questionList[this.questionIndex].code);
+
+    
+   //this.resString = this.questionList[this.questionIndex].code;
+   // this.questionLine = str.split("<br>");
+   
+   //console.log(this.questionLine);
   	 
 
    }
 
   ngOnInit() {
-  	this._getQuestionList();
+    this.questionIndex = 1;
+  	this._getQuestionList().then(questionList => {
+      console.log(questionList);
+      this.resString = this.questionList[this.questionIndex].code;
+      this.questionLine = this.resString.split("<br>");
+      console.log(this.questionLine);
+    })
+
+
+   //console.log(this.questionList[this.questionIndex].code);
   }
 
+ /* private questionSeparator(){
+    var str = this.questionList[this.questionIndex].code;
+    return str.split("<br>");
+  }*/
+
   private _getQuestionList(){
+    return new Promise(resolve => {
     console.log("iniciou questionlist");
     this.loading = true;
 
     this.questionListSub = this.api.getQuestions$().subscribe(
       res => {
         this.questionList = res;
+        this.resolvequestList = res;
         this.loading = false;
+        resolve(this.resolvequestList);
         
       },
       err => {
@@ -62,6 +90,7 @@ export class GameComponent implements OnInit, AfterViewInit {
         this.error = true;
       }
       )
+  });
   }
 
   private _randomGen(){
