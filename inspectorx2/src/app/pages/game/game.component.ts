@@ -22,8 +22,21 @@ export class GameComponent implements OnInit, AfterViewInit {
   questionIndex: number;
   resposta: string;
   respostaCerta: boolean;
-  questionLine: Array<string>;
+  codeLine: Array<string>;
   resString: string;
+  indexofcodeLine: number;
+  checkedAnswer: boolean;
+  checkedRadio: boolean;
+  resultadoTipo: number;
+  public types = [
+  { value: 1, display: "Dados" },
+  { value: 2, display: "Inicialização" },
+  { value: 3, display: "Comissão" },
+  { value: 4, display: "Controle" },
+  { value: 5, display: "Excesso" },
+  { value: 6, display: "Computação" },
+  { value: 7, display: "Desempenho" }
+  ]
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
   	 this.gamemode = route.snapshot.paramMap.get('id');
@@ -58,8 +71,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   	this._getQuestionList().then(questionList => {
       console.log(questionList);
       this.resString = this.questionList[this.questionIndex].code;
-      this.questionLine = this.resString.split("<br>");
-      console.log(this.questionLine);
+      this.codeLine = this.resString.split("<br>");
+      console.log(this.codeLine);
     })
 
 
@@ -70,6 +83,13 @@ export class GameComponent implements OnInit, AfterViewInit {
     var str = this.questionList[this.questionIndex].code;
     return str.split("<br>");
   }*/
+
+  private lineValue(value: number){
+    
+    this.indexofcodeLine = value;
+    console.log(this.indexofcodeLine);
+
+  }
 
   private _getQuestionList(){
     return new Promise(resolve => {
@@ -109,10 +129,32 @@ export class GameComponent implements OnInit, AfterViewInit {
      }
   }
 
+  private _typeCompare(value1: number, value2: string){
+    for (let element of this.types){
+      if (element.value == value1) {
+        if(element.display == value2){
+          console.log(element.display + " =yes= " + value2);
+          console.log("ACERTOU O RADIO VALUE");
+        } else {
+          console.log(element.display + " =no= " + value2);
+          console.log("ERROU O RADIO VALUE");
+        }
+
+      }
+    }
+  }
+
   private _getAnswerForm(value: string){
     this.resposta = value;
     console.log(this.resposta);
     this._AnswerCompare(this.resposta, this.questionList[this.questionIndex].trecho);
+    this.checkedAnswer = true;
+  }
+
+  private _getRadioForm(value: number){
+    this.checkedRadio = true
+    console.log(value);
+    this._typeCompare(value, this.questionList[this.questionIndex].type);
   }
 
   ngAfterViewInit(){
