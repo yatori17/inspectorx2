@@ -54,10 +54,10 @@ app.set('port', port);
 
 // Set static path to Angular app in dist
 // Don't run in dev
-/*if (process.env.NODE_ENV !== 'dev') {
+if (process.env.NODE_ENV !== 'dev') {
   app.use('/', express.static(path.join(__dirname, './dist')));
 }
-*/
+
 /*
  |--------------------------------------
  | Routes

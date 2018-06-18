@@ -44,6 +44,8 @@ export class ApiService {
 
   // POST partida
   postPartida$(partida: PartidaModel): Observable<PartidaModel> {
+  //  console.log('apiservice: ');
+   // console.log(partida);
     return this.http
       .post<PartidaModel>(`${ENV.BASE_API}partidas/new`, partida, {
             headers: new HttpHeaders().set('Authorization', this._authHeader)

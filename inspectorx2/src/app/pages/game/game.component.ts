@@ -17,14 +17,21 @@ export class GameComponent implements OnInit, AfterViewInit {
   loading: boolean;
   error: boolean;
 	gamemode: string;
+  partidaID: string;
   questionIndex: number;
   resposta: string;
   respostaCerta: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
   	 this.gamemode = route.snapshot.paramMap.get('id');
+     this.partidaID = route.snapshot.paramMap.get('id2');
+
+     console.log(this.gamemode);
+     console.log(this.partidaID);
+
+
   	 if(this.gamemode == 'medio') { console.log ('MEDIO SIM');}
-  	 console.log(this.gamemode);
+     
     this.questionIndex = Math.floor(Math.random()*(1-0+1)+0);
 
      //MODO FACIL

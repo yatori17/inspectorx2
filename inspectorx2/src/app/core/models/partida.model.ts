@@ -3,8 +3,9 @@ export class PartidaModel {
   constructor(
     public UserId: string,
     public dificuldade: string,
-    public resposta: Resposta[],
-    public _id?: string
+    public resposta?: Resposta[],
+    public _id?: string,
+
     // usuario
     // pergunta 1, 2, 3
     // cada um com trecho certo ou errado, tipo certo ou errado

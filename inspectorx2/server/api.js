@@ -84,16 +84,24 @@ module.exports = function(app, config) {
    
 
    //Post partidas
-   app.post('/api/partidas/new', (req, res) =>{
+   app.post('/api/partidas/new', (req, res) => {
     console.log("eeeeee");
 
-     var partidaObj = new Partida({userId: "aluno", dificuldade: "Fácil"});
-
+     var partidaObj = new Partida({
+      userId: req.body.UserId,
+      dificuldade: req.body.dificuldade,
+      });
+    console.log(req.originalUrl);
+    console.log(req.body);
      console.log(partidaObj);
    
      partidaObj.save(err => {
-        if (err) return res.status(500).send(err);
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        console.log(partidaObj._id);
         return res.status(200).send(partidaObj);
+        }
          });
      });
      
