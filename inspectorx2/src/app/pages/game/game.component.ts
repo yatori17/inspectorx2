@@ -28,6 +28,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   checkedAnswer: boolean;
   checkedRadio: boolean;
   resultadoTipo: number;
+  numquestao: string;
   public types = [
   { value: 1, display: "Dados" },
   { value: 2, display: "Inicialização" },
@@ -39,11 +40,11 @@ export class GameComponent implements OnInit, AfterViewInit {
   ]
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
-  	 this.gamemode = route.snapshot.paramMap.get('id');
-     this.partidaID = route.snapshot.paramMap.get('id2');
+  	// this.gamemode = route.snapshot.paramMap.get('id');
+    // this.partidaID = route.snapshot.paramMap.get('id2');
+    //this.numquestao = route.snapshot.paramMap.get('id3');
 
-     console.log(this.gamemode);
-     console.log(this.partidaID);
+  
 
 
   	 if(this.gamemode == 'medio') { console.log ('MEDIO SIM');}
@@ -67,13 +68,40 @@ export class GameComponent implements OnInit, AfterViewInit {
    }
 
   ngOnInit() {
-    this.questionIndex = 1;
-  	this._getQuestionList().then(questionList => {
+   this.route.params.forEach(params => {
+     this.gamemode = params["id"];
+     this.partidaID = params["id2"];
+     this.numquestao = params["id3"];
+     console.log("params");
+     console.log(params);
+
+
+      console.log("Modo de jogo: " + this.gamemode);
+     console.log("ID da Partida: " + this.partidaID);
+     console.log("Numero da questao: " + this.numquestao);
+
+    this.questionIndex = ((Number(this.numquestao))-1);
+
+    this._getQuestionList().then(questionList => {
       console.log(questionList);
       this.resString = this.questionList[this.questionIndex].code;
       this.codeLine = this.resString.split("<br>");
       console.log(this.codeLine);
     })
+
+  this.resposta = "";
+  this.respostaCerta = false;
+  this.checkedAnswer = false;
+  this.checkedRadio = false
+  //resultadoTipo: number;
+  //numquestao: string;
+
+
+
+   });
+
+
+
 
 
    //console.log(this.questionList[this.questionIndex].code);
@@ -142,6 +170,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
       }
     }
+    this.router.navigate(['/', 'game', this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
   }
 
   private _getAnswerForm(value: string){

@@ -34,24 +34,24 @@ export class CrawlerDifComponent implements OnInit {
   	//this._getPartidaList();
   }
 
- private navRouting(dificuldade: string, partidaID: string){
-     //console.log("navrouting executado");
-     //console.log(dificuldade);
-     //console.log(partidaID);
-      this.router.navigate(['/', 'game', dificuldade, partidaID]);
-    };
+  private navRouting(dificuldade: string, partidaID: string){
+    console.log("navrouting executado");
+    console.log(dificuldade);
+    console.log(partidaID);
+    this.router.navigate(['/', 'game', dificuldade, partidaID, 1]);
+  };
    
 
 
   private clickFacil(){
-     //console.log("CLICK FACIL EXECUTADO");
-     //console.log(this.auth.userProfile.sub);
+     console.log("CLICK FACIL EXECUTADO");
+     console.log(this.auth.userProfile.sub);
 
-     this._createPartida("Fácil")
+    this._createPartida("Fácil")
         .then(temppartid => {
               this.navRouting("facil", this.temppartid);
              
-     });
+        });
   }
 
   private clickMedio(){
@@ -85,8 +85,8 @@ export class CrawlerDifComponent implements OnInit {
       dificuldade
       );
       //this.partidaModelo = new PartidaModel();
-      //console.log('crawler-dif: ');
-      //console.log(partidaModelo);
+      console.log('crawler-dif: ');
+      console.log(partidaModelo);
 
 
     this.partidaListSub = this.api
@@ -94,9 +94,9 @@ export class CrawlerDifComponent implements OnInit {
       .subscribe(
         res => {
   
-        //  console.log("resultado createpartida");      
+          console.log("resultado createpartida");      
      
-          //console.log(res._id);
+          console.log(res._id);
           this.temppartid = res._id;
                resolve(this.temppartid);
          
@@ -127,4 +127,9 @@ export class CrawlerDifComponent implements OnInit {
       }
       )
   }
+
+  ngOnDestroy() {
+    this.partidaListSub.unsubscribe();
+  }
+
 }
