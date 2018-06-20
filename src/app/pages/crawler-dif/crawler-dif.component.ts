@@ -42,7 +42,7 @@ export class CrawlerDifComponent implements OnInit {
    
 
 
-  private clickFacil(){
+  public clickFacil(){
      console.log("CLICK FACIL EXECUTADO");
      console.log(this.auth.userProfile.sub);
 
@@ -53,7 +53,7 @@ export class CrawlerDifComponent implements OnInit {
         });
   }
 
-  private clickMedio(){
+  public clickMedio(){
       //console.log("CLICK MEDIO EXECUTADO");
 
     this._createPartida("Médio")
@@ -63,7 +63,7 @@ export class CrawlerDifComponent implements OnInit {
      });          
   }
 
-  private clickDificil(){
+  public clickDificil(){
       // console.log("CLICK DIFICIL EXECUTADO");
 
      this._createPartida("Difícil")
