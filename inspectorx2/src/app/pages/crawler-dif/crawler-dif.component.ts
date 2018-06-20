@@ -30,8 +30,7 @@ export class CrawlerDifComponent implements OnInit {
 
  ngOnInit() {
 
-  //this.idPartida = 'hey hey';
-  	//this._getPartidaList();
+
   }
 
   private navRouting(dificuldade: string, partidaID: string){

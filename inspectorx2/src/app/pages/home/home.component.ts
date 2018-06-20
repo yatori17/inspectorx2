@@ -32,8 +32,4 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  TesteClick(){
-    console.log("ALOOOO");
-  }
-
 }
