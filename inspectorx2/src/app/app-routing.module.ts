@@ -5,6 +5,7 @@ import { CallbackComponent } from './pages/callback/callback.component';
 import { GameComponent } from './pages/game/game.component';
 import { CrawlerDifComponent } from './pages/crawler-dif/crawler-dif.component';
 import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
+import { CrawlendComponent } from './pages/crawlend/crawlend.component';
 
 
 const routes: Routes = [{
@@ -26,6 +27,10 @@ const routes: Routes = [{
 {
 	path:'fullinspec',
 	component: FullinspecComponent
+},
+{
+	path: "crawlend",
+	component: CrawlendComponent
 }
 ];
 

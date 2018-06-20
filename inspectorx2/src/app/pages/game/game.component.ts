@@ -76,12 +76,15 @@ export class GameComponent implements OnInit, AfterViewInit {
      console.log(params);
 
 
+
       console.log("Modo de jogo: " + this.gamemode);
      console.log("ID da Partida: " + this.partidaID);
      console.log("Numero da questao: " + this.numquestao);
 
     this.questionIndex = ((Number(this.numquestao))-1);
-
+  if (this.questionIndex > 10-1){ 
+        this.router.navigate(['/', 'crawlend']);
+    }
     this._getQuestionList().then(questionList => {
       console.log(questionList);
       this.resString = this.questionList[this.questionIndex].code;
@@ -96,6 +99,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   //resultadoTipo: number;
   //numquestao: string;
 
+  if (this.questionIndex > 10){ 
+      this.router.navigate(['/', 'crawlend']);
+    }
 
 
    });

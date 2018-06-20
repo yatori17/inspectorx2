@@ -21,6 +21,7 @@ import { LinebreakerPipe } from './linebreaker.pipe';
 import { EscapeHtmlPipe } from './escape-html.pipe';
 import { CrawlerDifComponent } from './pages/crawler-dif/crawler-dif.component';
 import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
+import { CrawlendComponent } from './pages/crawlend/crawlend.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
     LinebreakerPipe,
     EscapeHtmlPipe,
     CrawlerDifComponent,
-    FullinspecComponent
+    FullinspecComponent,
+    CrawlendComponent
   ],
   imports: [
     BrowserModule,
