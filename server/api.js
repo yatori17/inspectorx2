@@ -9,6 +9,7 @@ const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
 const Question = require('./models/Question');
 const Partida = require('./models/Partida');
+const Resposta = require('./models/Resposta');
 //const Resposta = require('./models/Partida');
 
 /*
@@ -101,6 +102,35 @@ module.exports = function(app, config) {
         } else {
         console.log(partidaObj._id);
         return res.status(200).send(partidaObj);
+        }
+         });
+     });
+
+
+
+
+   //Put partidas
+   app.post('/api/respostas', (req, res) => {
+    console.log("update");
+
+     var respostaObj = new Resposta({
+      idPartida: req.body.idPartida,
+      idPergunta: req.body.idPergunta,
+      trecho: req.body.trecho,
+      tipo: req.body.tipo,
+      trechoAcerto: req.body.trechoAcerto,
+      tipoAcerto: req.body.tipoAcerto
+      });
+    console.log(req.originalUrl);
+    console.log(req.body);
+     console.log(respostaObj);
+   
+     respostaObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+ 
+        return res.status(200).send(respostaObj);
         }
          });
      });

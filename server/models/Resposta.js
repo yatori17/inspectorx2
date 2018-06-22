@@ -1,16 +1,20 @@
-// server/models/Partida.js
+// server/models/Resposta.js
 /*
  |--------------------------------------
- | Partida Model
+ | Resposta Model
  |--------------------------------------
  */
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const partidaSchema = new Schema({
-  userId: { type: String },
-  dificuldade: { type: String },
+const respostaSchema = new Schema({
+ idPartida: String,
+ idPergunta : Number,
+ trecho : String,
+ tipo: Number,
+ trechoAcerto: Boolean, 
+ tipoAcerto: Boolean 
   
   // usuario
   // pergunta 1, 2, 3
@@ -22,4 +26,4 @@ const partidaSchema = new Schema({
   //escription: { type: String, required: true }  
 });
 
-module.exports = mongoose.model('Partida', partidaSchema);
+module.exports = mongoose.model('Resposta', respostaSchema);

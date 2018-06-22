@@ -10,6 +10,7 @@ import { EventModel } from './models/event.model';
 import { RsvpModel } from './models/rsvp.model';
 import { QuestionModel } from './models/question.model';
 import { PartidaModel } from './models/partida.model';
+import { RespostaModel } from './models/resposta.model';
 
 @Injectable()
 export class ApiService {
@@ -55,8 +56,18 @@ export class ApiService {
         );
       }
 
-  // EDIT partida adicionando resposta
- 
+  // POST resposta
+  postResposta$(resposta: RespostaModel): Observable<RespostaModel> {
+    console.log('resposta service: ');
+    console.log(resposta);
+    return this.http
+      .post<PartidaModel>(`${ENV.BASE_API}respostas`, resposta, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
 
 
   // ????

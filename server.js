@@ -79,7 +79,7 @@ if (process.env.NODE_ENV !== 'dev') {
  | Server
  |--------------------------------------
  */
-
-//app.listen(port, () => console.log(`Server running on localhost:${port}`)); //LOCAL
-
-app.listen(process.env.PORT || 8080);
+if (process.env.NODE_ENV == 'dev'){
+app.listen(port, () => console.log(`Server running on localhost:${port}`)); 
+} else { //LOCAL
+app.listen(process.env.PORT || 8080); }

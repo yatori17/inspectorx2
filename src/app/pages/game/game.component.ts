@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QuestionModel } from './../../core/models/question.model';
 import { PartidaModel } from './../../core/models/partida.model';
+import { RespostaModel } from './../../core/models/resposta.model';
 import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './../../auth/auth.service';
@@ -15,6 +16,11 @@ export class GameComponent implements OnInit, AfterViewInit {
   questionListSub: Subscription;
   questionList: QuestionModel[];
   resolvequestList: QuestionModel[];
+  respostaModelo: RespostaModel;
+  respostaListSub: Subscription;
+  respostaList: RespostaModel[];
+  
+  respostaListSubL 
   loading: boolean;
   error: boolean;
 	gamemode: string;
@@ -28,6 +34,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   checkedAnswer: boolean;
   checkedRadio: boolean;
   resultadoTipo: number;
+  tipoCerto: boolean;
   numquestao: string;
   public types = [
   { value: 1, display: "Dados" },
@@ -37,7 +44,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   { value: 5, display: "Excesso" },
   { value: 6, display: "Computação" },
   { value: 7, display: "Desempenho" }
-  ]
+  ];
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
   	// this.gamemode = route.snapshot.paramMap.get('id');
@@ -92,6 +99,25 @@ export class GameComponent implements OnInit, AfterViewInit {
       console.log(this.codeLine);
     })
 
+
+    //Guardar a resposta no banco, index ((Number(this.numquestao))-1)
+   /* this.respostaModelo = new RespostaModel(
+        this.partidaID,
+        Number(this.numquestao),
+        this.resposta,
+        this.resultadoTipo,
+        this.respostaCerta,
+        this.tipoCerto
+    );*/
+  
+
+
+
+    console.log(this.respostaModelo);
+
+
+
+
   this.resposta = "";
   this.respostaCerta = false;
   this.checkedAnswer = false;
@@ -99,9 +125,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   //resultadoTipo: number;
   //numquestao: string;
 
-  if (this.questionIndex > 10){ 
+  /*if (this.questionIndex > 10){ 
       this.router.navigate(['/', 'crawlend']);
-    }
+    }*/
 
 
    });
@@ -167,13 +193,16 @@ export class GameComponent implements OnInit, AfterViewInit {
     for (let element of this.types){
       if (element.value == value1) {
         if(element.display == value2){
+          this.tipoCerto = true;
           console.log(element.display + " =yes= " + value2);
           console.log("ACERTOU O RADIO VALUE");
         } else {
+          this.tipoCerto = false;
           console.log(element.display + " =no= " + value2);
           console.log("ERROU O RADIO VALUE");
         }
 
+      this._createResposta();
       }
     }
     this.router.navigate(['/', 'game', this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
@@ -191,6 +220,46 @@ export class GameComponent implements OnInit, AfterViewInit {
     console.log(value);
     this._typeCompare(value, this.questionList[this.questionIndex].type);
   }
+
+
+
+    private _createResposta(){
+    //const respostaAtual = new Resposta(      );
+      return new Promise(resolve => {
+     
+   const respostaModelo = new RespostaModel(
+        this.partidaID,
+        Number(this.numquestao),
+        this.resposta,
+        this.resultadoTipo,
+        this.respostaCerta,
+        this.tipoCerto
+    );
+
+      //this.partidaModelo = new PartidaModel();
+      console.log('game component: ');
+      console.log(respostaModelo);
+
+
+    this.respostaListSub = this.api
+      .postResposta$(respostaModelo)
+      .subscribe(
+        res => {
+  
+          console.log("resultado createresposta");      
+     
+         // console.log(res._id);
+         // this.temppartid = res._id;
+         //      resolve(this.temppartid);
+         
+
+        },
+        err => {
+          console.log(err);
+          }
+        );
+  });
+}
 
   ngAfterViewInit(){
     console.log(this.questionList);
