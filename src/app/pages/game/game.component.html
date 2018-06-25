@@ -10,39 +10,55 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm  border border-primary">
-      
+    <div class="col-xs-12 col-md-6  border border-primary rounded">   
       <ng-container *ngFor = "let line of codeLine; let i = index" >
         <button type="button" (click)="lineValue(i)" class="btn btn-link"> {{ line }} </button>
         <br> </ng-container>
-    
     </div>
-    <div class="col-sm">
-    		<div class="row">
-      			<div [innerHTML]="questionList[questionIndex].description"></div>
-      		</div>
-      		<div class="row">
-      				<div [innerHTML]="questionList[questionIndex].type"></div>
-      		</div>
+    <div class="col-md-6">
+
       		<div class="row">
           <!-- Ok, vamo ver o que ta acontecendo aqui !-->
 
-              <a> {{ codeLine[indexofcodeLine] }}</a>
-      			 <!-- <input #textbox type="text" [(ngModel)]="textValue" required> !-->
-      			  <button (click)="_getAnswerForm((codeLine[indexofcodeLine]))" [disabled]="checkedAnswer">Responder</button>
-      		
+            <div class="w-100 p-3">
+                <div class="card" style="width: 100%;">
+                  <div class="card-body"><a> {{ codeLine[indexofcodeLine] }}</a>
+                  </div>
+                </div>
+            </div>
+        			 <!-- <input #textbox type="text" [(ngModel)]="textValue" required> !-->
+               <div class="col-xs-12 col-md-6">
+            <div class="m-1 span6 offset4">
+        			     <button type="button" class="btn btn-outline-secondary" (click)="_getAnswerForm((codeLine[indexofcodeLine]))" [disabled]="checkedAnswer">Responder</button>
+            </div>
           </div>
+    
+      		</div>
 
+<div class="m-1">
       		 <div *ngIf="checkedAnswer; else elseBlock">
+            <div class="pt-3">
             <div *ngFor="let type of types">
               <label>
                 <input type="radio" name="type" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
                 {{ type.display }}
               </label></div>
+              <div class="m-1">
 
-						    <button (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Confirmar </button>  		 	
+						    <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Confirmar </button>  		 	
       		 </div>
+          </div>
    			 <ng-template #elseBlock>Aguardando inserção do trecho</ng-template>
   		</div>
     </div>
 </div>
+
+
+
+
+      <!--  <div class="row">
+            <div [innerHTML]="questionList[questionIndex].description"></div>
+          </div> 
+          <div class="row">
+              <div [innerHTML]="questionList[questionIndex].type"></div>
+          </div>!-->
