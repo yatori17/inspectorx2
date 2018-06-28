@@ -1,0 +1,27 @@
+/*.codigo {
+	display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+	white-space: pre-wrap;
+}*/
+
+.allline > * > .codigo {
+    display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    transition: 0.3s;
+}
+
+.allline > * > .codigo:hover {
+	background-color: #3e8e41;
+	color: white;
+	transition: 0.2s;
+}
+
+/*
+.teste * .teste2 {
+	background-color: green;
+}
+
+*/

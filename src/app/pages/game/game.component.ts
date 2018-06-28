@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QuestionModel } from './../../core/models/question.model';
 import { PartidaModel } from './../../core/models/partida.model';
@@ -6,11 +6,14 @@ import { RespostaModel } from './../../core/models/resposta.model';
 import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './../../auth/auth.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class GameComponent implements OnInit, AfterViewInit {
   questionListSub: Subscription;
@@ -45,8 +48,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   { value: 6, display: "Computação" },
   { value: 7, display: "Desempenho" }
   ];
+  html: SafeHtml;
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService) {
+  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, private sanitizer: DomSanitizer) {
   	// this.gamemode = route.snapshot.paramMap.get('id');
     // this.partidaID = route.snapshot.paramMap.get('id2');
     //this.numquestao = route.snapshot.paramMap.get('id3');
@@ -95,7 +99,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this._getQuestionList().then(questionList => {
       console.log(questionList);
       this.resString = this.questionList[this.questionIndex].code;
-      this.codeLine = this.resString.split("<br>");
+      this.codeLine = this.resString.split("//QUEBRALINHA");
       console.log(this.codeLine);
     })
 
@@ -143,6 +147,10 @@ export class GameComponent implements OnInit, AfterViewInit {
     var str = this.questionList[this.questionIndex].code;
     return str.split("<br>");
   }*/
+
+  private HTMLSanitizer(code: string){
+    return this.sanitizer.bypassSecurityTrustHtml(code);
+  }
 
   private lineValue(value: number){
     
