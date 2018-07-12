@@ -16,12 +16,12 @@ export class FullinspecComponent implements OnInit {
   	this.modinspbool = true;
   }
 
-  private moderadorAtivo(){
+  public moderadorAtivo(){
   	console.log("moderador Ativo");
   	this.modinspbool = true;
   }
 
-  private inspetorAtivo(){
+  public inspetorAtivo(){
   	console.log("inspetor Ativo");
   	this.modinspbool = false;
   }
