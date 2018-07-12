@@ -33,11 +33,11 @@ export class CrawlerDifComponent implements OnInit {
 
   }
 
-  private navRouting(dificuldade: string, partidaID: string){
+  private navRouting(dificuldade: string, partidaID: string, numquestao: number){
     console.log("navrouting executado");
     console.log(dificuldade);
     console.log(partidaID);
-    this.router.navigate(['/', 'game', dificuldade, partidaID, 1]);
+    this.router.navigate(['/', 'game', dificuldade, partidaID, numquestao]);
   };
    
 
@@ -48,7 +48,7 @@ export class CrawlerDifComponent implements OnInit {
 
     this._createPartida("Fácil")
         .then(temppartid => {
-              this.navRouting("facil", this.temppartid);
+              this.navRouting("facil", this.temppartid, 1);
              
         });
   }
@@ -58,7 +58,7 @@ export class CrawlerDifComponent implements OnInit {
 
     this._createPartida("Médio")
         .then(temppartid => {
-              this.navRouting("medio", this.temppartid);
+              this.navRouting("medio", this.temppartid, 1);
              
      });          
   }
@@ -68,7 +68,7 @@ export class CrawlerDifComponent implements OnInit {
 
      this._createPartida("Difícil")
         .then(temppartid => {
-              this.navRouting("dificil", this.temppartid);
+              this.navRouting("dificil", this.temppartid, 1);
              
      });
 
@@ -128,7 +128,7 @@ export class CrawlerDifComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.partidaListSub.unsubscribe();
+
   }
 
 }

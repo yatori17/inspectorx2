@@ -43,13 +43,13 @@ export class CrawlendComponent implements OnInit {
   	})
 
   	this._getRespostaList(this.partidaID);
-  	this.codeLine = {};
-  	this.codeArray = {};
+  	this.codeLine = [];
+  	this.codeArray = [];
 
   	this._getQuestionList().then(questionList => {
       console.log(questionList);
 
-      for (var k = 0; k < 10; k++){
+      for (var k = 0; k < this.respostaList.length ; k++){
       	console.log(this.questionList[k].question);
 		this.setnumber = this.questionList[k].question;
       	this.codeLine[this.setnumber] = this.questionList[k].code;
@@ -62,6 +62,17 @@ export class CrawlendComponent implements OnInit {
     })
 
   }
+
+  private _toRoute(){
+      this.navRouting (this.questionList[1].difficulty, this.partidaID, this.respostaList.length + 1);
+  }
+
+  private navRouting(dificuldade: string, partidaID: string, numquestao: number){
+    console.log("navrouting executado");
+    console.log(dificuldade);
+    console.log(partidaID);
+    this.router.navigate(['/', 'game', dificuldade, partidaID, numquestao]);
+  };
 
   private HTMLSanitizer(code: string){
     return this.sanitizer.bypassSecurityTrustHtml(code);

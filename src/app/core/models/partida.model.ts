@@ -3,6 +3,7 @@ export class PartidaModel {
   constructor(
     public UserId: string,
     public dificuldade: string,
+    public createDate?: Date,
   //  public resposta?: Resposta[],
 
    

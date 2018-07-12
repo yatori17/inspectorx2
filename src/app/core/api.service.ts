@@ -34,7 +34,7 @@ export class ApiService {
         );
   }
 
-  // GET list of partidas
+  // GET list of ALL partidas
   getPartidas$(): Observable<PartidaModel[]> {
     return this.http
       .get(`${ENV.BASE_API}partidas`)

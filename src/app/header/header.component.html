@@ -15,11 +15,11 @@
 
   <nav id="nav" class="nav" role="navigation">
     <ul class="nav-list">
-      <li>
+      <li><span *ngIf="auth.loggedIn">
         <a
-          routerLink="/"
+          routerLink="/partidas"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">Events</a>
+          [routerLinkActiveOptions]="{ exact: true }">Partidas</a></span>
       </li>
     </ul>
     
