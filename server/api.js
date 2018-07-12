@@ -10,6 +10,7 @@ const jwks = require('jwks-rsa');
 const Question = require('./models/Question');
 const Partida = require('./models/Partida');
 const Resposta = require('./models/Resposta');
+const Artefato = require('./models/Artefato')
 //const Resposta = require('./models/Partida');
 
 /*
@@ -134,7 +135,47 @@ module.exports = function(app, config) {
         }
          });
      });
-     
+
+//GET RESPOSTAS DE UMA PARTIDA
+  app.get('/api/listarespostas/:idPartida', (req, res) => {
+    Resposta.find({ idPartida: req.params.idPartida }, (err, respostas) => {
+      let respostasArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (respostas) {
+        respostas.forEach(respostas => {
+          respostasArr.push(respostas);
+        });
+      }
+      res.send(respostasArr);
+      });
+  });
+
+
+   //FULLINSPECTIONPROCESS
+
+   //Post artefato
+   app.post('/api/artefatos/new', (req, res) => {
+    console.log("artefatos");
+
+     var artefatoObj = new Artefato({
+      userId: req.body.userId,
+      title: req.body.title,
+      content: req.body.content,
+      });
+     console.log(artefatoObj);
+   
+     artefatoObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        return res.status(200).send(artefatoObj);
+        }
+         });
+     });
+
+
 
      /* partida.save((err) => {
         if (err) { 

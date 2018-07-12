@@ -6,6 +6,8 @@ import { GameComponent } from './pages/game/game.component';
 import { CrawlerDifComponent } from './pages/crawler-dif/crawler-dif.component';
 import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
 import { CrawlendComponent } from './pages/crawlend/crawlend.component';
+import { FipPlanComponent } from './pages/fip-plan/fip-plan.component';
+import { FipAddComponent } from './pages/fip-add/fip-add.component';
 
 
 const routes: Routes = [{
@@ -29,8 +31,16 @@ const routes: Routes = [{
 	component: FullinspecComponent
 },
 {
-	path: "crawlend",
+	path: "crawlend/:id",
 	component: CrawlendComponent
+},
+{
+	path: "fipplan",
+	component: FipPlanComponent
+},
+{
+	path: "fipplan/add",
+	component: FipAddComponent
 }
 ];
 

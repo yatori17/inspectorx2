@@ -11,6 +11,7 @@ import { RsvpModel } from './models/rsvp.model';
 import { QuestionModel } from './models/question.model';
 import { PartidaModel } from './models/partida.model';
 import { RespostaModel } from './models/resposta.model';
+import { ArtefatoModel } from './models/artefato.model';
 
 @Injectable()
 export class ApiService {
@@ -62,6 +63,32 @@ export class ApiService {
     console.log(resposta);
     return this.http
       .post<PartidaModel>(`${ENV.BASE_API}respostas`, resposta, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
+// GET resposta
+  getResposta$(idPartida: string): Observable<RespostaModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}listarespostas/${idPartida}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
+
+
+      //FIP
+
+        // POST artefato
+  postArtefato$(artefato: ArtefatoModel): Observable<ArtefatoModel> {
+    console.log('artefato post: ');
+    console.log(artefato);
+    return this.http
+      .post<ArtefatoModel>(`${ENV.BASE_API}artefatos/new`, artefato, {
             headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .pipe(

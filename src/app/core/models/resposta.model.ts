@@ -2,7 +2,8 @@ export class RespostaModel {
 	constructor(
 		public idPartida: string,
 		public idPergunta: number,
-		public trecho: string,
+		public numOrder: number,
+		public trecho: number,
 		public tipo: number,
     public trechoAcerto: boolean,
     public tipoAcerto: boolean

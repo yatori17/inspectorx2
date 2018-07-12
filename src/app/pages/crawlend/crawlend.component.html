@@ -1,15 +1,69 @@
-<p>
-  ACABOU CRAWLEND
-</p>
+<app-loading *ngIf="loading"></app-loading>
 
-<pre class="java" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">import</span> <span style="color: #006699;">java.util.List</span><span style="color: #339933;">;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-<span style="color: #666666; font-style: italic;">//pulalinha</span>
-<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">class</span> Items <span style="color: #009900;">&#123;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-	<span style="color: #000000; font-weight: bold;">private</span> List<span style="color: #339933;">&lt;</span>String<span style="color: #339933;">&gt;</span> itemsList<span style="color: #339933;">;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-	<span style="color: #000000; font-weight: bold;">private</span> <span style="color: #000066; font-weight: bold;">void</span> checkItemList<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-		<span style="color: #000000; font-weight: bold;">for</span> <span style="color: #009900;">&#40;</span><span style="color: #003399;">String</span> string <span style="color: #339933;">:</span> itemsList<span style="color: #009900;">&#41;</span> <span style="color: #009900;">&#123;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-			<span style="color: #000000; font-weight: bold;">if</span><span style="color: #009900;">&#40;</span>string.<span style="color: #006633;">equals</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;car&quot;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span><span style="color: #666666; font-style: italic;">//do something//pulalinha</span>
-			<span style="color: #009900;">&#125;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-		<span style="color: #009900;">&#125;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-	<span style="color: #009900;">&#125;</span><span style="color: #666666; font-style: italic;">//pulalinha</span>
-<span style="color: #009900;">&#125;</span></pre>
+  <ng-template [ngIf]="questionList">
+    <ng-template [ngIf]="questionList.length">
+
+<ng-container *ngFor = "let resposta of respostaList; let i = index">
+<div class="container">
+  <div class="row">
+   
+    <div class="col-sm border border-primary rounded mb-3">   
+    
+      <div class="row">
+      <div class="col"> <p class="h3">Questão {{ i+1 }} </p></div>
+      </div>
+
+      <div class="row">
+          <div class="col"> 
+
+            <div class="w-100 p-3">
+                <div class="card" style="width: 100%;">
+                  <div class="card-body">
+                   <div class="oneline" [innerHTML]="HTMLSanitizer(codeArray[resposta.idPergunta][resposta.trecho])" > </div>
+                  </div>
+                </div>
+            </div>
+
+           </div> <div class="col-2 col-sm-1 p-3"> 
+           <div *ngIf="resposta.trechoAcerto===true; else elseBlock"> 
+         <div class="mx-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></div> 
+         </div>
+           <ng-template #elseBlock>
+         <div class="mx-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg></div> 
+
+            </ng-template>
+        
+          </div>  
+  
+          
+
+      </div>
+
+      <div class="row">
+          <div class="col"> 
+
+            <div class="w-100 p-3">
+                <div class="card" style="width: 100%;">
+                  <div class="card-body">
+                   {{ _typeReturn(resposta.tipo) }}
+                  </div>
+                </div>
+            </div>
+
+           </div>
+          <div class="col-2 col-sm-1 p-3"> 
+           <div *ngIf="resposta.tipoAcerto===true; else elseBlock"> 
+         <div class="mx-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></div> 
+         </div>
+           <ng-template #elseBlock>
+         <div class="mx-auto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg></div> 
+
+            </ng-template>
+        
+          </div>  
+      </div>
+
+    </div>
+</div>
+</div>
+</ng-container>

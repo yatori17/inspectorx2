@@ -29,7 +29,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 	gamemode: string;
   partidaID: string;
   questionIndex: number;
-  resposta: string;
+  resposta: number;
   respostaCerta: boolean;
   codeLine: Array<string>;
   resString: string;
@@ -39,6 +39,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   resultadoTipo: number;
   tipoCerto: boolean;
   numquestao: string;
+  specificQuestion: number;
   public types = [
   { value: 1, display: "Dados" },
   { value: 2, display: "Inicialização" },
@@ -94,10 +95,11 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     this.questionIndex = ((Number(this.numquestao))-1);
   if (this.questionIndex > 10-1){ 
-        this.router.navigate(['/', 'crawlend']);
+        this.router.navigate(['/', 'crawlend', this.partidaID]);
     }
     this._getQuestionList().then(questionList => {
       console.log(questionList);
+      this.specificQuestion = this.questionList[this.questionIndex].question;
       this.resString = this.questionList[this.questionIndex].code;
       this.codeLine = this.resString.split("//QUEBRALINHA");
       console.log(this.codeLine);
@@ -122,7 +124,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
 
 
-  this.resposta = "";
+  this.resposta = null;
   this.respostaCerta = false;
   this.checkedAnswer = false;
   this.checkedRadio = false
@@ -186,8 +188,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
 
-  private _AnswerCompare(value1: string, value2: string){
-     if (value1.trim() == value2.trim()){
+  private _AnswerCompare(indexvalue: number, textvalue: number){
+     if (indexvalue == textvalue){
        console.log("COMPARE CERTO");
        this.respostaCerta = true;
       }
@@ -216,7 +218,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/', 'game', this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
   }
 
-  private _getAnswerForm(value: string){
+  private _getAnswerForm(value: number){
     this.resposta = value;
     console.log(this.resposta);
     this._AnswerCompare(this.resposta, this.questionList[this.questionIndex].trecho);
@@ -237,6 +239,7 @@ export class GameComponent implements OnInit, AfterViewInit {
      
    const respostaModelo = new RespostaModel(
         this.partidaID,
+        this.specificQuestion,
         Number(this.numquestao),
         this.resposta,
         this.resultadoTipo,

@@ -1,1 +1,23 @@
-<a class="testando"> TESTANDO </a>
+<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+				<label [ngClass]="calculateClasses()">
+			   		<input type="radio" name="options" id="option1" autocomplete="off" (click)="moderadorAtivo()"  > Moderador
+			    </label>
+			    <label [ngClass]="calculateClasses2()">
+			    	<input type="radio" name="options" id="option2" autocomplete="off" (click)="inspetorAtivo()" > Inspetor
+			    </label>
+				</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-primary" routerLink="/fipplan" routerLinkActive="active" [disabled]=!modinspbool>Planejamento</button>
+				<button class="btn btn-primary" [disabled]=modinspbool>Detecção</button>
+				<button class="btn btn-primary" [disabled]=!modinspbool>Coleção</button>
+				<button class="btn btn-primary" [disabled]=!modinspbool>Discriminação</button>
+				<button class="btn btn-primary" [disabled]=modinspbool>Retrabalho</button>
+				<button class="btn btn-primary" [disabled]=!modinspbool>Continuação</button>
+			</div>
+		</div>
+</div>

@@ -22,6 +22,8 @@ import { EscapeHtmlPipe } from './escape-html.pipe';
 import { CrawlerDifComponent } from './pages/crawler-dif/crawler-dif.component';
 import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
 import { CrawlendComponent } from './pages/crawlend/crawlend.component';
+import { FipPlanComponent } from './pages/fip-plan/fip-plan.component';
+import { FipAddComponent } from './pages/fip-add/fip-add.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { CrawlendComponent } from './pages/crawlend/crawlend.component';
     EscapeHtmlPipe,
     CrawlerDifComponent,
     FullinspecComponent,
-    CrawlendComponent
+    CrawlendComponent,
+    FipPlanComponent,
+    FipAddComponent
   ],
   imports: [
     BrowserModule,

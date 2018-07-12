@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="titulo">Titulo</label>
+    <textarea class="form-control" id="titulo" rows="1" [(ngModel)]="titleValue"></textarea>
+    <label for="exampleFormControlTextarea1">Inserir Artefato</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" [(ngModel)]="contentValue"></textarea>
+
+  </div>
+<div> 
+	<button type="button" class="btn btn-primary" (click)="_sendArtefato()"> Adicionar </button>
+</div>

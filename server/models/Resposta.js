@@ -11,7 +11,8 @@ const Schema = mongoose.Schema;
 const respostaSchema = new Schema({
  idPartida: String,
  idPergunta : Number,
- trecho : String,
+ numOrder: Number,
+ trecho : Number,
  tipo: Number,
  trechoAcerto: Boolean, 
  tipoAcerto: Boolean 
