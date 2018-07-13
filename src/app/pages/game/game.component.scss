@@ -9,14 +9,16 @@
     display: block;
     unicode-bidi: embed;
     font-family: monospace;
-    white-space: pre;
+    white-space: pre-wrap;
     transition: 0.3s;
+    border-radius: 5px;
 }
 
 .allline > * > .codigo:hover {
-	background-color: #3e8e41;
+	background-color: #007bff;
 	color: white;
 	transition: 0.2s;
+    border-radius: 5px;
 }
 
 /*
