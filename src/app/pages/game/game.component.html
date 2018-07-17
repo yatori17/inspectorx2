@@ -25,7 +25,12 @@
 
             <div class="w-100 p-3">
                 <div class="card" style="width: 100%;">
-                  <div class="card-body"><div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[indexofcodeLine])" > </div>
+                  <div class="card-body">
+                    <ng-container *ngIf = "indexofcodeLine == null; else outroBloco"> Selecione uma linha de código. </ng-container>
+                    <ng-template #outroBloco>
+                    <div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[indexofcodeLine])" > </div>
+                    </ng-template>
+
                   </div>
                 </div>
             </div>
@@ -48,12 +53,74 @@
               </label></div>
               <div class="m-1">
 
-						    <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Confirmar </button>  		 	
+						    <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Responder </button>  		 	
       		 </div>
           </div>
    			 <ng-template #elseBlock>Aguardando inserção do trecho</ng-template>
   		</div>
     </div>
+
+
+    <div class="m-1">
+      <div class="pt-3">
+        <div *ngIf="respondido">
+            <div *ngIf="respostaCerta; else resposta">
+            <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Resposta:</h5>
+              <div>Resposta correta</div>
+            </div>   
+            </div>
+             </div>
+            
+            <ng-template #resposta> 
+              <div class="pt-3">
+            <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Resposta:</h5>
+              <div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[questionList[questionIndex].trecho])"></div>
+            </div>   
+            </div>
+          </div>
+            </ng-template>
+
+            <div *ngIf="tipoCerto; else tipo">
+              <div class="pt-3">
+            <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Tipo:</h5>
+              <div>Tipo correto</div>
+            </div>   
+            </div>
+          </div>
+             </div>
+            
+            <ng-template #tipo> 
+              <div class="pt-3">
+            <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Tipo:</h5>
+              <div>{{questionList[questionIndex].type}}</div>
+            </div>   
+            </div>
+            </div>
+            </ng-template>
+
+            <div class="pt-3">
+            <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Explicação:</h5>
+              <div> {{ questionList[questionIndex].description }}
+            </div>
+            </div>
+          </div>
+          <div class="pt-3">
+            <button  type="button" class="btn btn-outline-secondary" (click)="_nextQuestion()"> Confirmar </button>
+          </div>
+        </div> 
+      </div>
+    </div>
+
 </div>
 
 

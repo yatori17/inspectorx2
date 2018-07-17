@@ -40,6 +40,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   tipoCerto: boolean;
   numquestao: string;
   specificQuestion: number;
+  respondido: boolean;
   public types = [
   { value: 1, display: "Dados" },
   { value: 2, display: "Inicialização" },
@@ -123,11 +124,12 @@ export class GameComponent implements OnInit, AfterViewInit {
 
 
 
-
+  this.indexofcodeLine = null;
   this.resposta = null;
   this.respostaCerta = false;
   this.checkedAnswer = false;
-  this.checkedRadio = false
+  this.checkedRadio = false;
+  this.respondido = false;
   //resultadoTipo: number;
   //numquestao: string;
 
@@ -215,7 +217,11 @@ export class GameComponent implements OnInit, AfterViewInit {
       this._createResposta();
       }
     }
-    this.router.navigate(['/', 'game', this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
+    this.respondido = true;
+  }
+
+  private _nextQuestion() {
+        this.router.navigate(['/', 'game', this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
   }
 
   private _getAnswerForm(value: number){
