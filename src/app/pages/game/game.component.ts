@@ -44,7 +44,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   [
      {"requirements_shull" : [
 
-     ]},
+     ];},
      {"code_1" : [
         { "value": 1, "display": "Dados" },
         { "value": 2, "display": "Inicialização" },
@@ -53,8 +53,8 @@ export class GameComponent implements OnInit, AfterViewInit {
         { "value": 5, "display": "Excesso" },
         { "value": 6, "display": "Computação" },
         { "value": 7, "display": "Desempenho" }
-     ]}
-  ]  
+     ];}
+  ];  
 
 
 /*public types = [
