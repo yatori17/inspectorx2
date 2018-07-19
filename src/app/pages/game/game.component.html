@@ -67,8 +67,8 @@
             <div *ngIf="respostaCerta; else resposta">
             <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">Resposta:</h5>
-              <div>Resposta correta</div>
+              <h5 class="card-title">Linha de código com erro:</h5>
+              <div>Correta</div>
             </div>   
             </div>
              </div>
@@ -77,7 +77,7 @@
               <div class="pt-3">
             <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">Resposta:</h5>
+              <h5 class="card-title">Linha de código com erro:</h5>
               <div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[questionList[questionIndex].trecho])"></div>
             </div>   
             </div>
@@ -89,7 +89,7 @@
             <div class="card" style="width: 100%;">
             <div class="card-body">
               <h5 class="card-title">Tipo:</h5>
-              <div>Tipo correto</div>
+              <div>Correto</div>
             </div>   
             </div>
           </div>
@@ -115,7 +115,7 @@
             </div>
           </div>
           <div class="pt-3">
-            <button  type="button" class="btn btn-outline-secondary" (click)="_nextQuestion()"> Confirmar </button>
+            <button  type="button" class="btn btn-outline-secondary" (click)="_nextQuestion()"> Próximo </button>
           </div>
         </div> 
       </div>
