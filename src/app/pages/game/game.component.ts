@@ -41,7 +41,23 @@ export class GameComponent implements OnInit, AfterViewInit {
   numquestao: string;
   specificQuestion: number;
   respondido: boolean;
-  public types = [
+  [
+     {"requirements_shull" : [
+
+     ]},
+     {"code_1" : [
+        { "value": 1, "display": "Dados" },
+        { "value": 2, "display": "Inicialização" },
+        { "value": 3, "display": "Comissão" },
+        { "value": 4, "display": "Controle" },
+        { "value": 5, "display": "Excesso" },
+        { "value": 6, "display": "Computação" },
+        { "value": 7, "display": "Desempenho" }
+     ]}
+  ]  
+
+
+/*public types = [
       { value: 1, display: "Dados" },
       { value: 2, display: "Inicialização" },
       { value: 3, display: "Comissão" },
@@ -49,7 +65,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       { value: 5, display: "Excesso" },
       { value: 6, display: "Computação" },
       { value: 7, display: "Desempenho" }
-  ];
+  ];/*
   html: SafeHtml;
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, private sanitizer: DomSanitizer) {
@@ -202,7 +218,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   private _typeCompare(value1: number, value2: string){
-    for (let element of this.types){
+    for (let element of this.code_1){
       if (element.value == value1) {
         if(element.display == value2){
           this.tipoCerto = true;
