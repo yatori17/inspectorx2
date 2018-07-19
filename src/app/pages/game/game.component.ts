@@ -42,7 +42,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   specificQuestion: number;
   respondido: boolean;
   public types = [
-    code_1 = [
       { value: 1, display: "Dados" },
       { value: 2, display: "Inicialização" },
       { value: 3, display: "Comissão" },
@@ -50,7 +49,6 @@ export class GameComponent implements OnInit, AfterViewInit {
       { value: 5, display: "Excesso" },
       { value: 6, display: "Computação" },
       { value: 7, display: "Desempenho" }
-    ]
   ];
   html: SafeHtml;
 
@@ -204,7 +202,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   private _typeCompare(value1: number, value2: string){
-    for (let element of this.types.code_1){
+    for (let element of this.types){
       if (element.value == value1) {
         if(element.display == value2){
           this.tipoCerto = true;
