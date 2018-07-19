@@ -46,7 +46,7 @@
 <div class="m-1">
       		 <div *ngIf="checkedAnswer; else elseBlock">
             <div class="pt-3">
-            <div *ngFor="let type of types">
+            <div *ngFor="let type of types.code_1">
               <label>
                 <input type="radio" name="type" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
                 {{ type.display }}
