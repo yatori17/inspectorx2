@@ -20,7 +20,9 @@
           routerLink="/partidas"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">Partidas</a></span>
-      </li>
+      </li>      <li><span *ngIf="auth.loggedIn">
+      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Adicionar artefato </button> 
+      </li></span>
     </ul>
     
   </nav>
