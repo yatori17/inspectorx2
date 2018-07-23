@@ -14,6 +14,8 @@ const questionSchema = new Schema({
   trecho: { type: String, required: true },
   type: { type: String, required: true },	
   difficulty: { type: String, required: true },  
+  taxonomy: { type: String, required: true },
+  taxonomyid: { type: Number, required: true },
   description: { type: String, required: true }  
 });
 

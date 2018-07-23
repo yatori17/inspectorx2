@@ -43,7 +43,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   respondido: boolean;
   taxID: number;
 
-  types: Array<object, object>;
+  types: Array<>;
 
   public jones = [
   { value: 1, display: "Dados" },
