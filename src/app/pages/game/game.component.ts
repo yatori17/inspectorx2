@@ -118,7 +118,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       console.log(this.codeLine);
 
      if(this.gamemode == 'facil'){
-           this.indexofcodeLine = this.questionList[this.questionIndex].trecho;
+         this.indexofcodeLine = this.questionList[this.questionIndex].trecho;
          this._getAnswerForm(this.questionList[this.questionIndex].trecho);
      }
 
@@ -140,12 +140,8 @@ export class GameComponent implements OnInit, AfterViewInit {
         this.respostaCerta,
         this.tipoCerto
     );*/
-  
-      //if (this.taxID == 1) {
-        this.types = this.jones;
-      //}
 
-        console.l
+
       console.log(this.jones);
       console.log(this.types);
 
