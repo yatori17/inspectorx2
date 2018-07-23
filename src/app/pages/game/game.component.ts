@@ -41,7 +41,11 @@ export class GameComponent implements OnInit, AfterViewInit {
   numquestao: string;
   specificQuestion: number;
   respondido: boolean;
-  public types = [
+  taxID: number;
+
+  types: Array<object, object>;
+
+  public jones = [
   { value: 1, display: "Dados" },
   { value: 2, display: "Inicialização" },
   { value: 3, display: "Comissão" },
@@ -50,6 +54,15 @@ export class GameComponent implements OnInit, AfterViewInit {
   { value: 6, display: "Computação" },
   { value: 7, display: "Desempenho" }
   ];
+
+  public shull = [
+  { value: 1, display: "Omissão" },
+  { value: 2, display: "Ambiguidade" },
+  { value: 3, display: "Fato incorreto" },
+  { value: 4, display: "Inconsistência" },
+  { value: 5, display: "Informação estranha" }
+  ];
+
   html: SafeHtml;
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, private sanitizer: DomSanitizer) {
@@ -65,9 +78,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     //this.questionIndex = Math.floor(Math.random()*(1-0+1)+0);
 
      //MODO FACIL
-     if(this.gamemode == 'facil'){
-         
-     }
+
 
 //     console.log(this.questionList[this.questionIndex].code);
 
@@ -100,10 +111,23 @@ export class GameComponent implements OnInit, AfterViewInit {
     }
     this._getQuestionList().then(questionList => {
       console.log(questionList);
+      this.taxID = this.questionList[this.questionIndex].taxonomyid;
       this.specificQuestion = this.questionList[this.questionIndex].question;
       this.resString = this.questionList[this.questionIndex].code;
       this.codeLine = this.resString.split("//QUEBRALINHA");
       console.log(this.codeLine);
+
+     if(this.gamemode == 'facil'){
+           this.indexofcodeLine = this.questionList[this.questionIndex].trecho;
+         this._getAnswerForm(this.questionList[this.questionIndex].trecho);
+     }
+
+      if (this.taxID == 1) {
+        this.types = this.jones;
+      }
+      if (this.taxID == 2) {
+        this.types = this.shull;
+      }
     })
 
 
@@ -117,7 +141,13 @@ export class GameComponent implements OnInit, AfterViewInit {
         this.tipoCerto
     );*/
   
+      //if (this.taxID == 1) {
+        this.types = this.jones;
+      //}
 
+        console.l
+      console.log(this.jones);
+      console.log(this.types);
 
 
     console.log(this.respostaModelo);

@@ -26,6 +26,7 @@
             <div class="w-100 p-3">
                 <div class="card" style="width: 100%;">
                   <div class="card-body">
+                     <h5 class="card-title">Linha de código com erro:</h5>
                     <ng-container *ngIf = "indexofcodeLine == null; else outroBloco"> Selecione uma linha de código. </ng-container>
                     <ng-template #outroBloco>
                     <div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[indexofcodeLine])" > </div>
@@ -36,9 +37,11 @@
             </div>
         			 <!-- <input #textbox type="text" [(ngModel)]="textValue" required> !-->
                <div class="col-xs-12 col-md-6">
+                <ng-container *ngIf="!(gamemode == 'facil');">
             <div class="m-1 span6 offset4">
         			     <button type="button" class="btn btn-outline-secondary" (click)="_getAnswerForm(indexofcodeLine)" [disabled]="checkedAnswer">Responder</button>
             </div>
+          </ng-container>
           </div>
     
       		</div>
@@ -50,10 +53,11 @@
               <label>
                 <input type="radio" name="type" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
                 {{ type.display }}
-              </label></div>
-              <div class="m-1">
+              </label>
+            </div>
+            <div class="m-1">
 
-						    <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Responder </button>  		 	
+						  <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Responder </button>  		 	
       		 </div>
           </div>
    			 <ng-template #elseBlock>Aguardando inserção do trecho</ng-template>
@@ -64,6 +68,7 @@
     <div class="m-1">
       <div class="pt-3">
         <div *ngIf="respondido">
+          <ng-container *ngIf="!(gamemode == 'facil');">
             <div *ngIf="respostaCerta; else resposta">
             <div class="card" style="width: 100%;">
             <div class="card-body">
@@ -83,6 +88,7 @@
             </div>
           </div>
             </ng-template>
+          </ng-container>
 
             <div *ngIf="tipoCerto; else tipo">
               <div class="pt-3">
