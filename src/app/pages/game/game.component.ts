@@ -46,13 +46,13 @@ export class GameComponent implements OnInit, AfterViewInit {
   types: Array<any>;
 
   public jones = [
-  { value: 1, display: "Dados" },
-  { value: 2, display: "Inicialização" },
-  { value: 3, display: "Comissão" },
-  { value: 4, display: "Controle" },
-  { value: 5, display: "Excesso" },
-  { value: 6, display: "Computação" },
-  { value: 7, display: "Desempenho" }
+  { value: 1, display: "Dados", description: "Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz)." },
+  { value: 2, display: "Inicialização", description: "Ocorre quando se tenta acessar uma variável que não foi inicializada." },
+  { value: 3, display: "Comissão", description:  "Ocorre quando existe algum segmento de código que foi implementado incorretamente, i.e., cuja implementação é diferente do que foi especificado" },
+  { value: 4, display: "Controle", description: "Ocorre quando um comando de desvio condicional é usado de forma incorreta." },
+  { value: 5, display: "Excesso", description: "Existem trechos de código irrelevantes e desnecessários." },
+  { value: 6, display: "Computação", description: "Ocorre quando um valor é definido erroneamente para uma variável." },
+  { value: 7, display: "Desempenho", description: "Algumas rotinas executam comandos ou laços (loops) desnecessários." }
   ];
 
   public shull = [

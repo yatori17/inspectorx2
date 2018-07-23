@@ -49,11 +49,16 @@
 <div class="m-1">
       		 <div *ngIf="checkedAnswer; else elseBlock">
             <div class="pt-3">
-            <div *ngFor="let type of types">
+            <div *ngFor="let type of types; let i = index">
               <label>
-                <input type="radio" name="type" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
+                <input type="radio" name="type" data-toggle="collapse" data-target="#collapseOne" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
                 {{ type.display }}
               </label>
+              <ng-container *ngIf="!checkedRadio">
+                <ng-container *ngIf="i+1 == resultadoTipo">
+              <p> {{ type.description }} </p>
+            </ng-container>
+            </ng-container>
             </div>
             <div class="m-1">
 
