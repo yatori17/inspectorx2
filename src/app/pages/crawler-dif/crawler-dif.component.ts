@@ -20,6 +20,7 @@ export class CrawlerDifComponent implements OnInit {
   error: boolean;
   idPartida: string;
   temppartid: string;
+  modoinspecao: number;
  
 
 
@@ -33,11 +34,11 @@ export class CrawlerDifComponent implements OnInit {
 
   }
 
-  public inspecao (modo: string){
+  public inspecao (modo: number){
     this.modoinspecao = modo;
   }
 
-  private navRouting(modo: string, dificuldade: string, partidaID: string, numquestao: number){
+  private navRouting(modo: number, dificuldade: string, partidaID: string, numquestao: number){
     console.log("navrouting executado");
     console.log(dificuldade);
     console.log(partidaID);

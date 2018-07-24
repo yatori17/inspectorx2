@@ -44,7 +44,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   respondido: boolean;
   taxID: number;
   inspecao: number;
-  indexestoDelete: Array;
+  indexestoDelete: Array<any>;
 
   types: Array<any>;
 
@@ -59,11 +59,12 @@ export class GameComponent implements OnInit, AfterViewInit {
   ];
 
   public shull = [
-  { value: 1, display: "Omissão" },
-  { value: 2, display: "Ambiguidade" },
-  { value: 3, display: "Fato incorreto" },
-  { value: 4, display: "Inconsistência" },
-  { value: 5, display: "Informação estranha" }
+  { value: 1, display: "Omissão", description: "Deve-se à omissão ou negligência de alguma informação necessária ao desenvolvimento do software." },
+  { value: 2, display: "Ambiguidade", description: "Ocorre quando uma determinada informação não é bem definida, permitindo assim uma interpretação subjetiva, que pode levar a múltiplas interpretações." },
+  { value: 3, display: "Fato incorreto", description: "Informações dos artefatos do sistema que são contraditórias com o conhecimento que se tem do domínio da aplicação." },
+  { value: 4, display: "Inconsistência", description: "Ocorre quando duas ou mais informações são contraditórias entre si." },
+  { value: 5, display: "Informação estranha", description: "Informação desnecessária incluída nos requisitos do software que esta sendo desenvolvido." },
+  { value: 6, display: "Não há defeito", description: "Requisito correto"}
   ];
 
   html: SafeHtml;

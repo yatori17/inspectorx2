@@ -50,14 +50,14 @@ export class CrawlendComponent implements OnInit {
       console.log(questionList);
 
       for (var k = 0; k < this.respostaList.length ; k++){
-      	console.log(this.questionList[k].question);
-		this.setnumber = this.questionList[k].question;
-      	this.codeLine[this.setnumber] = this.questionList[k].code;
-      	this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split("//QUEBRALINHA");
-
+        	console.log(this.questionList[k].question);
+		      this.setnumber = this.questionList[k].question;
+        	this.codeLine[this.setnumber] = this.questionList[k].code;
+        	this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split("//QUEBRALINHA");
       }
-      	console.log("Executado o nginit")
-            	console.log(this.codeArray);
+
+     	console.log("Executado o nginit")
+     	console.log(this.codeArray);
 
     })
 
