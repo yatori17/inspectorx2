@@ -77,7 +77,6 @@ export class CrawlendComponent implements OnInit {
              }
          }
 
-        console.log(this.dific);
       }
       if (this.respostaList[0].modo == 1) {
         this.types = this.jones;
@@ -86,6 +85,7 @@ export class CrawlendComponent implements OnInit {
         this.types = this.shull;
       }
 
+        console.log(this.dific);
      	console.log("Executado o nginit")
      	console.log(this.codeArray);
 
