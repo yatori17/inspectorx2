@@ -26,6 +26,7 @@ export class CrawlendComponent implements OnInit {
 	error: boolean;
 	partidaID: string;
 	types: Array<any>;
+  dific: string;
   
   public jones = [
   { value: 1, display: "Dados", description: "Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz)." },
@@ -69,7 +70,7 @@ export class CrawlendComponent implements OnInit {
          for (var _i = 0; _i < this.questionList.length; _i++){
              if (this.respostaList[k].idPergunta == this.questionList[_i].question){
                  this.setnumber = this.questionList[_i].question;
-
+                 this.dific = this.questionList[_i].difficulty;
                  this.codeLine[this.setnumber] = this.questionList[_i].code;
                  this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split("//QUEBRALINHA");
 
