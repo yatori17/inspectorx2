@@ -77,6 +77,7 @@ export class CrawlendComponent implements OnInit {
              }
          }
 
+        console.log(this.dific);
       }
       if (this.respostaList[0].modo == 1) {
         this.types = this.jones;
