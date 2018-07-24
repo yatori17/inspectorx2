@@ -25,6 +25,7 @@ import { CrawlendComponent } from './pages/crawlend/crawlend.component';
 import { FipPlanComponent } from './pages/fip-plan/fip-plan.component';
 import { FipAddComponent } from './pages/fip-add/fip-add.component';
 import { PartidasComponent } from './pages/partidas/partidas.component';
+import { ReqComponent } from './pages/req/req.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { PartidasComponent } from './pages/partidas/partidas.component';
     CrawlendComponent,
     FipPlanComponent,
     FipAddComponent,
-    PartidasComponent
+    PartidasComponent,
+    ReqComponent
   ],
   imports: [
     BrowserModule,

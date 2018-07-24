@@ -1,3 +1,16 @@
+<ng-container *ngIf="!modoinspecao">
+  <div class="row">
+    <div class="col-sm-6 col-md-12 p-2">
+      <button class="btn btn-primary" (click)="inspecao(1)">Inspeção de Código</button>
+    </div>
+    <div class="col-sm-6 col-md-12 p-2">
+       <button class="btn btn-primary" (click)="inspecao(2)">Inspeção de Requisitos</button>
+    </div>
+   </div>
+</ng-container>
+
+<ng-container *ngIf="modoinspecao">
+
 <div class="row">
   <div class="col-sm-6 col-md-12 p-2">
     <button class="btn btn-primary" (click)="clickFacil()">Ranking Fácil</button>
@@ -10,10 +23,10 @@
   </div>
   
   <div class="col-sm-6 col-md-12 p-2">
-    <button class="btn btn-danger" (click)="clickDificil()">Ranking Difícil!</button>
+    <button class="btn btn-danger" disabled (click)="clickDificil()">Ranking Difícil!</button>
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div>
 </div>
-
+</ng-container>
 <!-- src/app/header/header.component.html -->
  

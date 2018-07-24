@@ -29,6 +29,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 	gamemode: string;
   partidaID: string;
   questionIndex: number;
+  insideIndex: number;
   resposta: number;
   respostaCerta: boolean;
   codeLine: Array<string>;
@@ -42,6 +43,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   specificQuestion: number;
   respondido: boolean;
   taxID: number;
+  inspecao: number;
+  indexestoDelete: Array;
 
   types: Array<any>;
 
@@ -96,9 +99,11 @@ export class GameComponent implements OnInit, AfterViewInit {
      this.gamemode = params["id"];
      this.partidaID = params["id2"];
      this.numquestao = params["id3"];
+     this.inspecao = params["modoinsp"]
      console.log("params");
      console.log(params);
 
+     this.indexestoDelete = [];
 
 
       console.log("Modo de jogo: " + this.gamemode);
@@ -111,6 +116,22 @@ export class GameComponent implements OnInit, AfterViewInit {
     }
     this._getQuestionList().then(questionList => {
       console.log(questionList);
+      console.log("for");
+      for (var _i = 0; _i < this.questionList.length; _i++) {
+      if (this.questionList[_i].taxonomyid != this.inspecao) {
+          this.indexestoDelete.push(_i);
+         }
+      }
+
+      for (var _k = this.indexestoDelete.length - 1; _k >= 0; _k--){
+        this.questionList.splice(this.indexestoDelete[_k],1);
+      }
+
+    console.log(this.indexestoDelete);
+
+     // this.questionList.splice(3,1);
+      console.log("splice");
+            console.log(questionList);
       this.taxID = this.questionList[this.questionIndex].taxonomyid;
       this.specificQuestion = this.questionList[this.questionIndex].question;
       this.resString = this.questionList[this.questionIndex].code;
@@ -247,7 +268,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   private _nextQuestion() {
-        this.router.navigate(['/', 'game', this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
+        this.router.navigate(['/', 'game',this.inspecao, this.gamemode, this.partidaID, (Number(this.numquestao))+1]);
   }
 
   private _getAnswerForm(value: number){
