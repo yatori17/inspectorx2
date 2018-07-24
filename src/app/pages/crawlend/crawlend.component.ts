@@ -25,15 +25,27 @@ export class CrawlendComponent implements OnInit {
 	loading: boolean;
 	error: boolean;
 	partidaID: string;
-	public types = [
- 	{ value: 1, display: "Dados" },
- 	{ value: 2, display: "Inicialização" },
- 	{ value: 3, display: "Comissão" },
- 	{ value: 4, display: "Controle" },
- 	{ value: 5, display: "Excesso" },
- 	{ value: 6, display: "Computação" },
- 	{ value: 7, display: "Desempenho" }
- 	];
+	types: Array<any>;
+  
+  public jones = [
+  { value: 1, display: "Dados", description: "Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz)." },
+  { value: 2, display: "Inicialização", description: "Ocorre quando se tenta acessar uma variável que não foi inicializada." },
+  { value: 3, display: "Comissão", description:  "Ocorre quando existe algum segmento de código que foi implementado incorretamente, i.e., cuja implementação é diferente do que foi especificado" },
+  { value: 4, display: "Controle", description: "Ocorre quando um comando de desvio condicional é usado de forma incorreta." },
+  { value: 5, display: "Excesso", description: "Existem trechos de código irrelevantes e desnecessários." },
+  { value: 6, display: "Computação", description: "Ocorre quando um valor é definido erroneamente para uma variável." },
+  { value: 7, display: "Desempenho", description: "Algumas rotinas executam comandos ou laços (loops) desnecessários." }
+  ];
+
+  public shull = [
+  { value: 1, display: "Omissão", description: "Deve-se à omissão ou negligência de alguma informação necessária ao desenvolvimento do software." },
+  { value: 2, display: "Ambiguidade", description: "Ocorre quando uma determinada informação não é bem definida, permitindo assim uma interpretação subjetiva, que pode levar a múltiplas interpretações." },
+  { value: 3, display: "Fato incorreto", description: "Informações dos artefatos do sistema que são contraditórias com o conhecimento que se tem do domínio da aplicação." },
+  { value: 4, display: "Inconsistência", description: "Ocorre quando duas ou mais informações são contraditórias entre si." },
+  { value: 5, display: "Informação estranha", description: "Informação desnecessária incluída nos requisitos do software que esta sendo desenvolvido." },
+  { value: 6, display: "Não há defeito", description: "Requisito correto"}
+  ];
+
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, private sanitizer: DomSanitizer) { }
 
@@ -64,6 +76,12 @@ export class CrawlendComponent implements OnInit {
              }
          }
 
+      }
+      if (this.respostaList[0].modo == 1) {
+        this.types = this.jones;
+      }
+      if (this.respostaList[0].modo == 2) {
+        this.types = this.shull;
       }
 
      	console.log("Executado o nginit")
