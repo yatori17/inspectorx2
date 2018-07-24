@@ -50,10 +50,20 @@ export class CrawlendComponent implements OnInit {
       console.log(questionList);
 
       for (var k = 0; k < this.respostaList.length ; k++){
-        	console.log(this.questionList[k].question);
+        /*	console.log(this.questionList[k].question);
 		      this.setnumber = this.questionList[k].question;
         	this.codeLine[this.setnumber] = this.questionList[k].code;
-        	this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split("//QUEBRALINHA");
+        	this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split("//QUEBRALINHA");*/
+         for (var _i = 0; _i < this.questionList.length; _i++){
+             if (this.respostaList[k].idPergunta == this.questionList[_i].question){
+                 this.setnumber = this.questionList[_i].question;
+
+                 this.codeLine[this.setnumber] = this.questionList[_i].code;
+                 this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split("//QUEBRALINHA");
+
+             }
+         }
+
       }
 
      	console.log("Executado o nginit")
@@ -64,14 +74,14 @@ export class CrawlendComponent implements OnInit {
   }
 
   private _toRoute(){
-      this.navRouting (this.questionList[1].difficulty, this.partidaID, this.respostaList.length + 1);
+      this.navRouting (this.respostaList[0].modo, this.questionList[1].difficulty.toLowerCase(), this.partidaID, this.respostaList.length + 1);
   }
 
-  private navRouting(dificuldade: string, partidaID: string, numquestao: number){
+  private navRouting(modo: number, dificuldade: string, partidaID: string, numquestao: number){
     console.log("navrouting executado");
     console.log(dificuldade);
     console.log(partidaID);
-    this.router.navigate(['/', 'game', dificuldade, partidaID, numquestao]);
+    this.router.navigate(['/', 'game', modo, dificuldade, partidaID, numquestao]);
   };
 
   private HTMLSanitizer(code: string){

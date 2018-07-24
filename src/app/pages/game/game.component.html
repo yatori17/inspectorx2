@@ -12,11 +12,19 @@
   <div class="row">
     <div class="col-12 col-md-8  border border-primary rounded">   
       <ng-container *ngFor = "let line of codeLine; let i = index" >
-        <div style="cursor: pointer" (click)="lineValue(i)">
+        <ng-container *ngIf="gamemode=='facil'; else difBlock">
+        <div>
           <div class="allline">
           <div [innerHTML]="HTMLSanitizer(line)" ></div> </div>
         </div>
-         </ng-container>
+       </ng-container>
+       <ng-template #difBlock>
+          <div style="cursor: pointer" (click)="lineValue(i)">
+          <div class="allline">
+          <div [innerHTML]="HTMLSanitizer(line)" ></div> </div>
+        </div>
+        </ng-template>
+      </ng-container>
     </div>
     <div class="col-md-4">
 
@@ -51,7 +59,7 @@
             <div class="pt-3">
             <div *ngFor="let type of types; let i = index">
               <label>
-                <input type="radio" name="type" data-toggle="collapse" data-target="#collapseOne" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
+                <input type="radio" name="type" [(ngModel)]="resultadoTipo" [value]="type.value" [disabled]="checkedRadio">
                 {{ type.display }}
               </label>
               <ng-container *ngIf="!checkedRadio">

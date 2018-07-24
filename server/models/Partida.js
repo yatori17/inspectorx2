@@ -11,7 +11,9 @@ const Schema = mongoose.Schema;
 const partidaSchema = new Schema({
   userId: { type: String },
   dificuldade: { type: String },
-  createDate: { type: Date },
+  modo: { type: Number },
+  createDate: { type: Date }
+
   // usuario
   // pergunta 1, 2, 3
   // cada um com trecho certo ou errado, tipo certo ou errado

@@ -172,7 +172,12 @@ export class GameComponent implements OnInit, AfterViewInit {
 
 
 
-  this.indexofcodeLine = null;
+
+  if (this.taxID == 1) {
+    this.indexofcodeLine = null;
+  } else { 
+    this.indexofcodeLine = 0;
+  };
   this.resposta = null;
   this.respostaCerta = false;
   this.checkedAnswer = false;
@@ -280,9 +285,13 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   private _getRadioForm(value: number){
+    if (value == null){
+       console.log('radio nao é valido');
+    } else {
     this.checkedRadio = true
     console.log(value);
     this._typeCompare(value, this.questionList[this.questionIndex].type);
+    }
   }
 
 
@@ -298,7 +307,8 @@ export class GameComponent implements OnInit, AfterViewInit {
         this.resposta,
         this.resultadoTipo,
         this.respostaCerta,
-        this.tipoCerto
+        this.tipoCerto,
+        this.inspecao
     );
 
       //this.partidaModelo = new PartidaModel();

@@ -7,5 +7,6 @@ export class RespostaModel {
 		public tipo: number,
     public trechoAcerto: boolean,
     public tipoAcerto: boolean
+    public modo: number;
 	) {}
 }

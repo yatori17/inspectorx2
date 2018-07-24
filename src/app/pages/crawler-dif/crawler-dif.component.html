@@ -17,16 +17,19 @@
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div>
 
+  <ng-container *ngIf="modoinspecao == 1">
   <div class="col-sm-6 col-md-12 p-2">
     <button class="btn btn-secondary"(click)="clickMedio()">Ranking Médio</button>
   <div class="clearfix hidden-xs hidden-sm"></div>
-  </div>
+  </div> 
   
   <div class="col-sm-6 col-md-12 p-2">
     <button class="btn btn-danger" disabled (click)="clickDificil()">Ranking Difícil!</button>
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div>
+    </ng-container>
 </div>
+
 </ng-container>
 <!-- src/app/header/header.component.html -->
  

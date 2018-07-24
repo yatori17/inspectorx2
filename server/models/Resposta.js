@@ -15,7 +15,8 @@ const respostaSchema = new Schema({
  trecho : Number,
  tipo: Number,
  trechoAcerto: Boolean, 
- tipoAcerto: Boolean 
+ tipoAcerto: Boolean,
+ modo: Number
   
   // usuario
   // pergunta 1, 2, 3

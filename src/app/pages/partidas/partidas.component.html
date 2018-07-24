@@ -4,6 +4,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Data</th>
+      <th scope="col">Modo</th>
       <th scope="col">Nível</th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <tr>
       <td><a [routerLink]="['/crawlend/' + partida._id]" routerLinkActive="active">{{ partida._id }} </a></td>
       <td> {{ partida.createDate | date:'medium' }} </td>
+      <td> {{ partida.modo }} </td>
       <td> {{ partida.dificuldade }} </td>
     </tr>
 		</ng-container>

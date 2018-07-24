@@ -51,7 +51,7 @@ export class CrawlerDifComponent implements OnInit {
      console.log("CLICK FACIL EXECUTADO");
      console.log(this.auth.userProfile.sub);
 
-    this._createPartida("Fácil")
+    this._createPartida("Fácil",this.modoinspecao)
         .then(temppartid => {
               this.navRouting(this.modoinspecao, "facil", this.temppartid, 1);
              
@@ -61,7 +61,7 @@ export class CrawlerDifComponent implements OnInit {
   public clickMedio(){
       //console.log("CLICK MEDIO EXECUTADO");
 
-    this._createPartida("Médio")
+    this._createPartida("Médio",this.modoinspecao)
         .then(temppartid => {
               this.navRouting(this.modoinspecao, "medio", this.temppartid, 1);
              
@@ -71,7 +71,7 @@ export class CrawlerDifComponent implements OnInit {
   public clickDificil(){
       // console.log("CLICK DIFICIL EXECUTADO");
 
-     this._createPartida("Difícil")
+     this._createPartida("Difícil", this.modoinspecao)
         .then(temppartid => {
               this.navRouting(this.modoinspecao, "dificil", this.temppartid, 1);
              
@@ -81,12 +81,13 @@ export class CrawlerDifComponent implements OnInit {
 
 
 
-  private _createPartida(dificuldade: string){
+  private _createPartida(dificuldade: string, modo: number){
     //const respostaAtual = new Resposta(      );
       return new Promise(resolve => {
      const partidaModelo = new PartidaModel(
       this.auth.userProfile.sub,
-      dificuldade
+      dificuldade,
+      modo
       );
       //this.partidaModelo = new PartidaModel();
       console.log('crawler-dif: ');

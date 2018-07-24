@@ -92,6 +92,7 @@ module.exports = function(app, config) {
      var partidaObj = new Partida({
       userId: req.body.UserId,
       dificuldade: req.body.dificuldade,
+      modo: req.body.modo
       });
     console.log(req.originalUrl);
     console.log(req.body);
@@ -120,7 +121,8 @@ module.exports = function(app, config) {
       trecho: req.body.trecho,
       tipo: req.body.tipo,
       trechoAcerto: req.body.trechoAcerto,
-      tipoAcerto: req.body.tipoAcerto
+      tipoAcerto: req.body.tipoAcerto,
+      modo: req.body.modo
       });
     console.log(req.originalUrl);
     console.log(req.body);
