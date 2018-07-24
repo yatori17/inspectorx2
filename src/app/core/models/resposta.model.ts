@@ -6,7 +6,7 @@ export class RespostaModel {
 		public trecho: number,
 		public tipo: number,
     public trechoAcerto: boolean,
-    public tipoAcerto: boolean
-    public modo: number;
+    public tipoAcerto: boolean,
+    public modo: number
 	) {}
 }
