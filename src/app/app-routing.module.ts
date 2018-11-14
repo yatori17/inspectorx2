@@ -8,6 +8,8 @@ import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
 import { CrawlendComponent } from './pages/crawlend/crawlend.component';
 import { FipPlanComponent } from './pages/fip-plan/fip-plan.component';
 import { FipAddComponent } from './pages/fip-add/fip-add.component';
+import { FipCreateComponent } from './pages/fip-create/fip-create.component';
+import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 import { PartidasComponent } from './pages/partidas/partidas.component';
 
 
@@ -43,6 +45,14 @@ const routes: Routes = [{
 {
 	path: "fipplan/add",
 	component: FipAddComponent
+},
+{
+	path: "fipcreate",
+	component: FipCreateComponent
+},
+{
+	path: "fipdetect",
+	component: FipDetectionComponent
 },
 {
 	path: "partidas",

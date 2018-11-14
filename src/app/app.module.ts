@@ -26,6 +26,8 @@ import { FipPlanComponent } from './pages/fip-plan/fip-plan.component';
 import { FipAddComponent } from './pages/fip-add/fip-add.component';
 import { PartidasComponent } from './pages/partidas/partidas.component';
 import { ReqComponent } from './pages/req/req.component';
+import { FipCreateComponent } from './pages/fip-create/fip-create.component';
+import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ReqComponent } from './pages/req/req.component';
     FipPlanComponent,
     FipAddComponent,
     PartidasComponent,
-    ReqComponent
+    ReqComponent,
+    FipCreateComponent,
+    FipDetectionComponent
   ],
   imports: [
     BrowserModule,

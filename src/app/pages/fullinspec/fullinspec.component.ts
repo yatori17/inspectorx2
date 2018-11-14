@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { ListuserModel } from './../../core/models/listuser.model';
+import { ApiService } from './../../core/api.service';
+import { AuthService } from './../../auth/auth.service';
 
 @Component({
   selector: 'app-fullinspec',
@@ -7,10 +12,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FullinspecComponent implements OnInit {
   modinspbool: boolean;
-  
+  ListuserSub: Subscription;
+  ListuserList: ListuserModel[];
+  ListuserModelo: ListuserModel;  
+   temppartid: string;
 
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService) { }
 
   ngOnInit() {
   	this.modinspbool = true;
@@ -24,6 +32,7 @@ export class FullinspecComponent implements OnInit {
   public inspetorAtivo(){
   	console.log("inspetor Ativo");
   	this.modinspbool = false;
+    this._addUser();
   }
 
   calculateClasses(){
@@ -42,6 +51,35 @@ export class FullinspecComponent implements OnInit {
   };
   	}
 
+  private _addUser(){
+    //const respostaAtual = new Resposta(      );
+      return new Promise(resolve => {
+     const listuserModelo = new ListuserModel(
+      this.auth.userProfile.sub,
+      this.auth.userProfile.name
+      );
+      //this.partidaModelo = new PartidaModel();
+      
+
+    this.ListuserSub = this.api
+      .postUsuarioOnline$(listuserModelo)
+      .subscribe(
+        res => {
+  
+          console.log("resultado useron");      
+     
+          console.log(res.userId);
+          this.temppartid = res.userId;
+               resolve(this.temppartid);
+         
+
+        },
+        err => {
+          console.log(err);
+          }
+        );
+      });
+  }
   
 }
 

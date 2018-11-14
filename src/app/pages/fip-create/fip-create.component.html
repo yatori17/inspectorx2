@@ -1,0 +1,46 @@
+<div class="container">
+		<div class="row" >
+			<div class="col">
+				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+				<label>
+			   		<input type="radio" name="options" id="option1" autocomplete="off" (click)="clickAtivo(1)"  > Fácil
+			    </label>
+			    <label >
+			    	<input type="radio" name="options" id="option2" autocomplete="off" (click)="clickAtivo(2)" > Médio
+			    </label>
+			    <label>
+			    	<input type="radio" name="options" id="option3" autocomplete="off" (click)="clickAtivo(3)" > Difícil
+			    </label>
+			    <label>
+			    	<input type="radio" name="options" id="option4" autocomplete="off" (click)="clickAtivo(4)" > Misto
+			    </label>
+				</div>
+			</div>
+			<div class="col">
+				<div>
+					<ul class="list-group">			
+						<ng-container  *ngFor="let artefato of ArtefatoList, let i = index">
+		
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
+								<label class="custom-control-label" for="{{ artefato._id }}">{{ artefato.title }}</label>
+							</div>						
+						
+						</ng-container>	
+					</ul>
+				</div>
+				<div> <button type="button" class="btn btn-primary" routerLink="/fipplan/add" routerLinkActive="active" > Adicionar </button> </div>
+			</div>
+			<div class="col">
+				<div>	
+					<ng-container  *ngFor="let user of ListuserList, let i = index">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="{{ user.userId }}" [(ngModel)]="user.isActive">
+							<label class="custom-control-label" for="{{ user.userId }}">{{ user.title }}</label>
+						</div>						
+					</ng-container>	
+				</div>
+			</div>
+		</div>
+<button class="btn btn-primary" (click)="_createPartfip()"> Criar</button>
+</div>

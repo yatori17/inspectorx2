@@ -1,51 +1,37 @@
 <div class="container">
 		<div class="row" >
 			<div class="col">
-				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
-				<label>
-			   		<input type="radio" name="options" id="option1" autocomplete="off" (click)="clickAtivo(1)"  > Fácil
-			    </label>
-			    <label >
-			    	<input type="radio" name="options" id="option2" autocomplete="off" (click)="clickAtivo(2)" > Médio
-			    </label>
-			    <label>
-			    	<input type="radio" name="options" id="option3" autocomplete="off" (click)="clickAtivo(3)" > Difícil
-			    </label>
-			    <label>
-			    	<input type="radio" name="options" id="option4" autocomplete="off" (click)="clickAtivo(4)" > Misto
-			    </label>
-				</div>
+				
+				<button type="button" class="btn btn-primary" routerLink="/fipcreate" routerLinkActive="active" >Criar Partida</button> 
 			</div>
 			<div class="col">
 				<div>
 					<ul class="list-group">
-						<li class="list-group-item">TESTANDO</li>
-						<li class="list-group-item">TE222222222STANDO2</li>
-						<li class="list-group-item">TESTE 03</li>
-						<li class="list-group-item">TESTANDO4</li>
-						<li class="list-group-item">MAIS UM</li>
-						<li class="list-group-item">MAIS TESTESESS</li>
-						<li class="list-group-item">TESTANDO</li>
-						<li class="list-group-item">TE222222222STANDO2</li>
-						<li class="list-group-item">TESTE 03</li>
-						<li class="list-group-item">TESTANDO4</li>
-						<li class="list-group-item">MAIS UM</li>
-						<li class="list-group-item">MAIS TESTESESS</li>
+						<ng-container *ngFor="let Partfip of PartfipList">
+							<li class="list-group-item"> {{ Partfip.createDate }} </li>
+						</ng-container>
+					</ul>
+				</div>
+				
+			</div>
+			<div class="col">
+				<div>
+					<ul class="list-group">
+						<ng-container *ngFor="let Artefato of ArtefatoList">
+							<li class="list-group-item"> {{ Artefato.title }} </li>
+						</ng-container>
 					</ul>
 				</div>
 				<div> <button type="button" class="btn btn-primary" routerLink="/fipplan/add" routerLinkActive="active" > Adicionar </button> </div>
 			</div>
 			<div class="col">
-				<div>
-					<ul class="list-group">
-						<li class="list-group-item">Usuario 1</li>
-						<li class="list-group-item">User 2</li>
-						<li class="list-group-item">Fulano</li>
-						<li class="list-group-item">Siclano</li>
-						<li class="list-group-item">Mais um usuario</li>
-						<li class="list-group-item">Mais um aqui</li>
-						<li class="list-group-item">Mais um</li>
-					</ul>
+				<div>	
+				<!--	<ng-container  *ngFor="let user of ListuserList, let i = index">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="{{ user.userId }}">
+							<label class="custom-control-label" for="{{ user.userId }}">{{ user.title }}</label>
+						</div>						
+					</ng-container>	!-->
 				</div>
 			</div>
 		</div>

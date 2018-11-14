@@ -10,7 +10,9 @@ const jwks = require('jwks-rsa');
 const Question = require('./models/Question');
 const Partida = require('./models/Partida');
 const Resposta = require('./models/Resposta');
-const Artefato = require('./models/Artefato')
+const Artefato = require('./models/Artefato');
+const Listuser = require('./models/Listuser');
+const Partfip = require('./models/Partfip');
 //const Resposta = require('./models/Partida');
 
 /*
@@ -111,7 +113,7 @@ module.exports = function(app, config) {
 
 
 
-   //Put partidas
+   //Post partidas
    app.post('/api/respostas', (req, res) => {
     console.log("update");
 
@@ -137,6 +139,8 @@ module.exports = function(app, config) {
         }
          });
      });
+
+
 
 //GET RESPOSTAS DE UMA PARTIDA
   app.get('/api/listarespostas/:idPartida', (req, res) => {
@@ -176,6 +180,111 @@ module.exports = function(app, config) {
         }
          });
      });
+
+   //Post usuarionline
+   app.post('/api/listusers/new', (req, res) => {
+    console.log("Listuser");
+
+     var listuserObj = new Listuser({
+      userId: req.body.userId,
+      title: req.body.title
+      });
+     console.log(listuserObj);
+   
+     listuserObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        return res.status(200).send(listuserObj);
+        }
+         });
+     });   
+
+      //Post partfip
+   app.post('/api/partfip/new', (req, res) => {
+    console.log("Partfip");
+
+     var partfipObj = new Partfip({
+      userId: req.body.userId,
+      modo: req.body.modo,
+      artefato: req.body.artefato,
+      inspetor: req.body.inspetor
+      });
+     console.log(partfipObj);
+   
+     partfipObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        return res.status(200).send(partfipObj);
+        }
+         });
+     }); 
+
+   //GET usuarioonline
+     app.get('/api/listusers', (req, res) => {
+    Listuser.find({}, (err, listusers) => {
+      let listusersArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (listusers) {
+        listusers.forEach(listusers => {
+          listusersArr.push(listusers);
+        });
+      }
+      res.send(listusersArr);
+      });
+  });
+
+   //GET artefato
+     app.get('/api/artefatos', (req, res) => {
+    Artefato.find({}, (err, artefatos) => {
+      let artefatosArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (artefatos) {
+        artefatos.forEach(artefatos => {
+          artefatosArr.push(artefatos);
+        });
+      }
+      res.send(artefatosArr);
+      });
+  });
+
+        //GET artefato
+     app.get('/api/partfip', (req, res) => {
+    Partfip.find({}, (err, partfips) => {
+      let partfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (partfips) {
+        partfips.forEach(partfips => {
+          partfipsArr.push(partfips);
+        });
+      }
+      res.send(partfipsArr);
+      });
+  });
+
+
+   //GET artefato
+     app.get('/api/artefatos/:id', (req, res) => {
+    Artefato.find({ _id: req.params.id }, (err, artefatos) => {
+      let artefatosArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (artefatos) {
+        artefatos.forEach(artefatos => {
+          artefatosArr.push(artefatos);
+        });
+      }
+      res.send(artefatosArr);
+      });
+  });
 
 
 
