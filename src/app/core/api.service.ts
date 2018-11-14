@@ -12,6 +12,8 @@ import { QuestionModel } from './models/question.model';
 import { PartidaModel } from './models/partida.model';
 import { RespostaModel } from './models/resposta.model';
 import { ArtefatoModel } from './models/artefato.model';
+import { ListuserModel } from './models/listuser.model';
+import { PartfipModel } from './models/partfip.model';
 
 @Injectable()
 export class ApiService {
@@ -96,6 +98,68 @@ export class ApiService {
         );
       }
 
+        // POST usuarioonline
+  postUsuarioOnline$(listuser: ListuserModel): Observable<ListuserModel> {
+    console.log('listuser post: ');
+    console.log(listuser);
+    return this.http
+      .post<ArtefatoModel>(`${ENV.BASE_API}listusers/new`, listuser, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
+       // POST partfip
+  postPartfip$(partfip: PartfipModel): Observable<PartfipModel> {
+    console.log('partfip post: ');
+    console.log(partfip);
+    return this.http
+      .post<PartfipModel>(`${ENV.BASE_API}partfip/new`, partfip, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
+        //GET artefato
+        getArtefato$(): Observable<ArtefatoModel[]> {
+          return this.http
+            .get(`${ENV.BASE_API}artefatos`)
+            .pipe(
+              catchError((error)=> this._handleError(error))
+              );
+        }
+
+
+        //GET usuario
+  getUsuarioOnline$(): Observable<ListuserModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}listusers`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
+        //GET partfip
+  getPartfip$(): Observable<PartfipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}partfip`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
+  // GET artefato baseado no ID
+  getArtefatoById$(id: string): Observable<ArtefatoModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}artefatos/${id}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
 
   // ????
 
