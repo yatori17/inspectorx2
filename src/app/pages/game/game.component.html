@@ -30,7 +30,7 @@
 
       		<div class="row">
           <!-- Ok, vamo ver o que ta acontecendo aqui !-->
-
+        <ng-container *ngIf="inspecao!=2">
             <div class="w-100 p-3">
                 <div class="card" style="width: 100%;">
                   <div class="card-body">
@@ -43,6 +43,7 @@
                   </div>
                 </div>
             </div>
+           </ng-container>
         			 <!-- <input #textbox type="text" [(ngModel)]="textValue" required> !-->
                <div class="col-xs-12 col-md-6">
                 <ng-container *ngIf="!(gamemode == 'facil');">
