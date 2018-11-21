@@ -26,6 +26,10 @@ export class FipDetectionComponent implements OnInit {
   PartfipList: PartfipModel[];
   PartfipModelo: PartfipModel;
   ArtefatoArray: Array<string> = [];
+  selectedValue: any;
+  selectedArtifact: any;
+  selectedType: any;
+
   types: Array<any>;
     public jones = [
   { value: 1, display: "Dados", description: "Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz)." },
@@ -62,7 +66,7 @@ export class FipDetectionComponent implements OnInit {
 
   }
   
-  private _getArtefato(){
+  public _getArtefato(){
     return new Promise(resolve => {
     //console.log("iniciou partidalist");
     this.loading = true;
@@ -86,14 +90,14 @@ export class FipDetectionComponent implements OnInit {
 
 
 
-    private artefatoarray(arr: any){
+    public artefatoarray(arr: any){
     	console.log("artefato array");
     	
     	this.ArtefatoArray = arr;
     	console.log(this.ArtefatoArray);
     }
 
-    private _getArtefatoById(id: string){
+    public _getArtefatoById(id: string){
 
     	console.log(id);
     return new Promise(resolve => {
@@ -118,7 +122,7 @@ export class FipDetectionComponent implements OnInit {
   });
   }
 
-    private _getPartfip(){
+    public _getPartfip(){
     return new Promise(resolve => {
     //console.log("iniciou partidalist");
     this.loading = true;

@@ -122,7 +122,7 @@ myBool: boolean;
     	}
     }
 
-    private _createPartfip(){
+    public _createPartfip(){
     //const respostaAtual = new Resposta(      );
 
     this._createListuserArray();
