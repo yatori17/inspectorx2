@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListuserModel } from './../../core/models/listuser.model';
+import { PartfipModel } from './../../core/models/partfip.model';
+import { ArtefatoModel } from './../../core/models/artefato.model';
 import { Subscription } from 'rxjs/Subscription';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
