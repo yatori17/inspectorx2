@@ -15,6 +15,9 @@ export class FullinspecComponent implements OnInit {
   ListuserSub: Subscription;
   ListuserList: ListuserModel[];
   ListuserModelo: ListuserModel;  
+  ListuserSubRem: Subscription;
+  ListuserListRem: ListuserModel[];
+  ListuserModeloRem: ListuserModel;  
    temppartid: string;
 
 
@@ -24,15 +27,22 @@ export class FullinspecComponent implements OnInit {
   	this.modinspbool = true;
   }
 
+  ngOnDestroy(){
+    this._removeUser();
+  }
+
   public moderadorAtivo(){
   	console.log("moderador Ativo");
   	this.modinspbool = true;
+    this._removeUser();
   }
 
   public inspetorAtivo(){
   	console.log("inspetor Ativo");
-  	this.modinspbool = false;
-    this._addUser();
+    if (this.modinspbool == true){
+        this._addUser();
+    }
+    this.modinspbool = false;
   }
 
   calculateClasses(){
@@ -80,7 +90,36 @@ export class FullinspecComponent implements OnInit {
         );
       });
   }
+
+
   
+  private _removeUser(){
+    //const respostaAtual = new Resposta(      );
+      return new Promise(resolve => {
+     const ListuserModeloRem = new ListuserModel(
+      this.auth.userProfile.sub,
+      this.auth.userProfile.name
+      );
+      //this.partidaModelo = new PartidaModel();
+      
+
+    this.ListuserSub = this.api
+      .removeUsuarioOnline$(ListuserModeloRem)
+      .subscribe(
+        res => {
+  
+          console.log("resultado remove user");      
+     
+        
+
+        },
+        err => {
+          console.log(err);
+          }
+        );
+      });
+  }
+
 }
 
 

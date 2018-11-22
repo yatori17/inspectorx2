@@ -111,6 +111,20 @@ export class ApiService {
         );
       }
 
+
+       // REMOVE usuarioonline
+  removeUsuarioOnline$(listuser: ListuserModel): Observable<ListuserModel> {
+    console.log('listuser del: ');
+    console.log(listuser);
+    return this.http
+      .post<ArtefatoModel>(`${ENV.BASE_API}listusers/del/${listuser.userId}`, listuser, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
        // POST partfip
   postPartfip$(partfip: PartfipModel): Observable<PartfipModel> {
     console.log('partfip post: ');
@@ -142,6 +156,9 @@ export class ApiService {
         catchError((error)=> this._handleError(error))
         );
   }
+
+
+
 
         //GET partfip
   getPartfip$(): Observable<PartfipModel[]> {

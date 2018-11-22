@@ -237,6 +237,25 @@ module.exports = function(app, config) {
       });
   });
 
+   //REMOVE usuarioonline
+     app.post('/api/listusers/del/:userId', (req, res) => {
+    Listuser.remove({userId: req.params.userId}, (err, listusers) => {
+      let listusersArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      else
+       {
+        console.log("deletado!");
+        return res.status(200).send();
+      }
+        
+      
+      
+      res.send(listusersArr);
+      });
+  });     
+
    //GET artefato
      app.get('/api/artefatos', (req, res) => {
     Artefato.find({}, (err, artefatos) => {
