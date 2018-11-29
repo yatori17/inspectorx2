@@ -206,6 +206,7 @@ module.exports = function(app, config) {
 
      var partfipObj = new Partfip({
       userId: req.body.userId,
+      title: req.body.title,
       modo: req.body.modo,
       artefato: req.body.artefato,
       inspetor: req.body.inspetor

@@ -29,6 +29,8 @@ import { ReqComponent } from './pages/req/req.component';
 import { FipCreateComponent } from './pages/fip-create/fip-create.component';
 import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 
+import { QuillModule } from 'ngx-quill'
+
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { FipDetectionComponent } from './pages/fip-detection/fip-detection.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    QuillModule
   ],
   providers: [
   	Title,

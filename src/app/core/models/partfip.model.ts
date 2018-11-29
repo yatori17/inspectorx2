@@ -2,6 +2,7 @@
 export class PartfipModel {
   constructor(
     public userId: string,
+    public title: string,
     public modo: number,
     public artefato: Array<string>,
     public inspetor: Array<string>,

@@ -12,9 +12,11 @@ import { Subscription } from 'rxjs/Subscription';
 export class FipAddComponent implements OnInit {
 titleValue: string;
 contentValue: string;
+tempInicio: string;
+tempFinal: string;
 artefatoModelo: ArtefatoModel;
  artefatoListSub: Subscription;
-
+caretPos: number = 0;
 
 
 
@@ -23,6 +25,25 @@ artefatoModelo: ArtefatoModel;
   ngOnInit() {
   	this.titleValue = 'titulo'; 
 	this.contentValue = 'valor';
+  }
+
+  public indent(){
+    console.log("indent");
+    this.tempInicio = this.contentValue.slice(0, this.caretPos);
+    this.tempFinal = this.contentValue.slice(this.caretPos);
+    this.tempInicio = this.tempInicio.concat("");
+    this.contentValue = this.tempInicio.concat(this.tempFinal);
+
+
+    console.log(this.contentValue);
+    
+  }
+
+  getCaretPos(oField) {
+    console.log("caret");
+    if (oField.selectionStart || oField.selectionStart == '0') {
+       this.caretPos = oField.selectionStart;
+    }
   }
 
   public _sendArtefato(){

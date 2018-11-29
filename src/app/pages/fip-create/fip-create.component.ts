@@ -18,6 +18,7 @@ difValue: number;
 myBool: boolean;
   loading: boolean;
   error: boolean;
+  partidanome: string = null;
   ListuserSub: Subscription;
   ListuserList: ListuserModel[];
   ListuserModelo: ListuserModel;
@@ -134,6 +135,7 @@ myBool: boolean;
      
    const partfipModelo = new PartfipModel(
         this.auth.userProfile.sub,
+        this.partidanome,
         this.difValue,
         this.ArtefatoArrCheck,
         this.ListuserArrCheck

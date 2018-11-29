@@ -10,6 +10,7 @@ const Schema = mongoose.Schema;
 
 const partfipSchema = new Schema({
   userId: { type: String },
+  title: { type: String},
   modo: { type: Number },
   artefato: { type: [String]},
   inspetor: { type: [String]},
