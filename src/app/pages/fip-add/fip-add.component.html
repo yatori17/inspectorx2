@@ -2,13 +2,17 @@
     <label for="titulo">Titulo</label>
     <textarea class="form-control" id="titulo" rows="1" [(ngModel)]="titleValue"></textarea>
     <br>
-   	<quill-editor [(ngModel)]="contentValue" ></quill-editor>
+   <!--	<quill-editor [(ngModel)]="contentValue" format="json"></quill-editor>!-->
+
+   <quill-editor [(ngModel)]="contentValue" ></quill-editor>
 
   </div>
   	<a> {{ contentValue }}</a>
-  	<a> {{ caretPos }}</a>
 <div> 
 	<button type="button" class="btn btn-primary" (click)="_sendArtefato()"> Adicionar </button>
 </div>
+<button (click)="splitsplit()">Split</button>
+
+ <div  class="ql-editor" [innerHTML]="HTMLSanitizer(contentValue)" ></div> 
 
 

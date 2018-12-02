@@ -1,8 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ApiService } from './../../core/api.service';
 import { ArtefatoModel } from './../../core/models/artefato.model';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
+
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { QuillEditorComponent } from 'ngx-quill';
+
+import * as QuillNamespace from 'quill';
+let Quill: any = QuillNamespace;
+
+import Counter from './counter';
+
+Quill.register('modules/counter', Counter)
+
+
 
 @Component({
   selector: 'app-fip-add',
@@ -17,10 +32,11 @@ tempFinal: string;
 artefatoModelo: ArtefatoModel;
  artefatoListSub: Subscription;
 caretPos: number = 0;
+defLine: Array<string>;
 
 
 
-  constructor(private api: ApiService, public auth: AuthService) { }
+  constructor(private api: ApiService, public auth: AuthService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer){ }
 
   ngOnInit() {
   	this.titleValue = 'titulo'; 
@@ -38,6 +54,23 @@ caretPos: number = 0;
     console.log(this.contentValue);
     
   }
+
+ quillGetHTML(inputDelta) {
+    var tempCont = document.createElement("div");
+    (new Quill(tempCont)).setContents(inputDelta);
+    return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
+}
+
+splitsplit(){
+    this.defLine = this.contentValue.split("</p><p>");
+    console.log(this.defLine);
+}
+
+
+  private HTMLSanitizer(code: string){
+    return this.sanitizer.bypassSecurityTrustHtml(code);
+  }
+
 
   getCaretPos(oField) {
     console.log("caret");
