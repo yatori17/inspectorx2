@@ -352,6 +352,37 @@ module.exports = function(app, config) {
       });
   });
 
+  //GET artefato
+     app.get('/api/partfip/:userId', (req, res) => {
+    Partfip.find({ userId: req.params.userId}, (err, partfips) => {
+      let partfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (partfips) {
+        partfips.forEach(partfips => {
+          partfipsArr.push(partfips);
+        });
+      }
+      res.send(partfipsArr);
+      });
+  });
+
+             //GET respfip
+     app.get('/api/respfipdiscrim/:partidaId', (req, res) => {
+    Respfip.find({ partidaId: req.params.partidaId }, (err, respfips) => {
+      let respfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (respfips) {
+        respfips.forEach(respfips => {
+          respfipsArr.push(respfips);
+        });
+      }
+      res.send(respfipsArr);
+      });
+  });
 
 
      /* partida.save((err) => {

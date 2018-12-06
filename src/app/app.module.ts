@@ -29,7 +29,8 @@ import { ReqComponent } from './pages/req/req.component';
 import { FipCreateComponent } from './pages/fip-create/fip-create.component';
 import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component'
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { QuillModule } from 'ngx-quill'
     PartidasComponent,
     ReqComponent,
     FipCreateComponent,
-    FipDetectionComponent
+    FipDetectionComponent,
+    FipDiscrimComponent
   ],
   imports: [
     BrowserModule,

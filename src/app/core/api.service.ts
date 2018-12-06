@@ -201,6 +201,22 @@ export class ApiService {
         );
   }
 
+        //GET discrimpartfip
+  getDiscrimPartfip$(userid: string): Observable<PartfipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}partfip/${userid}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
+    getDiscrimRespfipById$(partida: string): Observable<RespfipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}respfipdiscrim/${partida}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
 
   // ????
 

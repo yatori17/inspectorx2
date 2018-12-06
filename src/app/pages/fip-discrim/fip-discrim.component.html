@@ -1,0 +1,53 @@
+<div class="container">
+	<div class="row" >
+		<div class="col">
+			<div>
+				<select [(ngModel)]="selectedValue" (ngModelChange)="_getDiscrimRespfip(selectedValue._id); artefatoarray(selectedValue.artefato)" size="5">
+					<option *ngFor="let partida of PartfipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
+				</select>
+			</div>
+		</div>
+
+		<ng-container *ngIf="RespfipList">
+		<ng-container *ngIf="selectedValue">
+			
+			
+		<div class="col">
+			<div>
+				<select [(ngModel)]="selectedRespfip" size="5" (ngModelChange)="_getArtefatoByUse(selectedRespfip.artefatoId)">
+					<option *ngFor="let respfip of RespfipList; let i = index" [ngValue]="respfip" > {{ respfip.userId }} | {{ respfip._id }}</option>
+				</select>
+			</div>
+		</div>
+		</ng-container>
+
+
+
+		 
+		<ng-container *ngIf="selectedRespfip">
+		<div class="col">
+			<div class="row">
+					<div>	
+						<!-- <a>{{ ArtefatoIdList[0].title }}</a> !-->
+							<ng-container *ngFor = "let line of defLine; let i = index" >
+	              				<div class="form-check col-sm"  style="margin: 0px;">
+	              					<ng-container *ngIf="selectedRespfip.detbool[i]">
+    		            			<input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]" >
+    		            		</ng-container>
+            		    			<label class="form-check-label ql-editor" style="margin: 0px; padding: 0px;" for="{{i}}" [innerHTML]="HTMLSanitizer(line)"></label>
+            		    			<div> {{ selectedRespfip.dettaxonomy[i] }}</div>
+                					</div>
+            				</ng-container>
+					</div>
+				<div class="row form-group">
+					<label for="textarea">Inserir comentários</label>
+    				<textarea class="form-control" id="textarea" rows="3"></textarea>
+    			</div>
+				<button (click)="_createRespfip()">Criar resposta</button>
+			</div>
+
+		</div>
+		</ng-container>
+		</ng-container>
+	</div>
+</div>
