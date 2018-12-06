@@ -11,7 +11,10 @@ const Schema = mongoose.Schema;
 const artefatoSchema = new Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },
-  content: { type: String, required: true },	
+  content: { type: String, required: true },
+  defectbool: { type: [Boolean]},
+  defectdescript: { type: [String]},
+  defecttaxonomy: { type: [String]}
  });
 
 module.exports = mongoose.model('Artefato', artefatoSchema);

@@ -14,6 +14,7 @@ import { RespostaModel } from './models/resposta.model';
 import { ArtefatoModel } from './models/artefato.model';
 import { ListuserModel } from './models/listuser.model';
 import { PartfipModel } from './models/partfip.model';
+import { RespfipModel } from './models/respfip.model';
 
 @Injectable()
 export class ApiService {
@@ -138,6 +139,19 @@ export class ApiService {
         );
       }
 
+    // POST respfip
+  postRespfip$(respfip: RespfipModel): Observable<RespfipModel> {
+    console.log('respfip post: ');
+    console.log(respfip);
+    return this.http
+      .post<RespfipModel>(`${ENV.BASE_API}respfip/new`, respfip, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
         //GET artefato
         getArtefato$(): Observable<ArtefatoModel[]> {
           return this.http
@@ -177,6 +191,16 @@ export class ApiService {
         catchError((error)=> this._handleError(error))
         );
   }
+
+    // GET respfip baseado no ID
+  getRespfipById$(user: string, partida: string): Observable<RespfipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}respfip/${user}/${partida}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
 
   // ????
 

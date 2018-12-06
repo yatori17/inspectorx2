@@ -4,6 +4,9 @@ export class ArtefatoModel {
     public userId: string,
     public title: string,
     public content: string,
+    public defectbool: Array<boolean>,
+    public defectdescript: Array<string>,
+    public defecttaxonomy: Array<string>,
     public isActive?: boolean,
     public _id?: string
 

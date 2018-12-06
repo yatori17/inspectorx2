@@ -13,6 +13,7 @@ const Resposta = require('./models/Resposta');
 const Artefato = require('./models/Artefato');
 const Listuser = require('./models/Listuser');
 const Partfip = require('./models/Partfip');
+const Respfip = require('./models/Respfip');
 //const Resposta = require('./models/Partida');
 
 /*
@@ -169,6 +170,9 @@ module.exports = function(app, config) {
       userId: req.body.userId,
       title: req.body.title,
       content: req.body.content,
+      defectbool: req.body.defectbool,
+      defectdescript: req.body.defectdescript,
+      defecttaxonomy: req.body.defecttaxonomy
       });
      console.log(artefatoObj);
    
@@ -220,7 +224,33 @@ module.exports = function(app, config) {
         return res.status(200).send(partfipObj);
         }
          });
+     });
+
+      //Post Respfip
+   app.post('/api/respfip/new', (req, res) => {
+    console.log("Respfip");
+
+     var respfipObj = new Respfip({
+      userId: req.body.userId,
+      partidaId: req.body.partidaId,
+      artefatoId: req.body.artefatoId,
+      comment: req.body.comment,
+      detbool: req.body.detbool,
+      detdescript: req.body.detdescript,
+      dettaxonomy: req.body.dettaxonomy,
+      });
+     console.log(respfipObj);
+   
+     respfipObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        return res.status(200).send(respfipObj);
+        }
+         });
      }); 
+
+
 
    //GET usuarioonline
      app.get('/api/listusers', (req, res) => {
@@ -303,6 +333,22 @@ module.exports = function(app, config) {
         });
       }
       res.send(artefatosArr);
+      });
+  });
+
+        //GET respfip
+     app.get('/api/respfip/:userId/:partidaId', (req, res) => {
+    Respfip.find({ userId: req.params.userId, partidaId: req.params.partidaId}, (err, respfips) => {
+      let respfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (respfips) {
+        respfips.forEach(respfips => {
+          respfipsArr.push(respfips);
+        });
+      }
+      res.send(respfipsArr);
       });
   });
 

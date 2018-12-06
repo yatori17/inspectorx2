@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PartfipModel } from './../../core/models/partfip.model';
+import { RespfipModel } from './../../core/models/respfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
 import { Subscription } from 'rxjs/Subscription';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -19,16 +21,41 @@ export class FipDetectionComponent implements OnInit {
   ArtefatoSub: Subscription;
   ArtefatoList: ArtefatoModel[];
   ArtefatoModelo: ArtefatoModel;
+  
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
+  
   PartfipSub: Subscription;
   PartfipList: PartfipModel[];
   PartfipModelo: PartfipModel;
+  
+  RespfipSub: Subscription;
+  RespfipList: RespfipModel[];
+  RespfipModelo: RespfipModel;
+  
+  Respfip2Sub: Subscription;
+  Respfip2List: RespfipModel[];
+  Respfip2Modelo: RespfipModel;
+
   ArtefatoArray: Array<string> = [];
   selectedValue: any;
   selectedArtifact: any;
   selectedType: any;
+
+  partida: string;
+  artefato: string;
+  titleValue: string;
+  contentValue: string;
+  tempInicio: string;
+  tempFinal: string;
+  defLine: Array<string>;
+  linearray: Array<boolean> = [];
+  detDescriptArray: Array<string> = [];
+  detTaxonomyArray: Array<string> = [];
+  pstringinicio: string = "<p>";
+  pstringfinal: string = "</p>";
+  disableArray: Array<boolean> = [];
 
   types: Array<any>;
     public jones = [
@@ -51,7 +78,7 @@ export class FipDetectionComponent implements OnInit {
   ];
 
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService){}
+   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer){}
 
   ngOnInit() {
   	this.types = this.jones;
@@ -64,6 +91,60 @@ export class FipDetectionComponent implements OnInit {
     console.log(this.PartfipList);      
     });
 
+
+
+  }
+
+  checkcheck(){
+    this.disableArray = [];
+    this._getRespfip(this.auth.userProfile.sub, this.selectedValue._id).then(Respfip2List => {
+      console.log("Passo 1");
+      for (var _k = 0; _k < this.ArtefatoArray.length; _k++){
+        console.log("Passo 2");
+        
+           for (var _i = 0; _i < this.Respfip2List.length; _i++){
+          if (this.ArtefatoArray[_k] == this.Respfip2List[_i].artefatoId) {
+             this.disableArray[_k] = true;
+             console.log("trueeee");
+             _k++;
+          } else {
+              this.disableArray[_k] = false;
+              console.log("falseeee");
+            }
+      }
+    }
+    })
+  }
+
+
+  public checkArtefatoRespondido(artif: string){
+      for (var _i = 0; _i < this.Respfip2List.length; _i++){
+        if (artif == this.RespfipList[_i].artefatoId){
+          return true;
+        } else
+        return false
+      }             
+  }
+
+  public splitsplit(){
+    this.defLine = this.ArtefatoIdList[0].content.split("</p><p>");
+     for (var _i = 0; _i < this.defLine.length; _i++){
+       if (_i == 0) {
+           this.defLine [_i] = this.defLine[_i].concat("</p>");
+        } else
+        if (_i == this.defLine.length - 1){
+           this.defLine[this.defLine.length - 1] = this.pstringinicio.concat(this.defLine[this.defLine.length - 1]);
+        } else {
+          this.defLine[_i] = this.pstringinicio.concat(this.defLine[_i]);
+          this.defLine [_i] = this.defLine[_i].concat("</p>");
+        }
+     } this.defLine
+    console.log(this.defLine);
+}
+
+
+  private HTMLSanitizer(code: string){
+    return this.sanitizer.bypassSecurityTrustHtml(code);
   }
   
   public _getArtefato(){
@@ -85,19 +166,27 @@ export class FipDetectionComponent implements OnInit {
             this.error = true;
           }
           )
+
       });
+
+     
     }
 
 
 
     public artefatoarray(arr: any){
     	console.log("artefato array");
+
+
     	
     	this.ArtefatoArray = arr;
+  /*   this._getRespfip().then(Respfip2List =>{
+    console.log(this.Respfip2List);      
+    });*/
     	console.log(this.ArtefatoArray);
     }
 
-    public _getArtefatoById(id: string){
+    public _getArtefatoByUse(id: string){
 
     	console.log(id);
     return new Promise(resolve => {
@@ -111,6 +200,8 @@ export class FipDetectionComponent implements OnInit {
         this.loading = false;
    
        console.log(this.ArtefatoIdList);
+       
+        this.splitsplit();
         
       },
       err => {
@@ -119,6 +210,7 @@ export class FipDetectionComponent implements OnInit {
         this.error = true;
       }
       )
+
   });
   }
 
@@ -133,6 +225,62 @@ export class FipDetectionComponent implements OnInit {
         this.PartfipList = res;
             this.loading = false;
             resolve(this.PartfipList)
+            
+          },
+          err => {
+            console.error(err);
+            this.loading = false;
+            this.error = true;
+          }
+          )
+      });
+    }
+
+      private _createRespfip(){
+    //const respostaAtual = new Resposta(      );
+      return new Promise(resolve => {
+     
+   const respfipModelo = new RespfipModel(
+        this.auth.userProfile.sub,
+        this.selectedValue._id,
+        this.selectedArtifact,
+        "teste",
+        this.linearray,
+        this.detDescriptArray,
+        this.detTaxonomyArray
+    );
+
+    this.RespfipSub = this.api
+      .postRespfip$(respfipModelo)
+      .subscribe(
+        res => {
+  
+          console.log("resultado respfip");      
+     
+         // console.log(res._id);
+         // this.temppartid = res._id;
+         //      resolve(this.temppartid);
+         
+
+        },
+        err => {
+          console.log(err);
+          }
+        );
+  });
+}
+
+    public _getRespfip(user: string, partida: string){
+    return new Promise(resolve => {
+    //console.log("iniciou partidalist");
+    this.loading = true;
+
+    this.Respfip2Sub = this.api.getRespfipById$(user, partida).subscribe(
+          res => 
+        {
+        this.Respfip2List = res;
+            this.loading = false;
+            resolve(this.Respfip2List);
             
           },
           err => {

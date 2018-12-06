@@ -33,14 +33,39 @@ artefatoModelo: ArtefatoModel;
  artefatoListSub: Subscription;
 caretPos: number = 0;
 defLine: Array<string>;
+linearray: Array<boolean> = [];
+defDescriptArray: Array<string> = [];
+defTaxonomyArray: Array<string> = [];
+pstringinicio: string = "<p>";
+pstringfinal: string = "</p>";
 
+  types: Array<any>;
 
+  public jones = [
+  { value: 1, display: "Dados", description: "Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz)." },
+  { value: 2, display: "Inicialização", description: "Ocorre quando se tenta acessar uma variável que não foi inicializada." },
+  { value: 3, display: "Comissão", description:  "Ocorre quando existe algum segmento de código que foi implementado incorretamente, i.e., cuja implementação é diferente do que foi especificado" },
+  { value: 4, display: "Controle", description: "Ocorre quando um comando de desvio condicional é usado de forma incorreta." },
+  { value: 5, display: "Excesso", description: "Existem trechos de código irrelevantes e desnecessários." },
+  { value: 6, display: "Computação", description: "Ocorre quando um valor é definido erroneamente para uma variável." },
+  { value: 7, display: "Desempenho", description: "Algumas rotinas executam comandos ou laços (loops) desnecessários." }
+  ];
+
+  public shull = [
+  { value: 1, display: "Omissão", description: "Deve-se à omissão ou negligência de alguma informação necessária ao desenvolvimento do software." },
+  { value: 2, display: "Ambiguidade", description: "Ocorre quando uma determinada informação não é bem definida, permitindo assim uma interpretação subjetiva, que pode levar a múltiplas interpretações." },
+  { value: 3, display: "Fato incorreto", description: "Informações dos artefatos do sistema que são contraditórias com o conhecimento que se tem do domínio da aplicação." },
+  { value: 4, display: "Inconsistência", description: "Ocorre quando duas ou mais informações são contraditórias entre si." },
+  { value: 5, display: "Informação estranha", description: "Informação desnecessária incluída nos requisitos do software que esta sendo desenvolvido." },
+  { value: 6, display: "Não há defeito", description: "Requisito correto"}
+  ];
 
   constructor(private api: ApiService, public auth: AuthService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer){ }
 
   ngOnInit() {
   	this.titleValue = 'titulo'; 
 	this.contentValue = 'valor';
+  this.types = this.jones;
   }
 
   public indent(){
@@ -63,6 +88,17 @@ defLine: Array<string>;
 
 splitsplit(){
     this.defLine = this.contentValue.split("</p><p>");
+     for (var _i = 0; _i < this.defLine.length; _i++){
+       if (_i == 0) {
+           this.defLine [_i] = this.defLine[_i].concat("</p>");
+        } else
+        if (_i == this.defLine.length - 1){
+           this.defLine[this.defLine.length - 1] = this.pstringinicio.concat(this.defLine[this.defLine.length - 1]);
+        } else {
+          this.defLine[_i] = this.pstringinicio.concat(this.defLine[_i]);
+          this.defLine [_i] = this.defLine[_i].concat("</p>");
+        }
+     } this.defLine
     console.log(this.defLine);
 }
 
@@ -91,7 +127,10 @@ splitsplit(){
    const artefatoModelo = new ArtefatoModel(
         this.auth.userProfile.sub,
         this.titleValue,
-        this.contentValue
+        this.contentValue,
+        this.linearray,
+        this.defDescriptArray,
+        this.defTaxonomyArray
     );
 
     this.artefatoListSub = this.api
