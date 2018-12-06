@@ -47,6 +47,11 @@ export class FipDiscrimComponent implements OnInit {
   pstringfinal: string = "</p>";
   disableArray: Array<boolean> = [];
 
+    ArtefatoArray: Array<string> = [];
+  selectedValue: any;
+  selectedRespfip: any;
+  selectedType: any;
+
 
   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
 
