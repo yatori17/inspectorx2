@@ -47,7 +47,6 @@ export class FipDiscrimComponent implements OnInit {
   pstringfinal: string = "</p>";
   disableArray: Array<boolean> = [];
 
-    ArtefatoArray: Array<string> = [];
   selectedValue: any;
   selectedRespfip: any;
   selectedType: any;
