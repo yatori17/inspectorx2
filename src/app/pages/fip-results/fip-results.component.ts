@@ -10,12 +10,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
-  selector: 'app-fip-discrim',
-  templateUrl: './fip-discrim.component.html',
-  styleUrls: ['./fip-discrim.component.scss']
+  selector: 'app-fip-results',
+  templateUrl: './fip-results.component.html',
+  styleUrls: ['./fip-results.component.scss']
 })
-export class FipDiscrimComponent implements OnInit {
-  	myBool: boolean;
+export class FipResultsComponent implements OnInit {
+ 	myBool: boolean;
   loading: boolean;
   error: boolean;
 
@@ -55,44 +55,19 @@ export class FipDiscrimComponent implements OnInit {
   selectedValue: any;
   selectedRespfip: any;
   selectedType: any;
+  //new
+  partidaid: string;
 
-
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
+ constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-  	this._getDiscrimPartfip().then(PartfipList =>{
-    console.log(this.PartfipList);      
-    });
+   this.route.params.forEach(params => {
+     this.partidaid = params["id"];
+  	})
   }
 
-  public results(){
 
-    // criar resultado final
-    // Pego o primeiro respfip da lista e pego o artefato correspondente com artefatoid
-    // comparar ambos. defectbool e defecttaxonomy pra cada linha.
-
-    
-
-
-    this.router.navigate(['/', 'fipresults', this.selectedValue._id]);
-  }
-
-  public artefatoarray(arr: any){
-    	console.log("artefato array");
-    	this.ArtefatoArray = arr;
-  /*   this._getRespfip().then(Respfip2List =>{
-    console.log(this.Respfip2List);      
-    });*/
-    	console.log(this.ArtefatoArray);
-    }
-
-      private HTMLSanitizer(code: string){
-    return this.sanitizer.bypassSecurityTrustHtml(code);
-  }
-  
-
-  public _getArtefatoByUse(id: string){
-
+public _getArtefatoByUse(id: string){
     console.log(id);
     return new Promise(resolve => {
     console.log("iniciou artefatobyid");
@@ -214,5 +189,6 @@ export class FipDiscrimComponent implements OnInit {
         );
   });
 }
+
 
 }

@@ -30,7 +30,9 @@ import { FipCreateComponent } from './pages/fip-create/fip-create.component';
 import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 
 import { QuillModule } from 'ngx-quill';
-import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component'
+import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component';
+import { RankingfipComponent } from './pages/rankingfip/rankingfip.component';
+import { FipResultsComponent } from './pages/fip-results/fip-results.component'
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component'
     ReqComponent,
     FipCreateComponent,
     FipDetectionComponent,
-    FipDiscrimComponent
+    FipDiscrimComponent,
+    RankingfipComponent,
+    FipResultsComponent
   ],
   imports: [
     BrowserModule,

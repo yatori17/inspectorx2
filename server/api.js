@@ -14,6 +14,7 @@ const Artefato = require('./models/Artefato');
 const Listuser = require('./models/Listuser');
 const Partfip = require('./models/Partfip');
 const Respfip = require('./models/Respfip');
+const Conferefip = require('./models/Conferefip');
 //const Resposta = require('./models/Partida');
 
 /*
@@ -250,6 +251,33 @@ module.exports = function(app, config) {
          });
      }); 
 
+         //Post Conferefip
+   app.post('/api/conferefip/new', (req, res) => {
+    console.log("Conferefip");
+
+     var conferefipObj = new Conferefip({
+      userId: req.body.userId,
+      partidaId: req.body.partidaId,
+      artefatoId: req.body.artefatoId,
+      respfipId: req.body.respfipId,
+      comment: req.body.comment,
+      detbool: req.body.detbool,
+      detdescript: req.body.detdescript,
+      dettaxonomy: req.body.dettaxonomy,
+      });
+     console.log(conferefipObj);
+   
+     conferefipObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        return res.status(200).send(conferefipObj);
+        }
+         });
+     }); 
+
+
+
 
 
    //GET usuarioonline
@@ -384,6 +412,22 @@ module.exports = function(app, config) {
       });
   });
 
+
+        //GET conferefip
+     app.get('/api/conferefip/:userId/:partidaId', (req, res) => {
+    Conferefip.find({ userId: req.params.userId, partidaId: req.params.partidaId}, (err, conferefips) => {
+      let conferefipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (conferefips) {
+        conferefips.forEach(conferefips => {
+          conferefipsArr.push(conferefips);
+        });
+      }
+      res.send(conferefipsArr);
+      });
+  });
 
      /* partida.save((err) => {
         if (err) { 

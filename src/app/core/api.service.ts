@@ -15,6 +15,7 @@ import { ArtefatoModel } from './models/artefato.model';
 import { ListuserModel } from './models/listuser.model';
 import { PartfipModel } from './models/partfip.model';
 import { RespfipModel } from './models/respfip.model';
+import { ConferefipModel } from './models/conferefip.model';
 
 @Injectable()
 export class ApiService {
@@ -152,6 +153,21 @@ export class ApiService {
         );
       }
 
+
+    // POST respfip
+  postConferefip$(conferefip: ConferefipModel): Observable<ConferefipModel> {
+    console.log('conferefip post: ');
+    console.log(conferefip);
+    return this.http
+      .post<RespfipModel>(`${ENV.BASE_API}conferefip/new`, conferefip, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
+
         //GET artefato
         getArtefato$(): Observable<ArtefatoModel[]> {
           return this.http
@@ -213,6 +229,15 @@ export class ApiService {
     getDiscrimRespfipById$(partida: string): Observable<RespfipModel[]> {
     return this.http
       .get(`${ENV.BASE_API}respfipdiscrim/${partida}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
+      // GET respfip baseado no ID
+  getConferefipById$(user: string, partida: string): Observable<ConferefipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}conferefip/${user}/${partida}`)
       .pipe(
         catchError((error)=> this._handleError(error))
         );

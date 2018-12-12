@@ -11,7 +11,10 @@ import { FipAddComponent } from './pages/fip-add/fip-add.component';
 import { FipCreateComponent } from './pages/fip-create/fip-create.component';
 import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component';
+import { FipResultsComponent } from './pages/fip-results/fip-results.component';
+
 import { PartidasComponent } from './pages/partidas/partidas.component';
+
 
 
 
@@ -57,7 +60,11 @@ const routes: Routes = [{
 },
 {
 	path: "fipdiscrim",
-	component: FipDiscrimComponent,
+	component: FipDiscrimComponent
+},
+{
+	path: "fipresults/:id",
+	component: FipResultsComponent
 },
 {
 	path: "partidas",
