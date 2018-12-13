@@ -115,6 +115,13 @@ export class FipDiscrimComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(code);
   }
   
+  public _modelchangeartefato(id: string){
+    console.log("zerar?");
+    this.linearray = [];
+    this.detDescriptArray = [];
+    this.detTaxonomyArray = [];
+    this._getArtefatoByUse(id);
+  }
 
   public _getArtefatoByUse(id: string){
 
@@ -217,7 +224,8 @@ export class FipDiscrimComponent implements OnInit {
         this.linearray,
         this.detDescriptArray,
         this.detTaxonomyArray,
-        false
+        false,
+        "placeholder"
     );
 
     this.RespfipSub = this.api

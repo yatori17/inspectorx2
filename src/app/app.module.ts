@@ -32,7 +32,8 @@ import { FipDetectionComponent } from './pages/fip-detection/fip-detection.compo
 import { QuillModule } from 'ngx-quill';
 import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component';
 import { RankingfipComponent } from './pages/rankingfip/rankingfip.component';
-import { FipResultsComponent } from './pages/fip-results/fip-results.component'
+import { FipResultsComponent } from './pages/fip-results/fip-results.component';
+import { ArtefatonamerPipe } from './artefatonamer.pipe'
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { FipResultsComponent } from './pages/fip-results/fip-results.component'
     FipDetectionComponent,
     FipDiscrimComponent,
     RankingfipComponent,
-    FipResultsComponent
+    FipResultsComponent,
+    ArtefatonamerPipe
   ],
   imports: [
     BrowserModule,

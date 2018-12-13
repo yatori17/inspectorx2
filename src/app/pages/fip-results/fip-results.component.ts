@@ -64,7 +64,7 @@ export class FipResultsComponent implements OnInit {
   partidaid: string;
   inspetor: string;
   InspectorArray: Array<string> = [];
-  RespfipArr: Array<RespfipModel[]> = [];
+  RespfipArr: Array<any> = [];
 
 
  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
@@ -78,10 +78,19 @@ export class FipResultsComponent implements OnInit {
        
        for (var _i = 0; _i < this.InspectorArray.length; _i++){
 
-       this._getRespfipById(this.InspectorArray[_i], this.partidaid).then(Respfip2List => {
+       this._getRespfipById(this.PartfipList[0].inspetor[_i], this.partidaid).then(Respfip2List => {
+         console.log(Respfip2List);
          this.RespfipArr.push(Respfip2List);
-         
+
+
+/*          for(var _k = 0; _k < this.RespfipArr[_i].length; _k++){
+        if (this.RespfipArr[_i][_k] == 
+                }*/
        })
+
+
+
+
         }
 
 

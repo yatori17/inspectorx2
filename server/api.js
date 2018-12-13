@@ -239,7 +239,8 @@ module.exports = function(app, config) {
       detbool: req.body.detbool,
       detdescript: req.body.detdescript,
       dettaxonomy: req.body.dettaxonomy,
-      inspector: req.body.inspector
+      inspector: req.body.inspector,
+      artefatotitle: req.body.artefatotitle
       });
      console.log(respfipObj);
    

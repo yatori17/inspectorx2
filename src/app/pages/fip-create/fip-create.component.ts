@@ -123,6 +123,11 @@ myBool: boolean;
     	}
     }
 
+    public buttonclick(){
+      this._createPartfip(); 
+      this.router.navigate(['/', 'fullinspec']);
+    }
+
     public _createPartfip(){
     //const respostaAtual = new Resposta(      );
 

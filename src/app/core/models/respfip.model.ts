@@ -9,6 +9,7 @@ export class RespfipModel {
     public detdescript: Array<string>,
     public dettaxonomy: Array<string>,
     public inspector: boolean,
+    public artefatotitle: string,
     public isActive?: boolean,
     public _id?: string
 

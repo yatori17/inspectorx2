@@ -169,22 +169,20 @@ export class FipDetectionComponent implements OnInit {
 
       });
 
-     
-    }
-
-
+  }
 
     public artefatoarray(arr: any){
     	console.log("artefato array");
-
-
-    	
     	this.ArtefatoArray = arr;
-  /*   this._getRespfip().then(Respfip2List =>{
-    console.log(this.Respfip2List);      
-    });*/
-    	console.log(this.ArtefatoArray);
     }
+
+      public _modelchangeartefato(id: string){
+    console.log("zerar?");
+    this.linearray = [];
+    this.detDescriptArray = [];
+    this.detTaxonomyArray = [];
+    this._getArtefatoByUse(id);
+  }
 
     public _getArtefatoByUse(id: string){
 
@@ -236,6 +234,16 @@ export class FipDetectionComponent implements OnInit {
       });
     }
 
+    public executarResp(){
+    
+
+
+
+      this._createRespfip();
+
+      location.reload();
+    }
+
       private _createRespfip(){
     //const respostaAtual = new Resposta(      );
       return new Promise(resolve => {
@@ -248,7 +256,8 @@ export class FipDetectionComponent implements OnInit {
         this.linearray,
         this.detDescriptArray,
         this.detTaxonomyArray,
-        true
+        true,
+        this.ArtefatoIdList[0].title
     );
 
     this.RespfipSub = this.api

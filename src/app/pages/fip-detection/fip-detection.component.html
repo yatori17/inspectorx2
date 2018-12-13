@@ -10,7 +10,7 @@
 		<ng-container *ngIf="selectedValue">
 		<div class="col">
 			<div>
-				<select [(ngModel)]="selectedArtifact" (ngModelChange)="_getArtefatoByUse(selectedArtifact)" size="5">
+				<select [(ngModel)]="selectedArtifact" (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
 					<option *ngFor="let artefato of ArtefatoArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]" > {{ artefato }}</option>
 				</select>
 			</div>
@@ -37,7 +37,7 @@
 					<label for="textarea">Inserir comentários</label>
     				<textarea class="form-control" id="textarea" rows="3"></textarea>
     			</div>
-				<button (click)="_createRespfip()">Criar resposta</button>
+				<button (click)="executarResp()">Criar resposta</button>
 			</div>
 
 		</div>
