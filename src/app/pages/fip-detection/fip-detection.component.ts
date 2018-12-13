@@ -247,7 +247,8 @@ export class FipDetectionComponent implements OnInit {
         "teste",
         this.linearray,
         this.detDescriptArray,
-        this.detTaxonomyArray
+        this.detTaxonomyArray,
+        true
     );
 
     this.RespfipSub = this.api

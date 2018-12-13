@@ -27,6 +27,10 @@ export class FipResultsComponent implements OnInit {
   RespfipList: RespfipModel[];
   RespfipModelo: RespfipModel;
 
+  Respfip2Sub: Subscription;
+  Respfip2List: RespfipModel[];
+  Respfip2Modelo: RespfipModel;
+
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
@@ -52,19 +56,119 @@ export class FipResultsComponent implements OnInit {
   pstringfinal: string = "</p>";
   disableArray: Array<boolean> = [];
 
+
   selectedValue: any;
   selectedRespfip: any;
   selectedType: any;
   //new
   partidaid: string;
+  inspetor: string;
+  InspectorArray: Array<string> = [];
+  RespfipArr: Array<RespfipModel[]> = [];
+
 
  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
    this.route.params.forEach(params => {
      this.partidaid = params["id"];
+
+     this._getPartfipById(this.partidaid).then(PartfipList =>{
+       this.InspectorArray = PartfipList[0].inspetor;
+       
+       for (var _i = 0; _i < this.InspectorArray.length; _i++){
+
+       this._getRespfipById(this.InspectorArray[_i], this.partidaid).then(Respfip2List => {
+         this.RespfipArr.push(Respfip2List);
+         
+       })
+        }
+
+
+       console.log("NAO SEI");
+     });
+     //   this._getRespfipById("google-oauth2|117874532201046827537", "5c11c234f6addf0ef8e149e8"); 
+
   	})
   }
+
+    public artefatonamer(artefato: string){
+        this._getArtefatoByUse(artefato).then(ArtefatoIdList => {
+
+     })
+        return "alo alo";
+    }
+
+
+    private _getPartfipById(partida: string){
+    return new Promise(resolve => {
+    console.log("iniciou partfipbyid");
+    this.loading = true;
+
+    this.PartfipSub = this.api.getPartfipById$(partida).subscribe(
+          res => 
+        {
+        this.PartfipList = res;
+            this.loading = false;
+            console.log("vai pro resolve partfipbyid");
+            resolve(this.PartfipList)
+            
+          },
+          err => {
+            console.error(err);
+            this.loading = false;
+            this.error = true;
+          }
+          )
+      });
+    }
+
+    public _getDiscrimRespfip(partida: string){
+    return new Promise(resolve => {
+    //console.log("iniciou partidalist");
+    this.loading = true;
+
+    this.RespfipSub = this.api.getDiscrimRespfipById$(partida).subscribe(
+          res => 
+        {
+        this.RespfipList = res;
+            this.loading = false;
+            resolve(this.RespfipList);
+            
+          },
+          err => {
+            console.error(err);
+            this.loading = false;
+            this.error = true;
+          }
+          )
+    });
+  }
+
+  public _getRespfipById(user: string, partida: string){
+    return new Promise(resolve => {
+    console.log("iniciou respfip by id");
+    this.loading = true;
+
+    this.Respfip2Sub = this.api.getRespfipById$(user, partida).subscribe(
+          res => 
+        {
+        this.Respfip2List = res;
+            this.loading = false;
+            console.log("vai pro resolve respfipbyid");
+            resolve(this.Respfip2List);
+            
+          },
+          err => {
+            console.error(err);
+            this.loading = false;
+            this.error = true;
+          }
+          )
+      });
+    }
+
+
 
 
 public _getArtefatoByUse(id: string){
@@ -81,7 +185,7 @@ public _getArtefatoByUse(id: string){
    
        console.log(this.ArtefatoIdList);
        
-        this.splitsplit();
+       // this.splitsplit();
         
       },
       err => {
@@ -111,27 +215,7 @@ public _getArtefatoByUse(id: string){
 }
 
 
-  public _getDiscrimRespfip(partida: string){
-    return new Promise(resolve => {
-    //console.log("iniciou partidalist");
-    this.loading = true;
 
-    this.RespfipSub = this.api.getDiscrimRespfipById$(partida).subscribe(
-          res => 
-        {
-        this.RespfipList = res;
-            this.loading = false;
-            resolve(this.RespfipList);
-            
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          )
-    });
-  }
 
  	public _getDiscrimPartfip(){
     return new Promise(resolve => {

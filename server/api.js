@@ -239,6 +239,7 @@ module.exports = function(app, config) {
       detbool: req.body.detbool,
       detdescript: req.body.detdescript,
       dettaxonomy: req.body.dettaxonomy,
+      inspector: req.body.inspector
       });
      console.log(respfipObj);
    
@@ -347,6 +348,22 @@ module.exports = function(app, config) {
       });
   });
 
+        //GET artefato by id
+     app.get('/api/partfips/:id', (req, res) => {
+    Partfip.find({ _id: req.params.id }, (err, partfips) => {
+      let partfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (partfips) {
+        partfips.forEach(partfips => {
+          partfipsArr.push(partfips);
+        });
+      }
+      res.send(partfipsArr);
+      });
+  });
+
 
    //GET artefato
      app.get('/api/artefatos/:id', (req, res) => {
@@ -367,6 +384,22 @@ module.exports = function(app, config) {
         //GET respfip
      app.get('/api/respfip/:userId/:partidaId', (req, res) => {
     Respfip.find({ userId: req.params.userId, partidaId: req.params.partidaId}, (err, respfips) => {
+      let respfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (respfips) {
+        respfips.forEach(respfips => {
+          respfipsArr.push(respfips);
+        });
+      }
+      res.send(respfipsArr);
+      });
+  });
+
+        //GET respfip
+     app.get('/api/respfips/:partidaId/:artefatoId', (req, res) => {
+    Respfip.find({ partidaId: req.params.partidaId, artefatoId: req.params.artefatoId }, (err, respfips) => {
       let respfipsArr = [];
       if (err) {
         return res.status(500).send({message: err.message});

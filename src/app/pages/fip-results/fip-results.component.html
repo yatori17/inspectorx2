@@ -1,3 +1,10 @@
-<p>
-  fip-results works!
-</p>
+
+<ng-container *ngFor="let inspetor of InspectorArray; let i = index">
+	<div> {{ inspetor }} </div>
+	<ng-container *ngFor="let respfip of RespfipArr[i]; let k = index">
+		<div> {{ respfip._id }} |  }}  </div>
+		
+	</ng-container>
+</ng-container>
+
+{{ artefatonamer(1) }}

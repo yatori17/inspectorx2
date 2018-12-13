@@ -199,6 +199,15 @@ export class ApiService {
         );
   }
 
+  //GET partfip
+  getPartfipById$(id: string): Observable<PartfipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}partfips/${id}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
   // GET artefato baseado no ID
   getArtefatoById$(id: string): Observable<ArtefatoModel[]> {
     return this.http
@@ -212,6 +221,15 @@ export class ApiService {
   getRespfipById$(user: string, partida: string): Observable<RespfipModel[]> {
     return this.http
       .get(`${ENV.BASE_API}respfip/${user}/${partida}`)
+      .pipe(
+        catchError((error)=> this._handleError(error))
+        );
+  }
+
+      // GET respfip baseado no ID
+  getRespfipByArtifact$(partida: string, artefato: string): Observable<RespfipModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}respfips/${partida}/${artefato}`)
       .pipe(
         catchError((error)=> this._handleError(error))
         );

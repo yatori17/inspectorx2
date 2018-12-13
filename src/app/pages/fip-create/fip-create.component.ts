@@ -107,8 +107,8 @@ myBool: boolean;
     private _createListuserArray(){
     	for (let listuser of this.ListuserList){
     		if (listuser.isActive == true){
-    			console.log(listuser._id);
-    			this.ListuserArrCheck.push(listuser._id);
+    			console.log(listuser.userId);
+    			this.ListuserArrCheck.push(listuser.userId);
     		}
     	}
     }
