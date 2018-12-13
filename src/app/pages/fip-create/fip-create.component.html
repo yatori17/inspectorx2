@@ -1,4 +1,18 @@
 <div class="container">
+		<ng-container *ngIf=InspecListFail>
+			<div class="alert alert-warning" role="alert">
+  				Você precisa adicionar pelo menos um inspetor para criar a partida.
+			</div>
+		</ng-container>
+		<ng-container *ngIf=ArtifListFail>
+			<div class="alert alert-warning" role="alert">
+  				Você precisa adicionar pelo menos um artefato para criar a partida.
+			</div>
+		</ng-container>
+
+
+
+
 		<div class="row" >
 			<div class="col">
 				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">

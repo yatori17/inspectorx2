@@ -31,21 +31,24 @@ myBool: boolean;
   PartfipList: PartfipModel[];
   PartfipModelo: PartfipModel;
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService){ }
+  InspecListFail: boolean;
+  ArtifListFail: boolean;
+
+   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService) { }
 
   ngOnInit() {
-    this._getListuser().then(ListuserList =>{
-    console.log(this.ListuserList);      
-    })
-    this._getArtefato().then(ArtefatoList =>{
-    console.log(this.ArtefatoList);      
-    })
-  
+    this._getListuser().then(ListuserList => {
+    console.log(this.ListuserList);
+    });
+    this._getArtefato().then(ArtefatoList => {
+    console.log(this.ArtefatoList);
+    });
+
   }
 
-  	clickAtivo(value: number){
+  	clickAtivo(value: number) {
   		this.difValue = value;
-  		console.log("clickAtivo: "+ this.difValue);
+  		console.log('clickAtivo: ' + this.difValue);
   	}
 
   /*calculateClasses(option: number){
@@ -55,89 +58,117 @@ myBool: boolean;
     	}
     	else { this.myBool = false; }
 
-  	return 
+  	return
   			style;
   	}*/
 
-    private _getListuser(){
+    private _getListuser() {
         return new Promise(resolve => {
         //console.log("iniciou partidalist");
         this.loading = true;
 
         this.ListuserSub = this.api.getUsuarioOnline$().subscribe(
-          res => 
-        {
+          res => {
         this.ListuserList = res;
             this.loading = false;
-            resolve(this.ListuserList)
-            
+            resolve(this.ListuserList);
+
           },
           err => {
             console.error(err);
             this.loading = false;
             this.error = true;
           }
-          )
+          );
       });
     }
 
 
-    private _getArtefato(){
+    private _getArtefato() {
         return new Promise(resolve => {
         //console.log("iniciou partidalist");
         this.loading = true;
 
         this.ArtefatoSub = this.api.getArtefato$().subscribe(
-          res => 
-        {
+          res => {
         this.ArtefatoList = res;
             this.loading = false;
-            resolve(this.ArtefatoList)
-            
+            resolve(this.ArtefatoList);
+
           },
           err => {
             console.error(err);
             this.loading = false;
             this.error = true;
           }
-          )
+          );
       });
     }
 
-    private _createListuserArray(){
-    	for (let listuser of this.ListuserList){
-    		if (listuser.isActive == true){
-    			console.log(listuser.userId);
-    			this.ListuserArrCheck.push(listuser.userId);
-    		}
-    	}
+    private _createListuserArray() {
+      
+       	for (const listuser of this.ListuserList) {
+      		if (listuser.isActive == true) {
+    	  		console.log(listuser.userId);
+    		  	this.ListuserArrCheck.push(listuser.userId);
+
+    		  }
+    	  }
+        console.log("ListArrCheck resultado");
+        console.log(this.ListuserArrCheck);
+        if (typeof this.ListuserArrCheck !== 'undefined' && this.ListuserArrCheck.length > 0) {
+          console.log("ListuserArray TA CHEIO");
+          return true;
+        } else {
+          console.log ("ListuserArray TA VAZIO!!");
+
+          return false;
+          }
     }
 
 
-    private _createArtefatoArray(){
-    	for (let artefato of this.ArtefatoList){
-    		if (artefato.isActive == true){
+    private _createArtefatoArray() {
+    	for (const artefato of this.ArtefatoList) {
+    		if (artefato.isActive == true) {
     			console.log(artefato._id);
     			this.ArtefatoArrCheck.push(artefato._id);
     		}
     	}
+       if (typeof this.ArtefatoArrCheck !== 'undefined' && this.ArtefatoArrCheck.length > 0) {
+          console.log("ArtefatoArray TA CHEIO");
+          return true;
+        } else {
+          console.log ("Artefato Array TA VAZIO!!");
+
+          return false;
+          }
     }
 
-    public buttonclick(){
-      this._createPartfip(); 
-      this.router.navigate(['/', 'fullinspec']);
+    public buttonclick() {
+     if (this._createListuserArray()) {
+       this.InspecListFail = false;
+      } else {
+        this.InspecListFail = true;
+      }  
+
+      if (this._createArtefatoArray()) {
+        this.ArtifListFail = false;
+      } else {
+        this.ArtifListFail = true;
+      }
+
+      if (this.ArtifListFail == false && this.InspecListFail == false){
+        this._createPartfip();
+        this.router.navigate(['/', 'fullinspec']);
+      }
     }
 
-    public _createPartfip(){
+    public _createPartfip() {
     //const respostaAtual = new Resposta(      );
 
-    this._createListuserArray();
-    this._createArtefatoArray();
 
-
-    console.log(this.ArtefatoArrCheck);
       return new Promise(resolve => {
-     
+
    const partfipModelo = new PartfipModel(
         this.auth.userProfile.sub,
         this.partidanome,
@@ -155,13 +186,13 @@ myBool: boolean;
       .postPartfip$(partfipModelo)
       .subscribe(
         res => {
-  
-          console.log("resultado partfip");      
-     
+
+          console.log('resultado partfip');
+
          // console.log(res._id);
          // this.temppartid = res._id;
          //      resolve(this.temppartid);
-         
+
 
         },
         err => {

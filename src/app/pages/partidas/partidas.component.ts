@@ -22,34 +22,33 @@ export class PartidasComponent implements OnInit {
 
 
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService){ }
+   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService) { }
 
   ngOnInit() {
-  	this._getPartidaList().then(partidaList =>{
-  	console.log(this.partidaList);  		
-  	})
+  	this._getPartidaList().then(partidaList => {
+  	console.log(this.partidaList);
+  	});
 
   }
 
-  private _getPartidaList(){
+  private _getPartidaList() {
   	return new Promise(resolve => {
     //console.log("iniciou partidalist");
     this.loading = true;
 
     this.partidaListSub = this.api.getPartidas$().subscribe(
-      res => 
-		{
+      res => {
 		this.partidaList = res;
         this.loading = false;
-        resolve(this.partidaList)
-        
+        resolve(this.partidaList);
+
       },
       err => {
         console.error(err);
         this.loading = false;
         this.error = true;
       }
-      )
+      );
 });
   }
 

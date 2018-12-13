@@ -30,7 +30,7 @@ export class AuthService {
     // If not authenticated but there are still items
     // in localStorage, log out.
 
-    if(this.tokenValid){
+    if (this.tokenValid) {
       this.userProfile = JSON.parse(localStorage.getItem('profile'));
       this.isAdmin = localStorage.getItem('isAdmin') === 'true';
       this.setLoggedIn(true);

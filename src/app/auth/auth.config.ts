@@ -8,7 +8,7 @@ interface AuthConfig {
   REDIRECT: string;
   SCOPE: string;
   NAMESPACE: string;
-};
+}
 
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: 'C5PEYOrOle47SswMt9hFE9hcbNE5nkMa',

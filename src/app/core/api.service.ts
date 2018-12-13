@@ -34,7 +34,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}questions`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -43,7 +43,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}partidas`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -79,7 +79,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}listarespostas/${idPartida}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -173,7 +173,7 @@ export class ApiService {
           return this.http
             .get(`${ENV.BASE_API}artefatos`)
             .pipe(
-              catchError((error)=> this._handleError(error))
+              catchError((error) => this._handleError(error))
               );
         }
 
@@ -183,7 +183,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}listusers`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -195,7 +195,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}partfip`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -204,7 +204,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}partfips/${id}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -213,7 +213,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}artefatos/${id}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -222,7 +222,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}respfip/${user}/${partida}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -231,7 +231,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}respfips/${partida}/${artefato}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -240,7 +240,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}partfip/${userid}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -248,7 +248,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}respfipdiscrim/${partida}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 
@@ -257,7 +257,7 @@ export class ApiService {
     return this.http
       .get(`${ENV.BASE_API}conferefip/${user}/${partida}`)
       .pipe(
-        catchError((error)=> this._handleError(error))
+        catchError((error) => this._handleError(error))
         );
   }
 

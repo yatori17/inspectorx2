@@ -26,10 +26,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
-    console.log("Teste");
+    console.log('Teste');
   }
 
- 
+
   ngOnDestroy() {
   }
 

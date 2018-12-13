@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(private auth: AuthService) {
     // Check for authentication and handle if hash present
-    
+
     auth.handleAuth();
   }
 

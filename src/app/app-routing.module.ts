@@ -23,51 +23,51 @@ const routes: Routes = [{
 	component: HomeComponent
 },
 {
-	path:'callback',
+	path: 'callback',
 	component: CallbackComponent
 },
 {
-	path:'game/:modoinsp/:id/:id2/:id3',
+	path: 'game/:modoinsp/:id/:id2/:id3',
 	component: GameComponent
 },
 {
-	path:'crawler-dif',
+	path: 'crawler-dif',
 	component: CrawlerDifComponent
 },
 {
-	path:'fullinspec',
+	path: 'fullinspec',
 	component: FullinspecComponent
 },
 {
-	path: "crawlend/:id",
+	path: 'crawlend/:id',
 	component: CrawlendComponent
 },
 {
-	path: "fipplan",
+	path: 'fipplan',
 	component: FipPlanComponent
 },
 {
-	path: "fipplan/add",
+	path: 'fipplan/add',
 	component: FipAddComponent
 },
 {
-	path: "fipcreate",
+	path: 'fipcreate',
 	component: FipCreateComponent
 },
 {
-	path: "fipdetect",
+	path: 'fipdetect',
 	component: FipDetectionComponent
 },
 {
-	path: "fipdiscrim",
+	path: 'fipdiscrim',
 	component: FipDiscrimComponent
 },
 {
-	path: "fipresults/:id",
+	path: 'fipresults/:id',
 	component: FipResultsComponent
 },
 {
-	path: "partidas",
+	path: 'partidas',
 	component: PartidasComponent
 }
 ];

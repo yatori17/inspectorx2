@@ -28,25 +28,25 @@ export class FipPlanComponent implements OnInit {
   PartfipList: PartfipModel[];
   PartfipModelo: PartfipModel;
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService){ }
+   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService) { }
 
   ngOnInit() {
-    this._getListuser().then(ListuserList =>{
-    console.log(this.ListuserList);      
-    })
-
-    this._getArtefato().then(ArtefatoList =>{
-    console.log(this.ArtefatoList);      
+    this._getListuser().then(ListuserList => {
+    console.log(this.ListuserList);
     });
 
-    this._getPartfip().then(PartfipList =>{
-    console.log(this.PartfipList);      
+    this._getArtefato().then(ArtefatoList => {
+    console.log(this.ArtefatoList);
+    });
+
+    this._getPartfip().then(PartfipList => {
+    console.log(this.PartfipList);
     });
   }
 
-  	clickAtivo(value: number){
+  	clickAtivo(value: number) {
   		this.difValue = value;
-  		console.log("clickAtivo: "+ this.difValue);
+  		console.log('clickAtivo: ' + this.difValue);
   	}
 
   /*calculateClasses(option: number){
@@ -56,73 +56,70 @@ export class FipPlanComponent implements OnInit {
     	}
     	else { this.myBool = false; }
 
-  	return 
+  	return
   			style;
-  	}*/ 
+  	}*/
 
-    private _getArtefato(){
+    private _getArtefato() {
     return new Promise(resolve => {
     //console.log("iniciou partidalist");
     this.loading = true;
 
     this.ArtefatoSub = this.api.getArtefato$().subscribe(
-          res => 
-        {
+          res => {
         this.ArtefatoList = res;
             this.loading = false;
-            resolve(this.ArtefatoList)
-            
+            resolve(this.ArtefatoList);
+
           },
           err => {
             console.error(err);
             this.loading = false;
             this.error = true;
           }
-          )
+          );
       });
     }
 
-    private _getPartfip(){
+    private _getPartfip() {
     return new Promise(resolve => {
     //console.log("iniciou partidalist");
     this.loading = true;
 
     this.PartfipSub = this.api.getPartfip$().subscribe(
-          res => 
-        {
+          res => {
         this.PartfipList = res;
             this.loading = false;
-            resolve(this.PartfipList)
-            
+            resolve(this.PartfipList);
+
           },
           err => {
             console.error(err);
             this.loading = false;
             this.error = true;
           }
-          )
+          );
       });
     }
 
-    private _getListuser(){
+    private _getListuser() {
         return new Promise(resolve => {
         //console.log("iniciou partidalist");
         this.loading = true;
 
         this.ListuserSub = this.api.getUsuarioOnline$().subscribe(
-          res => 
-        {
+          res => {
         this.ListuserList = res;
             this.loading = false;
-            resolve(this.ListuserList)
-            
+            resolve(this.ListuserList);
+
           },
           err => {
             console.error(err);
             this.loading = false;
             this.error = true;
           }
-          )
+          );
       });
     }
 

@@ -1,4 +1,4 @@
-import * as Quill from 'quill'
+import * as Quill from 'quill';
 
 export interface Config {
 
@@ -10,13 +10,13 @@ export interface QuillInstance {
 
 
 export default class Defect {
-    quill: QuillInstance
-    options: Config
+    quill: QuillInstance;
+    options: Config;
 
-  constructor(quill, options){
-      this.quill = quill
-      this.options = options
+  constructor(quill, options) {
+      this.quill = quill;
+      this.options = options;
 
-      
+
   }
 }

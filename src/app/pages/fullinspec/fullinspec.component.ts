@@ -14,10 +14,10 @@ export class FullinspecComponent implements OnInit {
   modinspbool: boolean;
   ListuserSub: Subscription;
   ListuserList: ListuserModel[];
-  ListuserModelo: ListuserModel;  
+  ListuserModelo: ListuserModel;
   ListuserSubRem: Subscription;
   ListuserListRem: ListuserModel[];
-  ListuserModeloRem: ListuserModel;  
+  ListuserModeloRem: ListuserModel;
    temppartid: string;
 
 
@@ -27,25 +27,25 @@ export class FullinspecComponent implements OnInit {
   	this.modinspbool = true;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._removeUser();
   }
 
-  public moderadorAtivo(){
-  	console.log("moderador Ativo");
+  public moderadorAtivo() {
+  	console.log('moderador Ativo');
   	this.modinspbool = true;
     this._removeUser();
   }
 
-  public inspetorAtivo(){
-  	console.log("inspetor Ativo");
-    if (this.modinspbool == true){
+  public inspetorAtivo() {
+  	console.log('inspetor Ativo');
+    if (this.modinspbool == true) {
         this._addUser();
     }
     this.modinspbool = false;
   }
 
-  calculateClasses(){
+  calculateClasses() {
   	return {
   		btn: true,
   		'btn-secondary': true,
@@ -53,7 +53,7 @@ export class FullinspecComponent implements OnInit {
   };
   	}
 
-  	  calculateClasses2(){
+  	  calculateClasses2() {
   	return {
   		btn: true,
   		'btn-secondary': true,
@@ -61,7 +61,7 @@ export class FullinspecComponent implements OnInit {
   };
   	}
 
-  private _addUser(){
+  private _addUser() {
     //const respostaAtual = new Resposta(      );
       return new Promise(resolve => {
      const listuserModelo = new ListuserModel(
@@ -69,19 +69,19 @@ export class FullinspecComponent implements OnInit {
       this.auth.userProfile.name
       );
       //this.partidaModelo = new PartidaModel();
-      
+
 
     this.ListuserSub = this.api
       .postUsuarioOnline$(listuserModelo)
       .subscribe(
         res => {
-  
-          console.log("resultado useron");      
-     
+
+          console.log('resultado useron');
+
           console.log(res.userId);
           this.temppartid = res.userId;
                resolve(this.temppartid);
-         
+
 
         },
         err => {
@@ -92,8 +92,8 @@ export class FullinspecComponent implements OnInit {
   }
 
 
-  
-  private _removeUser(){
+
+  private _removeUser() {
     //const respostaAtual = new Resposta(      );
       return new Promise(resolve => {
      const ListuserModeloRem = new ListuserModel(
@@ -101,16 +101,16 @@ export class FullinspecComponent implements OnInit {
       this.auth.userProfile.name
       );
       //this.partidaModelo = new PartidaModel();
-      
+
 
     this.ListuserSub = this.api
       .removeUsuarioOnline$(ListuserModeloRem)
       .subscribe(
         res => {
-  
-          console.log("resultado remove user");      
-     
-        
+
+          console.log('resultado remove user');
+
+
 
         },
         err => {
