@@ -7,6 +7,8 @@ import { ArtefatoModel } from './../../core/models/artefato.model';
 import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 
+import { SplitArtifactService } from './../../service/split-artifact.service';
+
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { QuillEditorComponent } from 'ngx-quill';
 
@@ -22,7 +24,8 @@ Quill.register('modules/counter', Counter);
 @Component({
   selector: 'app-fip-add',
   templateUrl: './fip-add.component.html',
-  styleUrls: ['./fip-add.component.scss']
+  styleUrls: ['./fip-add.component.scss'],
+  providers: [SplitArtifactService]
 })
 export class FipAddComponent implements OnInit {
 titleValue: string;
@@ -36,8 +39,7 @@ defLine: Array<string>;
 linearray: Array<boolean> = [];
 defDescriptArray: Array<string> = [];
 defTaxonomyArray: Array<string> = [];
-pstringinicio = '<p>';
-pstringfinal = '</p>';
+
 
   types: Array<any>;
 
@@ -60,7 +62,7 @@ pstringfinal = '</p>';
   { value: 6, display: 'Não há defeito', description: 'Requisito correto'}
   ];
 
-  constructor(private api: ApiService, public auth: AuthService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer) { }
+  constructor(private api: ApiService, public auth: AuthService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer, private service: SplitArtifactService) { }
 
   ngOnInit() {
   	this.titleValue = 'titulo';
@@ -86,22 +88,9 @@ pstringfinal = '</p>';
     return tempCont.getElementsByClassName('ql-editor')[0].innerHTML;
 }
 
-splitsplit() {
-    this.defLine = this.contentValue.split('</p><p>');
-     for (let _i = 0; _i < this.defLine.length; _i++) {
-       if (_i == 0) {
-           this.defLine [_i] = this.defLine[_i].concat('</p>');
-        } else
-        if (_i == this.defLine.length - 1) {
-           this.defLine[this.defLine.length - 1] = this.pstringinicio.concat(this.defLine[this.defLine.length - 1]);
-        } else {
-          this.defLine[_i] = this.pstringinicio.concat(this.defLine[_i]);
-          this.defLine [_i] = this.defLine[_i].concat('</p>');
-        }
-     } this.defLine;
-    console.log(this.defLine);
+button(content: string){
+  this.defLine = this.service.splitartifact(content);
 }
-
 
   private HTMLSanitizer(code: string) {
     return this.sanitizer.bypassSecurityTrustHtml(code);

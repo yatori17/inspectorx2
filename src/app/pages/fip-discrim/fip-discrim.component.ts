@@ -8,11 +8,14 @@ import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+//Service
+import { SplitArtifactService } from './../../service/split-artifact.service';
 
 @Component({
   selector: 'app-fip-discrim',
   templateUrl: './fip-discrim.component.html',
-  styleUrls: ['./fip-discrim.component.scss']
+  styleUrls: ['./fip-discrim.component.scss'],
+  providers: [SplitArtifactService]
 })
 export class FipDiscrimComponent implements OnInit {
   	myBool: boolean;
@@ -48,8 +51,7 @@ export class FipDiscrimComponent implements OnInit {
   linearray: Array<boolean> = [];
   detDescriptArray: Array<string> = [];
   detTaxonomyArray: Array<string> = [];
-  pstringinicio = '<p>';
-  pstringfinal = '</p>';
+
   disableArray: Array<boolean> = [];
 
   selectedValue: any;
@@ -78,7 +80,7 @@ export class FipDiscrimComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
+  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService) { }
 
   ngOnInit() {
 
@@ -138,7 +140,8 @@ export class FipDiscrimComponent implements OnInit {
 
        console.log(this.ArtefatoIdList);
 
-        this.splitsplit();
+        //this.splitsplit();
+        this.defLine = this.service.splitartifact(this.ArtefatoIdList[0].content);
 
       },
       err => {
@@ -150,23 +153,6 @@ export class FipDiscrimComponent implements OnInit {
 
   });
   }
-
- public splitsplit() {
-    this.defLine = this.ArtefatoIdList[0].content.split('</p><p>');
-     for (let _i = 0; _i < this.defLine.length; _i++) {
-       if (_i == 0) {
-           this.defLine [_i] = this.defLine[_i].concat('</p>');
-        } else
-        if (_i == this.defLine.length - 1) {
-           this.defLine[this.defLine.length - 1] = this.pstringinicio.concat(this.defLine[this.defLine.length - 1]);
-        } else {
-          this.defLine[_i] = this.pstringinicio.concat(this.defLine[_i]);
-          this.defLine [_i] = this.defLine[_i].concat('</p>');
-        }
-     } this.defLine;
-    console.log(this.defLine);
-}
-
 
   public _getDiscrimRespfip(partida: string) {
     return new Promise(resolve => {

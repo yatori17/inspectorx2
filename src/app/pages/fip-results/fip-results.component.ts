@@ -48,12 +48,11 @@ export class FipResultsComponent implements OnInit {
   contentValue: string;
   tempInicio: string;
   tempFinal: string;
-  defLine: Array<string>;
+
   linearray: Array<boolean> = [];
   detDescriptArray: Array<string> = [];
   detTaxonomyArray: Array<string> = [];
-  pstringinicio = '<p>';
-  pstringfinal = '</p>';
+
   disableArray: Array<boolean> = [];
 
 
@@ -203,24 +202,6 @@ public _getArtefatoByUse(id: string) {
 
   });
   }
-
- public splitsplit() {
-    this.defLine = this.ArtefatoIdList[0].content.split('</p><p>');
-     for (let _i = 0; _i < this.defLine.length; _i++) {
-       if (_i == 0) {
-           this.defLine [_i] = this.defLine[_i].concat('</p>');
-        } else
-        if (_i == this.defLine.length - 1) {
-           this.defLine[this.defLine.length - 1] = this.pstringinicio.concat(this.defLine[this.defLine.length - 1]);
-        } else {
-          this.defLine[_i] = this.pstringinicio.concat(this.defLine[_i]);
-          this.defLine [_i] = this.defLine[_i].concat('</p>');
-        }
-     } this.defLine;
-    console.log(this.defLine);
-}
-
-
 
 
  	public _getDiscrimPartfip() {
