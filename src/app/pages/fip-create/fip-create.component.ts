@@ -7,103 +7,45 @@ import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
+import { DbhelpService } from './../../service/dbhelp.service';
+
 
 @Component({
   selector: 'app-fip-create',
   templateUrl: './fip-create.component.html',
-  styleUrls: ['./fip-create.component.scss']
+  styleUrls: ['./fip-create.component.scss'],
+  providers: [DbhelpService]
 })
 export class FipCreateComponent implements OnInit {
-difValue: number;
-myBool: boolean;
-  loading: boolean;
-  error: boolean;
+  difValue: number;
+
   partidanome: string = null;
-  ListuserSub: Subscription;
-  ListuserList: ListuserModel[];
-  ListuserModelo: ListuserModel;
+
+  ListuserList: any;
+  ArtefatoList: any;
   ListuserArrCheck: Array<string> = [];
-  ArtefatoSub: Subscription;
-  ArtefatoList: ArtefatoModel[];
-  ArtefatoModelo: ArtefatoModel;
+
   ArtefatoArrCheck: Array<string> = [];
-  PartfipSub: Subscription;
-  PartfipList: PartfipModel[];
-  PartfipModelo: PartfipModel;
 
   InspecListFail: boolean;
   ArtifListFail: boolean;
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService) { }
+   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
-    this._getListuser().then(ListuserList => {
-    console.log(this.ListuserList);
-    });
-    this._getArtefato().then(ArtefatoList => {
-    console.log(this.ArtefatoList);
-    });
+    this.dbhelp._getListuser().then(res =>{
+      this.ListuserList = res;
+    })
 
+    this.dbhelp._getArtefato().then(res => {
+      this.ArtefatoList = res;
+    })
   }
 
   	clickAtivo(value: number) {
   		this.difValue = value;
   		console.log('clickAtivo: ' + this.difValue);
   	}
-
-  /*calculateClasses(option: number){
-    	console.log("calculateclasses: " + option)
-    	if (option == this.difValue){
-    		this.myBool = true;
-    	}
-    	else { this.myBool = false; }
-
-  	return
-  			style;
-  	}*/
-
-    private _getListuser() {
-        return new Promise(resolve => {
-        //console.log("iniciou partidalist");
-        this.loading = true;
-
-        this.ListuserSub = this.api.getUsuarioOnline$().subscribe(
-          res => {
-        this.ListuserList = res;
-            this.loading = false;
-            resolve(this.ListuserList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
-
-
-    private _getArtefato() {
-        return new Promise(resolve => {
-        //console.log("iniciou partidalist");
-        this.loading = true;
-
-        this.ArtefatoSub = this.api.getArtefato$().subscribe(
-          res => {
-        this.ArtefatoList = res;
-            this.loading = false;
-            resolve(this.ArtefatoList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
 
     private _createListuserArray() {
       
@@ -158,49 +100,15 @@ myBool: boolean;
       }
 
       if (this.ArtifListFail == false && this.InspecListFail == false){
-        this._createPartfip();
+        this.dbhelp._createPartfip(
+            this.auth.userProfile.sub,
+            this.partidanome,
+            this.difValue,
+            this.ArtefatoArrCheck,
+            this.ListuserArrCheck
+            );
         this.router.navigate(['/', 'fullinspec']);
       }
     }
-
-    public _createPartfip() {
-    //const respostaAtual = new Resposta(      );
-
-
-      return new Promise(resolve => {
-
-   const partfipModelo = new PartfipModel(
-        this.auth.userProfile.sub,
-        this.partidanome,
-        this.difValue,
-        this.ArtefatoArrCheck,
-        this.ListuserArrCheck
-    );
-
-      //this.partidaModelo = new PartidaModel();
-      console.log('game component: ');
-      console.log(partfipModelo);
-
-
-    this.PartfipSub = this.api
-      .postPartfip$(partfipModelo)
-      .subscribe(
-        res => {
-
-          console.log('resultado partfip');
-
-         // console.log(res._id);
-         // this.temppartid = res._id;
-         //      resolve(this.temppartid);
-
-
-        },
-        err => {
-          console.log(err);
-          }
-        );
-  });
-}
-
 
 }

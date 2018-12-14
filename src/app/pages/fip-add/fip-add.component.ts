@@ -8,6 +8,7 @@ import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SplitArtifactService } from './../../service/split-artifact.service';
+import { DbhelpService } from './../../service/dbhelp.service';
 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { QuillEditorComponent } from 'ngx-quill';
@@ -25,7 +26,7 @@ Quill.register('modules/counter', Counter);
   selector: 'app-fip-add',
   templateUrl: './fip-add.component.html',
   styleUrls: ['./fip-add.component.scss'],
-  providers: [SplitArtifactService]
+  providers: [SplitArtifactService, DbhelpService]
 })
 export class FipAddComponent implements OnInit {
 titleValue: string;
@@ -33,7 +34,7 @@ contentValue: string;
 tempInicio: string;
 tempFinal: string;
 artefatoModelo: ArtefatoModel;
- artefatoListSub: Subscription;
+
 caretPos = 0;
 defLine: Array<string>;
 linearray: Array<boolean> = [];
@@ -62,7 +63,7 @@ defTaxonomyArray: Array<string> = [];
   { value: 6, display: 'Não há defeito', description: 'Requisito correto'}
   ];
 
-  constructor(private api: ApiService, public auth: AuthService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer, private service: SplitArtifactService) { }
+  constructor(private api: ApiService, public auth: AuthService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
   	this.titleValue = 'titulo';
@@ -106,40 +107,14 @@ button(content: string){
 
   public _sendArtefato() {
   	console.log('Send artefato');
-  	this._createArtefato();
-  }
-
-  private _createArtefato() {
-    //const respostaAtual = new Resposta(      );
-      return new Promise(resolve => {
-
-   const artefatoModelo = new ArtefatoModel(
-        this.auth.userProfile.sub,
+  	this.dbhelp._createArtefato(this.auth.userProfile.sub,
         this.titleValue,
         this.contentValue,
         this.linearray,
         this.defDescriptArray,
-        this.defTaxonomyArray
-    );
-
-    this.artefatoListSub = this.api
-      .postArtefato$(artefatoModelo)
-      .subscribe(
-        res => {
-
-          console.log('resultado createresposta');
-
-         // console.log(res._id);
-         // this.temppartid = res._id;
-         //      resolve(this.temppartid);
+        this.defTaxonomyArray);
+  }
 
 
-        },
-        err => {
-          console.log(err);
-          }
-        );
-  });
-}
 
 }

@@ -1,43 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { PartfipModel } from './../../core/models/partfip.model';
-import { RespfipModel } from './../../core/models/respfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
-import { ConferefipModel } from './../../core/models/conferefip.model';
 import { Subscription } from 'rxjs/Subscription';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { DbhelpService } from './../../service/dbhelp.service';
 
 @Component({
   selector: 'app-fip-results',
   templateUrl: './fip-results.component.html',
-  styleUrls: ['./fip-results.component.scss']
+  styleUrls: ['./fip-results.component.scss'],
+  providers: [DbhelpService]
 })
 export class FipResultsComponent implements OnInit {
  	myBool: boolean;
   loading: boolean;
   error: boolean;
 
-  PartfipSub: Subscription;
   PartfipList: PartfipModel[];
-  PartfipModelo: PartfipModel;
 
-  RespfipSub: Subscription;
-  RespfipList: RespfipModel[];
-  RespfipModelo: RespfipModel;
 
-  Respfip2Sub: Subscription;
-  Respfip2List: RespfipModel[];
-  Respfip2Modelo: RespfipModel;
 
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
-
-  ConferefipSub: Subscription;
-  ConferefipList: ConferefipModel[];
-  ConferefipModelo: ConferefipModel;
 
   RespfipArray: Array<string> = [];
   ArtefatoArray: Array<string> = [];
@@ -66,20 +54,20 @@ export class FipResultsComponent implements OnInit {
   RespfipArr: Array<any> = [];
 
 
- constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer) { }
+ constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
    this.route.params.forEach(params => {
      this.partidaid = params['id'];
 
-     this._getPartfipById(this.partidaid).then(PartfipList => {
-       this.InspectorArray = PartfipList[0].inspetor;
+     this.dbhelp._getPartfipById(this.partidaid).then(res => {
+       this.InspectorArray = res[0].inspetor;
 
        for (let _i = 0; _i < this.InspectorArray.length; _i++) {
 
-       this._getRespfipById(this.PartfipList[0].inspetor[_i], this.partidaid).then(Respfip2List => {
-         console.log(Respfip2List);
-         this.RespfipArr.push(Respfip2List);
+       this.dbhelp._getRespfipBy_User_Partida(res[0].inspetor[_i], this.partidaid).then(res => {
+         console.log(res);
+         this.RespfipArr.push(res);
 
 
 /*          for(var _k = 0; _k < this.RespfipArr[_i].length; _k++){
@@ -99,80 +87,6 @@ export class FipResultsComponent implements OnInit {
 
   	});
   }
-
-    public artefatonamer(artefato: string) {
-        this._getArtefatoByUse(artefato).then(ArtefatoIdList => {
-
-     });
-        return 'alo alo';
-    }
-
-
-    private _getPartfipById(partida: string) {
-    return new Promise(resolve => {
-    console.log('iniciou partfipbyid');
-    this.loading = true;
-
-    this.PartfipSub = this.api.getPartfipById$(partida).subscribe(
-          res => {
-        this.PartfipList = res;
-            this.loading = false;
-            console.log('vai pro resolve partfipbyid');
-            resolve(this.PartfipList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
-
-    public _getDiscrimRespfip(partida: string) {
-    return new Promise(resolve => {
-    //console.log("iniciou partidalist");
-    this.loading = true;
-
-    this.RespfipSub = this.api.getDiscrimRespfipById$(partida).subscribe(
-          res => {
-        this.RespfipList = res;
-            this.loading = false;
-            resolve(this.RespfipList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-    });
-  }
-
-  public _getRespfipById(user: string, partida: string) {
-    return new Promise(resolve => {
-    console.log('iniciou respfip by id');
-    this.loading = true;
-
-    this.Respfip2Sub = this.api.getRespfipById$(user, partida).subscribe(
-          res => {
-        this.Respfip2List = res;
-            this.loading = false;
-            console.log('vai pro resolve respfipbyid');
-            resolve(this.Respfip2List);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
-
 
 
 
@@ -202,63 +116,5 @@ public _getArtefatoByUse(id: string) {
 
   });
   }
-
-
- 	public _getDiscrimPartfip() {
-    return new Promise(resolve => {
-    console.log('iniciou partfip');
-    this.loading = true;
-
-    this.PartfipSub = this.api.getDiscrimPartfip$(this.auth.userProfile.sub).subscribe(
-          res => {
-        this.PartfipList = res;
-            this.loading = false;
-            resolve(this.PartfipList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
-
-    private _createConferefip() {
-    //const respostaAtual = new Resposta(      );
-      return new Promise(resolve => {
-
-   const conferefipModelo = new ConferefipModel(
-        this.auth.userProfile.sub,
-        this.selectedValue._id,
-        this.selectedRespfip.artefatoId,
-        this.selectedRespfip._id,
-        'teste',
-        this.linearray,
-        this.detDescriptArray,
-        this.detTaxonomyArray
-    );
-
-    this.ConferefipSub = this.api
-      .postConferefip$(conferefipModelo)
-      .subscribe(
-        res => {
-
-          console.log('resultado conferefip');
-
-         // console.log(res._id);
-         // this.temppartid = res._id;
-         //      resolve(this.temppartid);
-
-
-        },
-        err => {
-          console.log(err);
-          }
-        );
-  });
-}
-
 
 }

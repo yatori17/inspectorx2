@@ -2,7 +2,7 @@
 	<div class="row" >
 		<div class="col">
 			<div>
-				<select [(ngModel)]="selectedValue" (ngModelChange)="_getDiscrimRespfip(selectedValue._id); artefatoarray(selectedValue.artefato);" size="5">
+				<select [(ngModel)]="selectedValue" (ngModelChange)="dbhelp._getRespfipBy_Partida(selectedValue._id); artefatoarray(selectedValue.artefato);" size="5">
 					<option *ngFor="let partida of PartfipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
 				</select>
 			</div>
@@ -37,7 +37,7 @@
 					<label for="textarea">Inserir comentários</label>
     				<textarea class="form-control" id="textarea" rows="3"></textarea>
     			</div>
-				<button (click)="_createRespfip()">Criar resposta</button>
+				<button (click)="buttonCriarResposta()">Criar resposta</button>
 			</div>
 
 		</div>

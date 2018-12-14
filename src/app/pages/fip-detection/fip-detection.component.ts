@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PartfipModel } from './../../core/models/partfip.model';
+
 import { RespfipModel } from './../../core/models/respfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,37 +9,38 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 //Service
 import { SplitArtifactService } from './../../service/split-artifact.service';
+import { DbhelpService } from './../../service/dbhelp.service';
 
 @Component({
   selector: 'app-fip-detection',
   templateUrl: './fip-detection.component.html',
   styleUrls: ['./fip-detection.component.scss'],
-  providers: [SplitArtifactService]
+  providers: [SplitArtifactService, DbhelpService]
 })
 export class FipDetectionComponent implements OnInit {
 
 	myBool: boolean;
   loading: boolean;
   error: boolean;
-  ArtefatoSub: Subscription;
-  ArtefatoList: ArtefatoModel[];
-  ArtefatoModelo: ArtefatoModel;
+
+  ArtefatoList: any;
+
 
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
 
-  PartfipSub: Subscription;
-  PartfipList: PartfipModel[];
-  PartfipModelo: PartfipModel;
+  
+  PartfipList: any;
+  
 
-  RespfipSub: Subscription;
+
   RespfipList: RespfipModel[];
-  RespfipModelo: RespfipModel;
 
-  Respfip2Sub: Subscription;
-  Respfip2List: RespfipModel[];
-  Respfip2Modelo: RespfipModel;
+
+
+  Respfip2List: any;
+
 
   ArtefatoArray: Array<string> = [];
   selectedValue: any;
@@ -79,26 +80,23 @@ export class FipDetectionComponent implements OnInit {
   ];
 
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService) {}
+   constructor(private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) {}
 
   ngOnInit() {
   	this.types = this.jones;
 
-    this._getArtefato().then(ArtefatoList => {
-    console.log(this.ArtefatoList);
+    this.dbhelp._getArtefato().then(res => {
+      this.ArtefatoList = res;
+    })    
+
+    this.dbhelp._getPartfip().then(res => {
+      this.PartfipList = res;
     });
-
-    this._getPartfip().then(PartfipList => {
-    console.log(this.PartfipList);
-    });
-
-
-
   }
 
   checkcheck() {
     this.disableArray = [];
-    this._getRespfip(this.auth.userProfile.sub, this.selectedValue._id).then(Respfip2List => {
+    this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(Respfip2List => {
       console.log('Passo 1');
       for (let _k = 0; _k < this.ArtefatoArray.length; _k++) {
         console.log('Passo 2');
@@ -132,29 +130,6 @@ export class FipDetectionComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(code);
   }
 
-  public _getArtefato() {
-    return new Promise(resolve => {
-    //console.log("iniciou partidalist");
-    this.loading = true;
-
-    this.ArtefatoSub = this.api.getArtefato$().subscribe(
-          res => {
-        this.ArtefatoList = res;
-            this.loading = false;
-            resolve(this.ArtefatoList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-
-      });
-
-  }
-
     public artefatoarray(arr: any) {
     	console.log('artefato array');
     	this.ArtefatoArray = arr;
@@ -169,119 +144,39 @@ export class FipDetectionComponent implements OnInit {
   }
 
     public _getArtefatoByUse(id: string) {
-
-    	console.log(id);
-    return new Promise(resolve => {
-    console.log('iniciou artefatobyid');
-    this.loading = true;
-
-    this.ArtefatoIdSub = this.api.getArtefatoById$(id).subscribe(
-      res => {
-        this.ArtefatoIdList = res;
-
-        this.loading = false;
-
-       console.log(this.ArtefatoIdList);
-         //this.splitsplit()
-        this.defLine = this.service.splitartifact(this.ArtefatoIdList[0].content);
-
-      },
-      err => {
-        console.error(err);
-        this.loading = false;
-        this.error = true;
-      }
+      console.log(id);
+      return new Promise(resolve => {
+        console.log('iniciou artefatobyid');
+        this.loading = true;
+        this.ArtefatoIdSub = this.api.getArtefatoById$(id).subscribe(
+        res => {
+          this.ArtefatoIdList = res;
+          this.loading = false;
+          console.log(this.ArtefatoIdList);
+          //this.splitsplit()
+          this.defLine = this.service.splitartifact(this.ArtefatoIdList[0].content);
+        },
+        err => {
+          console.error(err);
+          this.loading = false;
+          this.error = true;
+        }
       );
-
   });
   }
 
-    public _getPartfip() {
-    return new Promise(resolve => {
-    //console.log("iniciou partidalist");
-    this.loading = true;
-
-    this.PartfipSub = this.api.getPartfip$().subscribe(
-          res => {
-        this.PartfipList = res;
-            this.loading = false;
-            resolve(this.PartfipList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
 
     public executarResp() {
-
-
-
-
-      this._createRespfip();
-
+      this.dbhelp._createRespfip(this.auth.userProfile.sub,
+                                 this.selectedValue._id,
+                                 this.selectedArtifact,
+                                 'teste',
+                                 this.linearray,
+                                 this.detDescriptArray,
+                                 this.detTaxonomyArray,
+                                 true,
+                                 this.ArtefatoIdList[0].title);
       location.reload();
-    }
-
-      private _createRespfip() {
-    //const respostaAtual = new Resposta(      );
-      return new Promise(resolve => {
-
-   const respfipModelo = new RespfipModel(
-        this.auth.userProfile.sub,
-        this.selectedValue._id,
-        this.selectedArtifact,
-        'teste',
-        this.linearray,
-        this.detDescriptArray,
-        this.detTaxonomyArray,
-        true,
-        this.ArtefatoIdList[0].title
-    );
-
-    this.RespfipSub = this.api
-      .postRespfip$(respfipModelo)
-      .subscribe(
-        res => {
-
-          console.log('resultado respfip');
-
-         // console.log(res._id);
-         // this.temppartid = res._id;
-         //      resolve(this.temppartid);
-
-
-        },
-        err => {
-          console.log(err);
-          }
-        );
-  });
-}
-
-    public _getRespfip(user: string, partida: string) {
-    return new Promise(resolve => {
-    //console.log("iniciou partidalist");
-    this.loading = true;
-
-    this.Respfip2Sub = this.api.getRespfipById$(user, partida).subscribe(
-          res => {
-        this.Respfip2List = res;
-            this.loading = false;
-            resolve(this.Respfip2List);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
     }
 
 }

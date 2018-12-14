@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PartfipModel } from './../../core/models/partfip.model';
-import { RespfipModel } from './../../core/models/respfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
-import { ConferefipModel } from './../../core/models/conferefip.model';
+
 import { Subscription } from 'rxjs/Subscription';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
@@ -10,33 +9,25 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 //Service
 import { SplitArtifactService } from './../../service/split-artifact.service';
+import { DbhelpService } from './../../service/dbhelp.service';
 
 @Component({
   selector: 'app-fip-discrim',
   templateUrl: './fip-discrim.component.html',
   styleUrls: ['./fip-discrim.component.scss'],
-  providers: [SplitArtifactService]
+  providers: [SplitArtifactService, DbhelpService]
 })
 export class FipDiscrimComponent implements OnInit {
   	myBool: boolean;
   loading: boolean;
   error: boolean;
 
-  PartfipSub: Subscription;
-  PartfipList: PartfipModel[];
-  PartfipModelo: PartfipModel;
 
-  RespfipSub: Subscription;
-  RespfipList: RespfipModel[];
-  RespfipModelo: RespfipModel;
+  PartfipList: any;
 
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
-
-  ConferefipSub: Subscription;
-  ConferefipList: ConferefipModel[];
-  ConferefipModelo: ConferefipModel;
 
   RespfipArray: Array<string> = [];
   ArtefatoArray: Array<string> = [];
@@ -80,15 +71,16 @@ export class FipDiscrimComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
 
     this.types = this.jones;
 
 
-  	this._getDiscrimPartfip().then(PartfipList => {
-    console.log(this.PartfipList);
+  	this.dbhelp._getPartfipBy_User(this.auth.userProfile.sub).then(res => {
+        console.log(this.PartfipList);
+        this.PartfipList = res;
     });
   }
 
@@ -98,10 +90,19 @@ export class FipDiscrimComponent implements OnInit {
     // Pego o primeiro respfip da lista e pego o artefato correspondente com artefatoid
     // comparar ambos. defectbool e defecttaxonomy pra cada linha.
 
-
-
-
     this.router.navigate(['/', 'fipresults', this.selectedValue._id]);
+  }
+
+  public buttonCriarResposta(){
+    this.dbhelp._createRespfip(this.auth.userProfile.sub,
+                                 this.selectedValue._id,
+                                 this.selectedArtifact,
+                                 'teste',
+                                 this.linearray,
+                                 this.detDescriptArray,
+                                 this.detTaxonomyArray,
+                                 true,
+                                 this.ArtefatoIdList[0].title);
   }
 
   public artefatoarray(arr: any) {
@@ -154,118 +155,8 @@ export class FipDiscrimComponent implements OnInit {
   });
   }
 
-  public _getDiscrimRespfip(partida: string) {
-    return new Promise(resolve => {
-    //console.log("iniciou partidalist");
-    this.loading = true;
-
-    this.RespfipSub = this.api.getDiscrimRespfipById$(partida).subscribe(
-          res => {
-        this.RespfipList = res;
-            this.loading = false;
-            resolve(this.RespfipList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-    });
-  }
-
- 	public _getDiscrimPartfip() {
-    return new Promise(resolve => {
-    console.log('iniciou partfip');
-    this.loading = true;
-
-    this.PartfipSub = this.api.getDiscrimPartfip$(this.auth.userProfile.sub).subscribe(
-          res => {
-        this.PartfipList = res;
-            this.loading = false;
-            resolve(this.PartfipList);
-
-          },
-          err => {
-            console.error(err);
-            this.loading = false;
-            this.error = true;
-          }
-          );
-      });
-    }
-
-    private _createRespfip() {
-    //const respostaAtual = new Resposta(      );
-      return new Promise(resolve => {
-
-   const respfipModelo = new RespfipModel(
-        this.auth.userProfile.sub,
-        this.selectedValue._id,
-        this.selectedArtifact,
-        'teste',
-        this.linearray,
-        this.detDescriptArray,
-        this.detTaxonomyArray,
-        false,
-        'placeholder'
-    );
-
-    this.RespfipSub = this.api
-      .postRespfip$(respfipModelo)
-      .subscribe(
-        res => {
-
-          console.log('resultado respfip');
-
-         // console.log(res._id);
-         // this.temppartid = res._id;
-         //      resolve(this.temppartid);
 
 
-        },
-        err => {
-          console.log(err);
-          }
-        );
-  });
-}
-
-
-    private _createConferefip() {
-    //const respostaAtual = new Resposta(      );
-      return new Promise(resolve => {
-
-   const conferefipModelo = new ConferefipModel(
-        this.auth.userProfile.sub,
-        this.selectedValue._id,
-        this.selectedRespfip.artefatoId,
-        this.selectedRespfip._id,
-        'teste',
-        this.linearray,
-        this.detDescriptArray,
-        this.detTaxonomyArray
-    );
-
-    this.ConferefipSub = this.api
-      .postConferefip$(conferefipModelo)
-      .subscribe(
-        res => {
-
-          console.log('resultado conferefip');
-
-         // console.log(res._id);
-         // this.temppartid = res._id;
-         //      resolve(this.temppartid);
-
-
-        },
-        err => {
-          console.log(err);
-          }
-        );
-  });
-}
+  
 
 }
