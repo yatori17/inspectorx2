@@ -89,6 +89,28 @@ myBool: boolean;
       });
     }
 
+    _getArtefatoByUse(id: string) {
+      console.log(id);
+      return new Promise<ArtefatoModel[]>(resolve => {
+        console.log('iniciou artefatobyid');
+        this.loading = true;
+        this.ArtefatoSub = this.api.getArtefatoById$(id).subscribe(
+        res => {
+          this.ArtefatoList = res;
+          this.loading = false;
+          resolve(this.ArtefatoList);
+          console.log(this.ArtefatoList);
+        },
+        err => {
+          console.error(err);
+          this.loading = false;
+          this.error = true;
+        }
+      );
+  });
+  }
+
+
     _getPartfipBy_User(user: string) {
     return new Promise(resolve => {
     console.log('iniciou partfip');
@@ -154,7 +176,7 @@ myBool: boolean;
   }
 
    _getRespfipBy_User_Partida(user: string, partida: string) {
-    return new Promise(resolve => {
+    return new Promise<RespfipModel[]>(resolve => {
     	this.loading = true;
 	    this.RespfipSub = this.api.getRespfipById$(user, partida).subscribe(
         	res => {

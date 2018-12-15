@@ -2,6 +2,6 @@
 <ng-container *ngFor="let inspetor of InspectorArray; let i = index">
 	<div> {{ inspetor }} </div>
 	<ng-container *ngFor="let respfip of RespfipArr[i]; let k = index">
-		<div> {{ respfip._id }} | {{ respfip.artefatotitle | artefatonamer }}  </div>
+		<div> {{ respfip._id }} | {{ respfip.artefatoId | artefatonamer | async }} </div>
 	</ng-container>
 </ng-container>

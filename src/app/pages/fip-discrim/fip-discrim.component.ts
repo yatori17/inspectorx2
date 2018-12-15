@@ -3,7 +3,6 @@ import { PartfipModel } from './../../core/models/partfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
 
 import { Subscription } from 'rxjs/Subscription';
-import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -25,7 +24,6 @@ export class FipDiscrimComponent implements OnInit {
 
   PartfipList: any;
 
-  ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
 
@@ -71,7 +69,7 @@ export class FipDiscrimComponent implements OnInit {
   ];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
+  constructor(private router: Router, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
 
@@ -101,7 +99,7 @@ export class FipDiscrimComponent implements OnInit {
                                  this.linearray,
                                  this.detDescriptArray,
                                  this.detTaxonomyArray,
-                                 true,
+                                 false,
                                  this.ArtefatoIdList[0].title);
   }
 
@@ -123,40 +121,11 @@ export class FipDiscrimComponent implements OnInit {
     this.linearray = [];
     this.detDescriptArray = [];
     this.detTaxonomyArray = [];
-    this._getArtefatoByUse(id);
+    this.dbhelp._getArtefatoByUse(id).then(res => {
+      console.log(res[0].content);
+      this.defLine = this.service.splitartifact(res[0].content);
+      })
   }
-
-  public _getArtefatoByUse(id: string) {
-
-    console.log(id);
-    return new Promise(resolve => {
-    console.log('iniciou artefatobyid');
-    this.loading = true;
-
-    this.ArtefatoIdSub = this.api.getArtefatoById$(id).subscribe(
-      res => {
-        this.ArtefatoIdList = res;
-
-        this.loading = false;
-
-       console.log(this.ArtefatoIdList);
-
-        //this.splitsplit();
-        this.defLine = this.service.splitartifact(this.ArtefatoIdList[0].content);
-
-      },
-      err => {
-        console.error(err);
-        this.loading = false;
-        this.error = true;
-      }
-      );
-
-  });
-  }
-
-
-
   
 
 }

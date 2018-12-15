@@ -7,11 +7,11 @@
 				</select>
 			</div>
 		</div>
-		<ng-container *ngIf="selectedValue">
+		<ng-container *ngIf="selectedValue"><!-- Fazer com que ngIf também aguarde pelo carregamento pra só exibir na DOM quando a promise ser cumprida!-->
 		<div class="col">
 			<div>
 				<select [(ngModel)]="selectedArtifact" (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
-					<option *ngFor="let artefato of ArtefatoArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]" > {{ artefato }}</option>
+					<option *ngFor="let artefato of ArtefatoArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]" > {{ artefato | artefatonamer | async }}</option>
 				</select>
 			</div>
 		</div>
@@ -19,10 +19,12 @@
 		<div class="col">
 			<div class="row">
 					<div>	
-						<a>{{ ArtefatoIdList[0].title }}</a>
+					<!--	<a>{{ ArtefatoIdList[0].title }}</a>!-->
 							<ng-container *ngFor = "let line of defLine; let i = index" >
 	              				<div class="form-check col-sm"  style="margin: 0px;">
-    		            			<input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
+	              					<ng-container *ngIf="i == 3">
+	              				    	<input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
+	              				    </ng-container>
             		    			<label class="form-check-label ql-editor" style="margin: 0px; padding: 0px;" for="{{i}}" [innerHTML]="HTMLSanitizer(line)"></label>
                 					<ng-container *ngIf="linearray[i]">
                 						<select id="taxonomy" required  [(ngModel)]="detTaxonomyArray[i]">

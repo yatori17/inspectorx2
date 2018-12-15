@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 //Service
 import { SplitArtifactService } from './../../service/split-artifact.service';
 import { DbhelpService } from './../../service/dbhelp.service';
@@ -18,18 +17,15 @@ import { DbhelpService } from './../../service/dbhelp.service';
   providers: [SplitArtifactService, DbhelpService]
 })
 export class FipDetectionComponent implements OnInit {
-
 	myBool: boolean;
   loading: boolean;
   error: boolean;
 
   ArtefatoList: any;
-
-
+ 
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
-
   
   PartfipList: any;
   
@@ -41,8 +37,7 @@ export class FipDetectionComponent implements OnInit {
 
   Respfip2List: any;
 
-
-  ArtefatoArray: Array<string> = [];
+  ArtefatoArray: any[] = [];
   selectedValue: any;
   selectedArtifact: any;
   selectedType: any;
@@ -80,7 +75,7 @@ export class FipDetectionComponent implements OnInit {
   ];
 
 
-   constructor(private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) {}
+   constructor(private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) {}
 
   ngOnInit() {
   	this.types = this.jones;
@@ -96,13 +91,14 @@ export class FipDetectionComponent implements OnInit {
 
   checkcheck() {
     this.disableArray = [];
-    this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(Respfip2List => {
+    this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
       console.log('Passo 1');
       for (let _k = 0; _k < this.ArtefatoArray.length; _k++) {
         console.log('Passo 2');
-
-           for (let _i = 0; _i < this.Respfip2List.length; _i++) {
-          if (this.ArtefatoArray[_k] == this.Respfip2List[_i].artefatoId) {
+        console.log(res);
+         console.log(res.length);
+           for (let _i = 0; _i < res.length; _i++) {
+          if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
              this.disableArray[_k] = true;
              console.log('trueeee');
              _k++;
@@ -118,7 +114,7 @@ export class FipDetectionComponent implements OnInit {
 
   public checkArtefatoRespondido(artif: string) {
       for (let _i = 0; _i < this.Respfip2List.length; _i++) {
-        if (artif == this.RespfipList[_i].artefatoId) {
+        if (artif == this.Respfip2List[_i].artefatoId) {
           return true;
         } else {
         return false;
@@ -140,29 +136,11 @@ export class FipDetectionComponent implements OnInit {
     this.linearray = [];
     this.detDescriptArray = [];
     this.detTaxonomyArray = [];
-    this._getArtefatoByUse(id);
-  }
-
-    public _getArtefatoByUse(id: string) {
-      console.log(id);
-      return new Promise(resolve => {
-        console.log('iniciou artefatobyid');
-        this.loading = true;
-        this.ArtefatoIdSub = this.api.getArtefatoById$(id).subscribe(
-        res => {
-          this.ArtefatoIdList = res;
-          this.loading = false;
-          console.log(this.ArtefatoIdList);
-          //this.splitsplit()
-          this.defLine = this.service.splitartifact(this.ArtefatoIdList[0].content);
-        },
-        err => {
-          console.error(err);
-          this.loading = false;
-          this.error = true;
-        }
-      );
-  });
+    this.dbhelp._getArtefatoByUse(id).then(res => {
+      console.log(res[0].content);
+      this.ArtefatoIdList = res;
+      this.defLine = this.service.splitartifact(res[0].content);
+      })
   }
 
 
@@ -176,7 +154,6 @@ export class FipDetectionComponent implements OnInit {
                                  this.detTaxonomyArray,
                                  true,
                                  this.ArtefatoIdList[0].title);
-      location.reload();
     }
 
 }

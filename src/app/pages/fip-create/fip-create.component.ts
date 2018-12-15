@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ListuserModel } from './../../core/models/listuser.model';
-import { ArtefatoModel } from './../../core/models/artefato.model';
-import { PartfipModel } from './../../core/models/partfip.model';
-import { Subscription } from 'rxjs/Subscription';
-import { ApiService } from './../../core/api.service';
-import { AuthService } from './../../auth/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
+//RXJS
+import { Subscription } from 'rxjs/Subscription';
+//Services
+import { AuthService } from './../../auth/auth.service';
 import { DbhelpService } from './../../service/dbhelp.service';
 
 
@@ -16,21 +13,18 @@ import { DbhelpService } from './../../service/dbhelp.service';
   styleUrls: ['./fip-create.component.scss'],
   providers: [DbhelpService]
 })
+
 export class FipCreateComponent implements OnInit {
   difValue: number;
-
   partidanome: string = null;
-
   ListuserList: any;
   ArtefatoList: any;
   ListuserArrCheck: Array<string> = [];
-
   ArtefatoArrCheck: Array<string> = [];
-
   InspecListFail: boolean;
   ArtifListFail: boolean;
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private dbhelp: DbhelpService) { }
+constructor(private router: Router, public auth: AuthService, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
     this.dbhelp._getListuser().then(res =>{
@@ -42,73 +36,68 @@ export class FipCreateComponent implements OnInit {
     })
   }
 
-  	clickAtivo(value: number) {
-  		this.difValue = value;
-  		console.log('clickAtivo: ' + this.difValue);
-  	}
+  clickAtivo(value: number) {
+    //Isso vai modificar a dificuldade em algum momento
+  	this.difValue = value;
+  	console.log('clickAtivo: ' + this.difValue);
+  }
 
-    private _createListuserArray() {
-      
-       	for (const listuser of this.ListuserList) {
-      		if (listuser.isActive == true) {
-    	  		console.log(listuser.userId);
-    		  	this.ListuserArrCheck.push(listuser.userId);
-
-    		  }
-    	  }
-        console.log("ListArrCheck resultado");
-        console.log(this.ListuserArrCheck);
-        if (typeof this.ListuserArrCheck !== 'undefined' && this.ListuserArrCheck.length > 0) {
-          console.log("ListuserArray TA CHEIO");
-          return true;
-        } else {
-          console.log ("ListuserArray TA VAZIO!!");
-
-          return false;
-          }
+  private _createListuserArray() {
+   	for (const listuser of this.ListuserList) {
+     	if (listuser.isActive == true) {
+    	  console.log(listuser.userId);
+    		this.ListuserArrCheck.push(listuser.userId);
+ 		  }
+ 	  }
+    console.log("ListArrCheck resultado");
+    console.log(this.ListuserArrCheck);
+    if (typeof this.ListuserArrCheck !== 'undefined' && this.ListuserArrCheck.length > 0) {
+      console.log("ListuserArray TA CHEIO");
+      return true;
+    } else {
+       console.log ("ListuserArray TA VAZIO!!");
+       return false;
     }
+  }
 
-
-    private _createArtefatoArray() {
-    	for (const artefato of this.ArtefatoList) {
-    		if (artefato.isActive == true) {
-    			console.log(artefato._id);
-    			this.ArtefatoArrCheck.push(artefato._id);
-    		}
+  private _createArtefatoArray() {
+  	for (const artefato of this.ArtefatoList) {
+   		if (artefato.isActive == true) {
+   			console.log(artefato._id);
+   			this.ArtefatoArrCheck.push(artefato._id);
     	}
-       if (typeof this.ArtefatoArrCheck !== 'undefined' && this.ArtefatoArrCheck.length > 0) {
-          console.log("ArtefatoArray TA CHEIO");
-          return true;
-        } else {
-          console.log ("Artefato Array TA VAZIO!!");
-
-          return false;
-          }
     }
+    if (typeof this.ArtefatoArrCheck !== 'undefined' && this.ArtefatoArrCheck.length > 0) {
+      console.log("ArtefatoArray TA CHEIO");
+      return true;
+    } else {
+       console.log ("Artefato Array TA VAZIO!!");
+       return false;
+    }
+  }
 
-    public buttonclick() {
-     if (this._createListuserArray()) {
-       this.InspecListFail = false;
-      } else {
-        this.InspecListFail = true;
-      }  
+  public buttonclick() {
+    if (this._createListuserArray()) {
+      this.InspecListFail = false;
+    } else {
+       this.InspecListFail = true;
+    }  
 
-      if (this._createArtefatoArray()) {
+    if (this._createArtefatoArray()) {
         this.ArtifListFail = false;
       } else {
         this.ArtifListFail = true;
       }
 
-      if (this.ArtifListFail == false && this.InspecListFail == false){
-        this.dbhelp._createPartfip(
-            this.auth.userProfile.sub,
-            this.partidanome,
-            this.difValue,
-            this.ArtefatoArrCheck,
-            this.ListuserArrCheck
-            );
-        this.router.navigate(['/', 'fullinspec']);
-      }
+    if (this.ArtifListFail == false && this.InspecListFail == false){
+      this.dbhelp._createPartfip(
+          this.auth.userProfile.sub,
+          this.partidanome,
+          this.difValue,
+          this.ArtefatoArrCheck,
+          this.ListuserArrCheck
+          );
+      this.router.navigate(['/', 'fullinspec']);
     }
-
+  }
 }

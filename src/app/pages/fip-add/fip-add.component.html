@@ -9,7 +9,7 @@
   </div>
   	<a> {{ contentValue }}</a>
 <div> 
-	<button type="button" class="btn btn-primary" (click)="_sendArtefato()"> Adicionar </button>
+	<button type="button" class="btn btn-primary" (click)="Artefato_Send()"> Adicionar </button>
 </div>
 <button (click)="button(this.contentValue)">Split</button>
 
@@ -19,20 +19,14 @@
                 <input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
                 <label class="form-check-label ql-editor" style="margin: 0px; padding: 0px;" for="{{i}}" [innerHTML]="HTMLSanitizer(line)"></label>
                 <ng-container *ngIf="linearray[i]">
-
-                  
-                        <div class="form-group col-sm">
-                          <select class="form-control" id="taxonomy" required  [(ngModel)]="defTaxonomyArray[i]">
-
-                            <option  *ngFor = "let type of types" [value]="type.display" name="taxonomy">{{ type.display }}</option>
-
-                          </select>
-                        </div>
-                        <div class="col-sm"><textarea class="form-control" id="{{i}}" rows="1" [(ngModel)]="defDescriptArray[i]" ></textarea></div>
-                  
-
-                </ng-container>
-              </div>  
+                  <div class="form-group col-sm">
+                    <select class="form-control" id="taxonomy" required  [(ngModel)]="defTaxonomyArray[i]">
+                    <option  *ngFor = "let type of types" [value]="type.display" name="taxonomy">{{ type.display }}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm"><textarea class="form-control" id="{{i}}" rows="1" [(ngModel)]="defDescriptArray[i]" ></textarea></div>
+                <ng-container>
+               
 </ng-container>
 
 

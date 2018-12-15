@@ -89,32 +89,4 @@ export class FipResultsComponent implements OnInit {
   }
 
 
-
-public _getArtefatoByUse(id: string) {
-    console.log(id);
-    return new Promise(resolve => {
-    console.log('iniciou artefatobyid');
-    this.loading = true;
-
-    this.ArtefatoIdSub = this.api.getArtefatoById$(id).subscribe(
-      res => {
-        this.ArtefatoIdList = res;
-
-        this.loading = false;
-
-       console.log(this.ArtefatoIdList);
-
-       // this.splitsplit();
-
-      },
-      err => {
-        console.error(err);
-        this.loading = false;
-        this.error = true;
-      }
-      );
-
-  });
-  }
-
 }

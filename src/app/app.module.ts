@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AuthService } from './auth/auth.service';
+import { DbhelpService } from './service/dbhelp.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -74,6 +75,7 @@ import { ArtefatonamerPipe } from './artefatonamer.pipe';
     AuthService,
     ApiService,
     DatePipe,
+    DbhelpService
   ],
   bootstrap: [AppComponent]
 })
