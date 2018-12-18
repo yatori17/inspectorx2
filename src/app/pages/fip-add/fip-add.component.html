@@ -6,13 +6,11 @@
 
    <quill-editor [(ngModel)]="contentValue" ></quill-editor>
 
-  </div>
-  	<a> {{ contentValue }}</a>
-<div> 
-	<button type="button" class="btn btn-primary" (click)="Artefato_Send()"> Adicionar </button>
+ 
 </div>
-<button (click)="button(this.contentValue)">Split</button>
-
+<div>
+<button type="button" class="btn btn-primary" (click)="button(this.contentValue)">Adicionar defeitos</button>
+</div>
 <ng-container *ngFor = "let line of defLine; let i = index" >
 
               <div class="form-check col-sm"  style="margin: 0px;">
@@ -25,8 +23,12 @@
                     </select>
                   </div>
                   <div class="col-sm"><textarea class="form-control" id="{{i}}" rows="1" [(ngModel)]="defDescriptArray[i]" ></textarea></div>
-                <ng-container>
-               
-</ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
 
+
+
+
+  <button *ngIf="adicionardefeitoativado" type="button" class="btn btn-primary" (click)="Artefato_Send()"> Adicionar </button>
 

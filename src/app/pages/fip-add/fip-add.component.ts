@@ -28,6 +28,7 @@ export class FipAddComponent implements OnInit {
   defDescriptArray: Array<string> = [];
   defTaxonomyArray: Array<string> = [];
   types: Array<any>;
+  adicionardefeitoativado: boolean = false;
 
   public jones = [
   { value: 1, display: 'Dados', description: 'Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz).' },
@@ -65,6 +66,7 @@ export class FipAddComponent implements OnInit {
   }
 
   button(content: string){
+    this.adicionardefeitoativado = true;
     this.defLine = this.service.splitartifact(content);
     this.linearray = [];
     this.defDescriptArray = [];
