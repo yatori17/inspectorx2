@@ -22,9 +22,7 @@
 					<!--	<a>{{ ArtefatoIdList[0].title }}</a>!-->
 							<ng-container *ngFor = "let line of defLine; let i = index" >
 	              				<div class="form-check col-sm"  style="margin: 0px;">
-	              					<ng-container *ngIf="i == 3">
-	              				    	<input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
-	              				    </ng-container>
+    		            			<input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
             		    			<label class="form-check-label ql-editor" style="margin: 0px; padding: 0px;" for="{{i}}" [innerHTML]="HTMLSanitizer(line)"></label>
                 					<ng-container *ngIf="linearray[i]">
                 						<select id="taxonomy" required  [(ngModel)]="detTaxonomyArray[i]">

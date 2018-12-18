@@ -136,15 +136,31 @@ export class FipDetectionComponent implements OnInit {
     this.linearray = [];
     this.detDescriptArray = [];
     this.detTaxonomyArray = [];
+
     this.dbhelp._getArtefatoByUse(id).then(res => {
       console.log(res[0].content);
       this.ArtefatoIdList = res;
       this.defLine = this.service.splitartifact(res[0].content);
+
+
+     for(var _i = 0; _i < this.defLine.length; _i++){
+      this.linearray.push(false);
+      this.detDescriptArray.push(null);
+      this.detTaxonomyArray.push(null);
+    }
       })
+
   }
 
 
     public executarResp() {
+
+    for(var _i = 0; _i < this.defLine.length; _i++){
+      if (this.linearray[_i] == false){
+        this.detDescriptArray[_i] = null;
+        this.detTaxonomyArray[_i] = null;
+      }
+    }
       this.dbhelp._createRespfip(this.auth.userProfile.sub,
                                  this.selectedValue._id,
                                  this.selectedArtifact,

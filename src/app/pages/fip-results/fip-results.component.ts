@@ -52,7 +52,8 @@ export class FipResultsComponent implements OnInit {
   inspetor: string;
   InspectorArray: Array<string> = [];
   RespfipArr: Array<any> = [];
-
+  moderador: string;
+  ModResp: any;
 
  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private dbhelp: DbhelpService) { }
 
@@ -62,31 +63,24 @@ export class FipResultsComponent implements OnInit {
 
      this.dbhelp._getPartfipById(this.partidaid).then(res => {
        this.InspectorArray = res[0].inspetor;
+       this.moderador = res[0].userId;
+        this.dbhelp._getRespfipBy_User_Partida(this.moderador, this.partidaid).then(res =>{
+          this.ModResp.push(res);
+        })
 
        for (let _i = 0; _i < this.InspectorArray.length; _i++) {
-
-       this.dbhelp._getRespfipBy_User_Partida(res[0].inspetor[_i], this.partidaid).then(res => {
+         this.dbhelp._getRespfipBy_User_Partida(res[0].inspetor[_i], this.partidaid).then(res => {
          console.log(res);
          this.RespfipArr.push(res);
-
-
-/*          for(var _k = 0; _k < this.RespfipArr[_i].length; _k++){
-        if (this.RespfipArr[_i][_k] ==
-                }*/
-       });
-
-
-
-
-        }
-
+         });
+       }
 
        console.log('NAO SEI');
      });
-     //   this._getRespfipById("google-oauth2|117874532201046827537", "5c11c234f6addf0ef8e149e8");
-
   	});
   }
+
+
 
 
 }

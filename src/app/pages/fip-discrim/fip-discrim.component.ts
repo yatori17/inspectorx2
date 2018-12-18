@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PartfipModel } from './../../core/models/partfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
+import { RespfipModel } from './../../core/models/respfip.model';
 
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './../../auth/auth.service';
@@ -27,6 +28,8 @@ export class FipDiscrimComponent implements OnInit {
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
 
+  RespfipList: RespfipModel[];
+
   RespfipArray: Array<string> = [];
   ArtefatoArray: Array<string> = [];
 
@@ -43,10 +46,14 @@ export class FipDiscrimComponent implements OnInit {
 
   disableArray: Array<boolean> = [];
 
+  booleanArray: Array<boolean> = [];
+
   selectedValue: any;
   selectedRespfip: any;
   selectedType: any;
   selectedArtifact: any;
+
+  avisoFaltouResposta: boolean = false;
 
     types: Array<any>;
     public jones = [
@@ -92,6 +99,16 @@ export class FipDiscrimComponent implements OnInit {
   }
 
   public buttonCriarResposta(){
+    this.avisoFaltouResposta = false;
+
+    for (var q = 0; q<this.linearray.length; q++){
+     if (this.linearray[q] == true && this.detTaxonomyArray[q] == null){
+      this.avisoFaltouResposta = true;
+      console.log("Faltou resposta")
+     } 
+   }
+
+     if (this.avisoFaltouResposta == false){
     this.dbhelp._createRespfip(this.auth.userProfile.sub,
                                  this.selectedValue._id,
                                  this.selectedArtifact,
@@ -100,8 +117,10 @@ export class FipDiscrimComponent implements OnInit {
                                  this.detDescriptArray,
                                  this.detTaxonomyArray,
                                  false,
-                                 this.ArtefatoIdList[0].title);
+                                 'teste');
+    }
   }
+  
 
   public artefatoarray(arr: any) {
     	console.log('artefato array');
@@ -116,15 +135,42 @@ export class FipDiscrimComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(code);
   }
 
+  public changeRadio(taxonomy: string, position: number){
+    console.log(taxonomy);
+    this.detTaxonomyArray[position] = taxonomy;
+    console.log(this.detTaxonomyArray);
+
+  }
+
   public _modelchangeartefato(id: string) {
     console.log('zerar?');
     this.linearray = [];
     this.detDescriptArray = [];
     this.detTaxonomyArray = [];
+    this.booleanArray = [];
     this.dbhelp._getArtefatoByUse(id).then(res => {
       console.log(res[0].content);
       this.defLine = this.service.splitartifact(res[0].content);
-      })
+      });
+
+    this.dbhelp._getRespfipBy_Partida_Artefato(this.selectedValue._id, id, true).then(res=>{
+      this.RespfipList = res;
+
+      for (var j=0; j<res[0].detbool.length; j++){
+        this.booleanArray.push(false);
+        this.detTaxonomyArray.push(null);
+        this.linearray.push(false);
+      }
+
+      for (var k=0; k<res.length; k++){
+        for (var i=0; i<res[0].detbool.length; i++){
+          this.booleanArray[i] = this.booleanArray[i] || res[k].detbool[i];
+        }
+      }
+    });
+
+
+
   }
   
 

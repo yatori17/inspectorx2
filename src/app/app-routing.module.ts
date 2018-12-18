@@ -12,6 +12,7 @@ import { FipCreateComponent } from './pages/fip-create/fip-create.component';
 import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component';
 import { FipResultsComponent } from './pages/fip-results/fip-results.component';
+import { RankingfipComponent } from './pages/rankingfip/rankingfip.component';
 
 import { PartidasComponent } from './pages/partidas/partidas.component';
 
@@ -69,6 +70,10 @@ const routes: Routes = [{
 {
 	path: 'partidas',
 	component: PartidasComponent
+},
+{
+	path: 'testbench',
+	component: RankingfipComponent
 }
 ];
 

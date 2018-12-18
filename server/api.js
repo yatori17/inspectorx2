@@ -399,8 +399,8 @@ module.exports = function(app, config) {
   });
 
         //GET respfip
-     app.get('/api/respfips/:partidaId/:artefatoId', (req, res) => {
-    Respfip.find({ partidaId: req.params.partidaId, artefatoId: req.params.artefatoId }, (err, respfips) => {
+     app.get('/api/respfips/:partidaId/:artefatoId/:inspector', (req, res) => {
+    Respfip.find({ partidaId: req.params.partidaId, artefatoId: req.params.artefatoId, inspector: req.params.inspector }, (err, respfips) => {
       let respfipsArr = [];
       if (err) {
         return res.status(500).send({message: err.message});

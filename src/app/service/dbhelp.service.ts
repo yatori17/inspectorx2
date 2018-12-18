@@ -193,6 +193,24 @@ myBool: boolean;
       });
     }
 
+    _getRespfipBy_Partida_Artefato(partida: string, artefato: string, inspector: boolean) {
+    return new Promise<RespfipModel[]>(resolve => {
+    	this.loading = true;
+	    this.RespfipSub = this.api.getRespfipByPartida_Artefato$(partida, artefato, inspector).subscribe(
+        	res => {
+        		this.RespfipList = res;
+            	this.loading = false;
+            	resolve(this.RespfipList);
+          },
+          	err => {
+            	console.error(err);
+            	this.loading = false;
+            	this.error = true;
+          }
+          );
+      });
+    }
+
 
 
 

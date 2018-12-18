@@ -1,7 +1,14 @@
 
+
 <ng-container *ngFor="let inspetor of InspectorArray; let i = index">
-	<div> {{ inspetor }} </div>
+	<div> Inspetor: {{ inspetor }} </div>
 	<ng-container *ngFor="let respfip of RespfipArr[i]; let k = index">
-		<div> {{ respfip._id }} | {{ respfip.artefatoId | artefatonamer | async }} </div>
-	</ng-container>
+		<div> Artefato: {{ respfip.artefatoId | artefatonamer | async }} </div>
+		<ng-container *ngFor="let line of RespfipArr[i][k].detbool; let j = index">
+			
+				<div *ngIf="RespfipArr[i][k].detbool[j]"> Linha {{j+1}}: {{ RespfipArr[i][k].dettaxonomy[j] }} | {{ RespfipArr[i][k].artefatoId | artefatoconfere:RespfipArr[i][k].dettaxonomy:j | async }} </div>
+				
+		</ng-container>
+		</ng-container>
+		<br>
 </ng-container>

@@ -1,47 +1,85 @@
+		<ng-container *ngIf=avisoFaltouResposta>
+			<div class="alert alert-warning" role="alert">
+  				Você precisa selecionar uma taxonomia nas respostas marcadas.
+			</div>
+		</ng-container>
+
 <div class="container">
 	<div class="row" >
-		<div class="col">
+		<div class="col-2">
 			<div>
-				<select [(ngModel)]="selectedValue" (ngModelChange)="dbhelp._getRespfipBy_Partida(selectedValue._id); artefatoarray(selectedValue.artefato);" size="5">
+				<select [(ngModel)]="selectedValue" (ngModelChange)="artefatoarray(selectedValue.artefato);" size="5">
 					<option *ngFor="let partida of PartfipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
 				</select>
 			</div>
 		</div>
-		<ng-container *ngIf="selectedValue">
-		<div class="col">
+		<ng-container *ngIf="selectedValue"><!-- Fazer com que ngIf também aguarde pelo carregamento pra só exibir na DOM quando a promise ser cumprida!-->
+		<div class="col-2">
 			<div>
 				<select [(ngModel)]="selectedArtifact" (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
 					<option *ngFor="let artefato of ArtefatoArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]" > {{ artefato | artefatonamer | async }}</option>
 				</select>
 			</div>
 		</div>
-		<ng-container *ngIf="selectedArtifact">
+		<!--<ng-container *ngIf="selectedArtifact">!-->
+		
 		<div class="col">
-			<div class="row">
 					<div>	
 						<!--<a>{{ ArtefatoIdList[0].title }}</a>!-->
-							<ng-container *ngFor = "let line of defLine; let i = index" >
-	              				<div class="form-check col-sm"  style="margin: 0px;">
-    		            			<input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
-            		    			<label class="form-check-label ql-editor" style="margin: 0px; padding: 0px;" for="{{i}}" [innerHTML]="HTMLSanitizer(line)"></label>
-                					<ng-container *ngIf="linearray[i]">
-                						<select id="taxonomy" required  [(ngModel)]="detTaxonomyArray[i]">
-    									<option *ngFor="let type of types" [value]="type.display"> {{ type.display }} </option>
-    									</select>
-    									<div class="col-sm"><textarea class="form-control" id="{{i}}" rows="1" [(ngModel)]="detDescriptArray[i]" ></textarea></div>
-                					</ng-container>
-                				</div>
-            				</ng-container>
-					</div>
+						<div class="container">
+							<table class="table bordered">
+							<thead>    
+								<tr>
+									<th scope="col">Alo alo</th>
+     								<ng-container *ngFor= "let inspec of RespfipList; let l = index">
+     									<th scope="col">{{ l + 1 }}</th>
+     								</ng-container>
+     								<th scope="col">Código</th>
+   								</tr>
+							</thead>
+							<tbody>
+								<ng-container *ngFor = "let line of defLine; let i = index">
+									<tr>
+										<td scope="row">
+											<ng-container *ngIf="booleanArray[i]">
+												
+											<input class="form-check-input" type="checkbox" id="check{{i}}" value="{{i}}" aria-label="Linha correta?" [(ngModel)]="linearray[i]">	<label class="form-check-label" for="check {{i}}{{k}}"></label>
+
+											</ng-container>
+										</td>
+										<ng-container *ngFor= "let inspetor of RespfipList; let k = index">
+										<td>
+											<ng-container *ngIf="booleanArray[i]">
+												<ng-container *ngIf="linearray[i]">
+													<ng-container *ngIf="inspetor.dettaxonomy[i] != null">
+											<input class="form-check-input" type="radio" name="radio{{i}}" value="{{ inspetor.dettaxonomy[i]}}" (ngModel)=2 (ngModelChange)="changeRadio(inspetor.dettaxonomy[i],i);" id="check {{i}}{{k}}" required>
+										</ng-container>
+										</ng-container>
+											<label class="form-check-label" for="check {{i}}{{k}}">{{inspetor.dettaxonomy[i]}}</label>
+											</ng-container>
+										</td>
+										</ng-container>
+										<td class="ql-editor" [innerHTML]="HTMLSanitizer(line)">
+											
+										</td>
+									</tr>
+								</ng-container>
+							</tbody>
+						</table>
+
+						</div>
+		
+
+
 				<div class="row form-group">
 					<label for="textarea">Inserir comentários</label>
     				<textarea class="form-control" id="textarea" rows="3"></textarea>
     			</div>
-				<button (click)="buttonCriarResposta()">Criar resposta</button>
+				<button type="submit" (click)="buttonCriarResposta()">Criar resposta</button>
 			</div>
 
 		</div>
-		</ng-container>
+		<!--</ng-container>!-->
 		</ng-container>
 
 	</div>

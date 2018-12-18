@@ -227,9 +227,9 @@ export class ApiService {
   }
 
       // GET respfip baseado no ID
-  getRespfipByArtifact$(partida: string, artefato: string): Observable<RespfipModel[]> {
+  getRespfipByPartida_Artefato$(partida: string, artefato: string, inspector: boolean): Observable<RespfipModel[]> {
     return this.http
-      .get(`${ENV.BASE_API}respfips/${partida}/${artefato}`)
+      .get(`${ENV.BASE_API}respfips/${partida}/${artefato}/${inspector}`)
       .pipe(
         catchError((error) => this._handleError(error))
         );
