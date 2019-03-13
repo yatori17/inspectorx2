@@ -12,6 +12,7 @@ import { QuestionModel } from './models/question.model';
 import { PartidaModel } from './models/partida.model';
 import { RespostaModel } from './models/resposta.model';
 import { ArtefatoModel } from './models/artefato.model';
+import { TaxonomiaModel } from './models/taxonomia.model';
 import { ListuserModel } from './models/listuser.model';
 import { PartfipModel } from './models/partfip.model';
 import { RespfipModel } from './models/respfip.model';
@@ -167,6 +168,19 @@ export class ApiService {
         );
       }
 
+  //POST taxonomia
+  postTaxonomia$(taxonomia: TaxonomiaModel): Observable<TaxonomiaModel> {
+    console.log('taxonomia post: ');
+    console.log(taxonomia);
+    return this.http
+      .post<TaxonomiaModel>(`${ENV.BASE_API}taxonomia/new`, taxonomia, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+      }
+
 
         //GET artefato
         getArtefato$(): Observable<ArtefatoModel[]> {
@@ -256,6 +270,24 @@ export class ApiService {
   getConferefipById$(user: string, partida: string): Observable<ConferefipModel[]> {
     return this.http
       .get(`${ENV.BASE_API}conferefip/${user}/${partida}`)
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+  }
+
+    // GET taxonomia
+  getTaxonomia$(): Observable<TaxonomiaModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}taxonomia/`)
+      .pipe(
+        catchError((error) => this._handleError(error))
+        );
+  }
+
+    // GET taxonomia baseado no ID
+  getTaxonomiaById$(id: string): Observable<TaxonomiaModel[]> {
+    return this.http
+      .get(`${ENV.BASE_API}taxonomia/${id}`)
       .pipe(
         catchError((error) => this._handleError(error))
         );

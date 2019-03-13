@@ -1,0 +1,16 @@
+<form [formGroup]="form" class="form-group">
+    <label for="titulo">Titulo</label>
+    <textarea class="form-control" id="titulo" rows="1" [(ngModel)]="titleValue" [ngModelOptions]="{standalone: true}"></textarea>
+    <br>
+    <div formArrayName="taxonomy" *ngFor="let creds of form.controls.taxonomy?.value; let i = index; trackBy:trackByFn">
+		<ng-container [formGroupName]="i">
+            <input placeholder="Display" formControlName="display">
+            <input placeholder="Description" formControlName="description">
+        </ng-container>
+	</div>
+
+	<button type="button" class="btn btn-dark" (click)="addCreds()">Adicionar linha</button>
+    <br>
+</form>
+
+	<button type="button" class="btn btn-dark" (click)="addtoDB()">Adicionar taxonomia</button>

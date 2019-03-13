@@ -23,38 +23,32 @@ const Quill: any = QuillNamespace;
 export class FipAddComponent implements OnInit {
   titleValue: string;
   contentValue: string;
+  TaxonomiaList: any;
   defLine: Array<string>;
   linearray: Array<boolean> = [];
   defDescriptArray: Array<string> = [];
   defTaxonomyArray: Array<string> = [];
   types: Array<any>;
   adicionardefeitoativado: boolean = false;
-
-  public jones = [
-  { value: 1, display: 'Dados', description: 'Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz).' },
-  { value: 2, display: 'Inicialização', description: 'Ocorre quando se tenta acessar uma variável que não foi inicializada.' },
-  { value: 3, display: 'Comissão', description:  'Ocorre quando existe algum segmento de código que foi implementado incorretamente, i.e., cuja implementação é diferente do que foi especificado' },
-  { value: 4, display: 'Controle', description: 'Ocorre quando um comando de desvio condicional é usado de forma incorreta.' },
-  { value: 5, display: 'Excesso', description: 'Existem trechos de código irrelevantes e desnecessários.' },
-  { value: 6, display: 'Computação', description: 'Ocorre quando um valor é definido erroneamente para uma variável.' },
-  { value: 7, display: 'Desempenho', description: 'Algumas rotinas executam comandos ou laços (loops) desnecessários.' }
-  ];
-
-  public shull = [
-  { value: 1, display: 'Omissão', description: 'Deve-se à omissão ou negligência de alguma informação necessária ao desenvolvimento do software.' },
-  { value: 2, display: 'Ambiguidade', description: 'Ocorre quando uma determinada informação não é bem definida, permitindo assim uma interpretação subjetiva, que pode levar a múltiplas interpretações.' },
-  { value: 3, display: 'Fato incorreto', description: 'Informações dos artefatos do sistema que são contraditórias com o conhecimento que se tem do domínio da aplicação.' },
-  { value: 4, display: 'Inconsistência', description: 'Ocorre quando duas ou mais informações são contraditórias entre si.' },
-  { value: 5, display: 'Informação estranha', description: 'Informação desnecessária incluída nos requisitos do software que esta sendo desenvolvido.' },
-  { value: 6, display: 'Não há defeito', description: 'Requisito correto'}
-  ];
+  taxvalue: string;
+  qtyDefect: number;
+  taxselected: any;
 
   constructor(public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
 
   ngOnInit() {
   	this.titleValue = 'titulo';
 	  this.contentValue = 'valor';
-    this.types = this.jones;
+
+    this.dbhelp._getTaxonomia().then(res=> {
+      this.TaxonomiaList = res;
+      console.log(this.TaxonomiaList);
+    })
+  }
+
+  public changeTaxonomy(){
+    this.types = this.taxselected.value;
+    console.log(this.types);
   }
 
 
@@ -85,19 +79,28 @@ export class FipAddComponent implements OnInit {
   public Artefato_Send() {
   	console.log('Send artefato');
 
+    this.qtyDefect = 0;
+
 
     for(var _i = 0; _i < this.defLine.length; _i++){
       if (this.linearray[_i] == false){
         this.defDescriptArray[_i] = null;
         this.defTaxonomyArray[_i] = null;
+      } else {
+        this.qtyDefect++;
       }
     }
+
+    console.log(this.defTaxonomyArray);
+
   	this.dbhelp._createArtefato(this.auth.userProfile.sub,
                                 this.titleValue,
+                                this.taxselected._id,
                                 this.contentValue,
                                 this.linearray,
                                 this.defDescriptArray,
-                                this.defTaxonomyArray
+                                this.defTaxonomyArray,
+                                this.qtyDefect
                                 );
   }        
 

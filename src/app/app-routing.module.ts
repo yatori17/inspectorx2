@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { GameComponent } from './pages/game/game.component';
@@ -8,6 +7,7 @@ import { FullinspecComponent } from './pages/fullinspec/fullinspec.component';
 import { CrawlendComponent } from './pages/crawlend/crawlend.component';
 import { FipPlanComponent } from './pages/fip-plan/fip-plan.component';
 import { FipAddComponent } from './pages/fip-add/fip-add.component';
+import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
 import { FipCreateComponent } from './pages/fip-create/fip-create.component';
 import { FipDetectionComponent } from './pages/fip-detection/fip-detection.component';
 import { FipDiscrimComponent } from './pages/fip-discrim/fip-discrim.component';
@@ -50,6 +50,10 @@ const routes: Routes = [{
 {
 	path: 'fipplan/add',
 	component: FipAddComponent
+},
+{
+	path: 'fipplan/taxadd',
+	component: FipTaxaddComponent
 },
 {
 	path: 'fipcreate',

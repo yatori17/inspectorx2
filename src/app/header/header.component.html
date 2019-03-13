@@ -24,6 +24,9 @@
       <li><span *ngIf="auth.loggedIn">
       <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Adicionar artefato </a> 
       </span></li>
+      <li><span *ngIf="auth.loggedIn">
+      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Adicionar taxonomia </a> 
+      </span></li>
     </ul>
     
   </nav>

@@ -15,7 +15,7 @@ import { DbhelpService } from './../../service/dbhelp.service';
 })
 
 export class FipCreateComponent implements OnInit {
-  difValue: number;
+  difValue: number = 0;
   partidanome: string = null;
   ListuserList: any;
   ArtefatoList: any;
@@ -39,6 +39,10 @@ constructor(private router: Router, public auth: AuthService, private dbhelp: Db
   clickAtivo(value: number) {
     //Isso vai modificar a dificuldade em algum momento
   	this.difValue = value;
+    for (const artefato of this.ArtefatoList){
+      artefato.isActive = false;
+    }
+    this.ArtefatoArrCheck = [];
   	console.log('clickAtivo: ' + this.difValue);
   }
 

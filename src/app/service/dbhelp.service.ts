@@ -3,6 +3,7 @@ import { ArtefatoModel } from './../core/models/artefato.model';
 import { PartfipModel } from './../core/models/partfip.model';
 import { ListuserModel } from './../core/models/listuser.model';
 import { RespfipModel } from './../core/models/respfip.model';
+import { TaxonomiaModel } from './../core/models/taxonomia.model';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ApiService } from './../core/api.service';
@@ -28,6 +29,10 @@ myBool: boolean;
   RespfipSub: Subscription;
   RespfipList: RespfipModel[];
   RespfipModelo: RespfipModel;
+
+  TaxonomiaSub: Subscription;
+  TaxonomiaList: TaxonomiaModel[];
+  TaxonomiaModelo: TaxonomiaModel;
 
 
   constructor(private api: ApiService) {  }
@@ -110,6 +115,44 @@ myBool: boolean;
   });
   }
 
+  _getTaxonomiaById(id: string) {
+      console.log(id);
+      return new Promise<TaxonomiaModel[]>(resolve => {
+        console.log('iniciou taxonomiabyid');
+        this.loading = true;
+        this.TaxonomiaSub = this.api.getTaxonomiaById$(id).subscribe(
+        res => {
+          this.TaxonomiaList = res;
+          this.loading = false;
+          resolve(this.TaxonomiaList);
+          console.log(this.TaxonomiaList);
+        },
+        err => {
+          console.error(err);
+          this.loading = false;
+          this.error = true;
+        }
+      );
+  });
+  }
+
+   _getTaxonomia() {
+    return new Promise(resolve => {
+        this.loading = true;
+        this.TaxonomiaSub = this.api.getTaxonomia$().subscribe(
+          res => {
+            this.TaxonomiaList = res;
+              this.loading = false;
+              resolve(this.TaxonomiaList);
+          },
+            err => {
+              console.error(err);
+              this.loading = false;
+              this.error = true;
+          }
+        );
+      });
+    }
 
     _getPartfipBy_User(user: string) {
     return new Promise(resolve => {
@@ -216,15 +259,17 @@ myBool: boolean;
 
 
 //CREATE
-   _createArtefato(userId: string, title: string, content: string, defectbool: Array<boolean>, defectdescript: Array<string>, defecttaxonomy: Array<string>) {
+   _createArtefato(userId: string, title: string, taxid: string, content: string, defectbool: Array<boolean>, defectdescript: Array<string>, defecttaxonomy: Array<string>, qtydefect: number) {
     return new Promise(resolve => {
 		const artefatoModelo = new ArtefatoModel(
         	userId,
         	title,
+          taxid,
 	        content,
     	    defectbool,
         	defectdescript,
-        	defecttaxonomy
+        	defecttaxonomy,
+          qtydefect
     	);
 
     this.ArtefatoSub = this.api.postArtefato$(artefatoModelo).subscribe(
@@ -279,6 +324,25 @@ myBool: boolean;
        	   }
      	);
 	});
+   }
+
+   _createTaxonomia(title: string, value: Array<string,string>) {
+     console.log(title);
+     console.log(value);
+    return new Promise(resolve => {
+    const taxonomiaModelo = new TaxonomiaModel(
+          title,
+          value
+      );
+
+    this.TaxonomiaSub = this.api.postTaxonomia$(taxonomiaModelo).subscribe(
+          res => {
+         },
+          err => {
+            console.log(err);
+            }
+       );
+  });
    }
 
 }

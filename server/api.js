@@ -15,6 +15,7 @@ const Listuser = require('./models/Listuser');
 const Partfip = require('./models/Partfip');
 const Respfip = require('./models/Respfip');
 const Conferefip = require('./models/Conferefip');
+const Taxonomia = require('./models/Taxonomia');
 //const Resposta = require('./models/Partida');
 
 /*
@@ -170,10 +171,12 @@ module.exports = function(app, config) {
      var artefatoObj = new Artefato({
       userId: req.body.userId,
       title: req.body.title,
+      taxid: req.body.taxid,
       content: req.body.content,
       defectbool: req.body.defectbool,
       defectdescript: req.body.defectdescript,
-      defecttaxonomy: req.body.defecttaxonomy
+      defecttaxonomy: req.body.defecttaxonomy,
+      qtydefect: req.body.qtydefect
       });
      console.log(artefatoObj);
    
@@ -277,6 +280,25 @@ module.exports = function(app, config) {
         }
          });
      }); 
+
+   //POST taxonomia
+      app.post('/api/taxonomia/new', (req, res) => {
+    console.log("taxonomia");
+
+     var taxonomiaObj = new Taxonomia({
+      title: req.body.title,
+      value: req.body.value,
+      });
+     console.log(taxonomiaObj);
+   
+     taxonomiaObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+        return res.status(200).send(taxonomiaObj);
+        }
+         });
+     });
 
 
 
@@ -460,6 +482,38 @@ module.exports = function(app, config) {
         });
       }
       res.send(conferefipsArr);
+      });
+  });
+
+                  //GET taxonomia 
+     app.get('/api/taxonomia/', (req, res) => {
+    Taxonomia.find({}, (err, taxonomia) => {
+      let taxonomiaArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (taxonomia) {
+        taxonomia.forEach(taxonomia => {
+          taxonomiaArr.push(taxonomia);
+        });
+      }
+      res.send(taxonomiaArr);
+      });
+  });
+
+             //GET taxonomia by id
+     app.get('/api/taxonomia/:id', (req, res) => {
+    Taxonomia.find({ _id: req.params.id }, (err, taxonomia) => {
+      let taxonomiaArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (taxonomia) {
+        taxonomia.forEach(taxonomia => {
+          taxonomiaArr.push(taxonomia);
+        });
+      }
+      res.send(taxonomiaArr);
       });
   });
 

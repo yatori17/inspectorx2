@@ -2,6 +2,9 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Http, HttpModule } from '@angular/http';
+
 
 import { AuthService } from './auth/auth.service';
 import { DbhelpService } from './service/dbhelp.service';
@@ -36,6 +39,7 @@ import { RankingfipComponent } from './pages/rankingfip/rankingfip.component';
 import { FipResultsComponent } from './pages/fip-results/fip-results.component';
 import { ArtefatonamerPipe } from './artefatonamer.pipe';
 import { ArtefatoconferePipe } from './artefatoconfere.pipe';
+import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
 
 
 @NgModule({
@@ -63,12 +67,15 @@ import { ArtefatoconferePipe } from './artefatoconfere.pipe';
     RankingfipComponent,
     FipResultsComponent,
     ArtefatonamerPipe,
-    ArtefatoconferePipe
+    ArtefatoconferePipe,
+    FipTaxaddComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpModule,
+    ReactiveFormsModule,
     FormsModule,
     QuillModule
   ],

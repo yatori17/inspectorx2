@@ -4,6 +4,9 @@
     <br>
    <!--	<quill-editor [(ngModel)]="contentValue" format="json"></quill-editor>!-->
 
+  <select class="form-control" id="taxselect" [(ngModel)]="taxselected" (ngModelChange)="changeTaxonomy();"><option *ngFor = "let tax of TaxonomiaList" [ngValue]="tax">{{tax.title}}</option></select>
+  <br>  
+
    <quill-editor [(ngModel)]="contentValue" ></quill-editor>
 
  

@@ -80,8 +80,6 @@ export class FipDiscrimComponent implements OnInit {
 
   ngOnInit() {
 
-    this.types = this.jones;
-
 
   	this.dbhelp._getPartfipBy_User(this.auth.userProfile.sub).then(res => {
         console.log(this.PartfipList);
