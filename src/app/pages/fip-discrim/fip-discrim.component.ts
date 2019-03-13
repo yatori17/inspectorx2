@@ -163,7 +163,7 @@ export class FipDiscrimComponent implements OnInit {
         console.log(res);
         console.log(res.length);
         for (let _i = 0; _i < res.length; _i++) {
-          console.log("Passo1: " _k + " - " + this.ArtefatoArray[_k] + " e " + "Passo 2: " + _i + " - " + res[_i].artefatoId);
+          
           if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
              this.disableArray[_k] = true;
              console.log('trueeee');
