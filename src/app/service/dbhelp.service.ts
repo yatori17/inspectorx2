@@ -326,7 +326,7 @@ myBool: boolean;
 	});
    }
 
-   _createTaxonomia(title: string, value: Array<string,string>) {
+   _createTaxonomia(title: string, value: Array<any>) {
      console.log(title);
      console.log(value);
     return new Promise(resolve => {

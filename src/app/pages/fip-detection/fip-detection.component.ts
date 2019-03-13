@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { RespfipModel } from './../../core/models/respfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
@@ -60,7 +61,7 @@ export class FipDetectionComponent implements OnInit {
 
 
 
-   constructor(private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) {}
+   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) {}
 
   ngOnInit() {
 
@@ -79,7 +80,7 @@ export class FipDetectionComponent implements OnInit {
     this.disableArray = [];
     this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
       console.log('Passo 1');
-      for (let _k = 0; _k < this.ArtefatoArray.length; _k++) {
+      for (let _k = 0; _k <= this.ArtefatoArray.length; _k++) {
         console.log('Passo 2');
         console.log(res);
          console.log(res.length);
@@ -87,7 +88,7 @@ export class FipDetectionComponent implements OnInit {
           if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
              this.disableArray[_k] = true;
              console.log('trueeee');
-             _k++;
+             break;
           } else {
               this.disableArray[_k] = false;
               console.log('falseeee');
@@ -160,6 +161,10 @@ export class FipDetectionComponent implements OnInit {
                                  this.detTaxonomyArray,
                                  true,
                                  this.ArtefatoIdList[0].title);
+
+
+    this.router.navigate(['/', 'fullinspec']);
+
     }
 
 }

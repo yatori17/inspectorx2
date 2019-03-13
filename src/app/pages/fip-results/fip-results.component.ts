@@ -65,7 +65,7 @@ export class FipResultsComponent implements OnInit {
        this.InspectorArray = res[0].inspetor;
        this.moderador = res[0].userId;
         this.dbhelp._getRespfipBy_User_Partida(this.moderador, this.partidaid).then(res =>{
-          this.ModResp.push(res);
+          this.ModResp = res;
         })
 
        for (let _i = 0; _i < this.InspectorArray.length; _i++) {
@@ -79,8 +79,6 @@ export class FipResultsComponent implements OnInit {
      });
   	});
   }
-
-
 
 
 }

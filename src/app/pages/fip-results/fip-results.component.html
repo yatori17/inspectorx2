@@ -1,4 +1,12 @@
-
+	<div> Moderador: {{ moderador }} </div>
+	<ng-container *ngFor="let respfip of ModResp; let k = index">
+		<div> Artefato: {{ respfip.artefatoId | artefatonamer | async }} </div>
+		<ng-container *ngFor="let line of ModResp[k].detbool; let j = index">
+				<div *ngIf="ModResp[k].detbool[j]"> Linha {{j+1}}: {{ ModResp[k].dettaxonomy[j] }} | {{ ModResp[k].artefatoId | artefatoconfere:ModResp[k].dettaxonomy:j | async }} </div>
+				
+		</ng-container>
+		</ng-container>
+		<br>
 
 <ng-container *ngFor="let inspetor of InspectorArray; let i = index">
 	<div> Inspetor: {{ inspetor }} </div>

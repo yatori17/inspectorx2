@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
 import { DbhelpService } from './../../service/dbhelp.service';
@@ -15,7 +16,7 @@ export class FipTaxaddComponent  {
   form: FormGroup;
   titleValue: string;
 
-  constructor(private fb: FormBuilder, private dbhelp: DbhelpService) {
+  constructor(private router: Router, private fb: FormBuilder, private dbhelp: DbhelpService) {
     this.form = this.fb.group({
       published: true,
       taxonomy: this.fb.array([]),
@@ -41,5 +42,10 @@ export class FipTaxaddComponent  {
           this.titleValue,
           this.form.controls.taxonomy.value
           );
+
+
+    this.router.navigate(['/']);
 	}
+
+
 }

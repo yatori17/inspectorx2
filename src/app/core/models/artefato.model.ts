@@ -8,7 +8,7 @@ export class ArtefatoModel {
     public defectbool: Array<boolean>,
     public defectdescript: Array<string>,
     public defecttaxonomy: Array<string>,
-    public qtydefect: number;
+    public qtydefect: number,
     public isActive?: boolean,
     public _id?: string
 
