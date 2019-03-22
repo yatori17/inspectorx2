@@ -99,6 +99,9 @@ export class FipDiscrimComponent implements OnInit {
                                  false,
                                  'teste');
     }
+    
+    this.router.navigate(['/', 'fullinspec']);
+    
   }
   
 

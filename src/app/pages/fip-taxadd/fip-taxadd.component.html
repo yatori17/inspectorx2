@@ -4,11 +4,11 @@
     <br>
     <div formArrayName="taxonomy" *ngFor="let creds of form.controls.taxonomy?.value; let i = index; trackBy:trackByFn">
 		<ng-container [formGroupName]="i">
-            <input placeholder="Display" formControlName="display">
-            <input placeholder="Description" formControlName="description">
+            <input placeholder="Nome" formControlName="display">
+            <input placeholder="Descrição" formControlName="description">
         </ng-container>
 	</div>
-
+        <br>
 	<button type="button" class="btn btn-dark" (click)="addCreds()">Adicionar linha</button>
     <br>
 </form>
