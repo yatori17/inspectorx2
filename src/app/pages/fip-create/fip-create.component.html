@@ -32,47 +32,60 @@
 			</div>
 			<div class="col">
 				<div>
-					<ul class="list-group">			
+					<ul class="list-group">
 						<ng-container  *ngFor="let artefato of ArtefatoList, let i = index">
 							<ng-container *ngIf="difValue == 0; else elseBlock"></ng-container>
 							<ng-template #elseBlock>
 								<ng-container *ngIf="difValue <= 2 && artefato.qtydefect <= 1">
-										<div class="custom-control custom-checkbox">
+										<div class="custom-control custom-checkbox" >
 										<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
-										<label class="custom-control-label" for="{{ artefato._id }}">{{ artefato.title }}</label>
-										</div>	
+										<label class="custom-control-label" for="{{ artefato._id }}"
+										(mouseover)="onMouse=true"  (mouseover)="on=i"
+                     >{{ artefato.title }}</label>
+                     <div *ngIf= "onMouse && on==i" > <mat-card> <div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="buttonclose()">Fechar</button></div><div [innerHTML]="artefato.content"></div>
+                     </mat-card></div>
+                    </div>
 								</ng-container>
-								
+
 								<ng-container *ngIf="difValue == 3 && artefato.qtydefect >= 2">
-										<div class="custom-control custom-checkbox">
+										<div class="custom-control custom-checkbox" >
 										<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
-										<label class="custom-control-label" for="{{ artefato._id }}">{{ artefato.title }}</label>
-										</div>	
+										<label class="custom-control-label" for="{{ artefato._id }}"
+										(mouseover)="onMouse=true"  (mouseover)="on=i"
+                     >{{ artefato.title }}</label>
+                     <div *ngIf= "onMouse && on==i" > <mat-card><div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="buttonclose()">Fechar</button></div> <div [innerHTML]="artefato.content"></div>
+                      </mat-card></div>
+
+                    </div>
 								</ng-container>
 
 								<ng-container *ngIf="difValue == 4">
 										<div class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
-										<label class="custom-control-label" for="{{ artefato._id }}">{{ artefato.title }}</label>
-										</div>	
+										<label class="custom-control-label" for="{{ artefato._id }}"
+										(mouseover)="onMouse=true"  (mouseover)="on=i"
+                     >{{ artefato.title }}</label>
+                     <div *ngIf= "onMouse && on==i" > <mat-card><div class="posicao"> <button mat--raised-button class="btn btn-primary" (click)="buttonclose()">Fechar</button></div> <div [innerHTML]="artefato.content"></div>
+                      </mat-card>
+                    </div>
+										</div>
 								</ng-container>
-
-							</ng-template>
+             </ng-template>
 							</ng-container>
-						
+
 
 					</ul>
 				</div>
 				<div> <button type="button" class="btn btn-primary" routerLink="/fipplan/add" routerLinkActive="active" > Adicionar </button> </div>
 			</div>
 			<div class="col">
-				<div>	
+				<div>
 					<ng-container  *ngFor="let user of ListuserList, let i = index">
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input" id="{{ user.userId }}" [(ngModel)]="user.isActive">
 							<label class="custom-control-label" for="{{ user.userId }}">{{ user.title }}</label>
-						</div>						
-					</ng-container>	
+						</div>
+					</ng-container>
 				</div>
 			</div>
 		</div>
