@@ -4,11 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
+import {MatCardModule} from '@angular/material/card';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AuthService } from './auth/auth.service';
 import { DbhelpService } from './service/dbhelp.service';
 import { AppRoutingModule } from './app-routing.module';
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -77,6 +80,9 @@ import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
     HttpModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    NgbModule,
     QuillModule
   ],
   providers: [
