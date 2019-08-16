@@ -2,7 +2,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { AuthService } from './../auth/auth.service';
-import 'rxjs/add/operator/filter';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +17,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     // If nav is open after routing, close it
-    this.router.events
-      .filter(event => event instanceof NavigationStart && this.navOpen)
-      .subscribe(event => this.toggleNav());
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart && this.navOpen)
+      ).subscribe(event => this.toggleNav());
   }
 
   toggleNav() {

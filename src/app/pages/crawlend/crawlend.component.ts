@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RespostaModel } from './../../core/models/resposta.model';
 import { QuestionModel } from './../../core/models/question.model';
 import { ApiService } from './../../core/api.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 

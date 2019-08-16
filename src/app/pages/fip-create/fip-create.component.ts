@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTooltipModule} from '@angular/material';
 //RXJS
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 //Services
 import { AuthService } from './../../auth/auth.service';
 import { DbhelpService } from './../../service/dbhelp.service';

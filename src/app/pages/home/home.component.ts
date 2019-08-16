@@ -3,9 +3,9 @@ import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationStart } from '@angular/router';
 import { ApiService } from './../../core/api.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
-import 'rxjs/add/operator/filter';
+
 
 @Component({
   selector: 'app-home',

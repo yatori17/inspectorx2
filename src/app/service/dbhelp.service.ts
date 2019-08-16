@@ -4,7 +4,7 @@ import { PartfipModel } from './../core/models/partfip.model';
 import { ListuserModel } from './../core/models/listuser.model';
 import { RespfipModel } from './../core/models/respfip.model';
 import { TaxonomiaModel } from './../core/models/taxonomia.model';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { ApiService } from './../core/api.service';
 

@@ -6,7 +6,7 @@ import { AuthService } from './../../auth/auth.service';
 import { SplitArtifactService } from './../../service/split-artifact.service';
 import { DbhelpService } from './../../service/dbhelp.service';
 //rxjs
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 //plugin
 import { QuillEditorComponent } from 'ngx-quill';

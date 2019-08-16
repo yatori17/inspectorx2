@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "strictPropertyInitialization": false,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -15,10 +16,12 @@
       "es2017",
       "dom"
     ],
-      "plugins": [
-    {
-      "name": "@angular/language-service"
-    }
-  ]
+    "plugins": [
+      {
+        "name": "@angular/language-service"
+      }
+    ],
+    "module": "es2015",
+    "baseUrl": "./"
   }
 }

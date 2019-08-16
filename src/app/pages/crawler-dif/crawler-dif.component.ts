@@ -3,7 +3,7 @@ import { Component, OnInit, AfterViewInit  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QuestionModel } from './../../core/models/question.model';
 import { ApiService } from './../../core/api.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { QuestionModel } from './../../core/models/question.model';
 import { PartidaModel } from './../../core/models/partida.model';
 import { RespostaModel } from './../../core/models/resposta.model';
 import { ApiService } from './../../core/api.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 

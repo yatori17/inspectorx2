@@ -3,7 +3,7 @@ import { PartfipModel } from './../../core/models/partfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
 import { RespfipModel } from './../../core/models/respfip.model';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
