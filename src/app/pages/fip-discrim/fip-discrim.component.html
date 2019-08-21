@@ -57,6 +57,7 @@
 										</ng-container>
 										</ng-container>
 											<label class="form-check-label" for="check {{i}}{{k}}">{{inspetor.dettaxonomy[i]}}</label>
+											<button type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
 											</ng-container>
 										</td>
 										</ng-container>
@@ -76,7 +77,7 @@
 					<label for="textarea">Inserir comentários</label>
     				<textarea class="form-control" id="textarea" rows="3"></textarea>
     			</div>
-				<button type="submit" (click)="buttonCriarResposta()">Criar resposta</button>
+				<button class="btn btn-primary" type="submit" (click)="buttonCriarResposta()">Criar resposta</button>
 			</div>
 
 		</div>
@@ -88,5 +89,5 @@
 	</ng-container>
 	</div>
 	
-	<button (click)="results()">Resultados</button>
+	<button class="btn btn-primary" (click)="results()">Resultados</button>
 </div>

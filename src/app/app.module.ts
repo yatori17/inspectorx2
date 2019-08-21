@@ -82,7 +82,7 @@ import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
     FormsModule,
     MatCardModule,
     MatButtonModule,
-    NgbModule,
+    NgbModule.forRoot(),
     QuillModule
   ],
   providers: [
