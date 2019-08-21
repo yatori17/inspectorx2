@@ -27,7 +27,7 @@
 		<div class="col">
 					<div>	
 						<!--<a>{{ ArtefatoIdList[0].title }}</a>!-->
-						<div class="container">
+						<div class="col-12 col-md-8  border border-primary rounded">
 							<table class="table bordered">
 							<thead>    
 								<tr>
@@ -57,7 +57,7 @@
 										</ng-container>
 										</ng-container>
 											<label class="form-check-label" for="check {{i}}{{k}}">{{inspetor.dettaxonomy[i]}}</label>
-											<button type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
+											<button *ngIf="inspetor.detdescript[i]!=null" type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
 											</ng-container>
 										</td>
 										</ng-container>
