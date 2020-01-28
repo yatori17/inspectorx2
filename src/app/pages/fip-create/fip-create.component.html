@@ -1,4 +1,8 @@
+
 <div class="container">
+	<div class="alert alert-dark" role="alert">
+	<h2 style="text-align: center;">Planejamento</h2>
+</div>
 		<ng-container *ngIf=InspecListFail>
 			<div class="alert alert-warning" role="alert">
   				Você precisa adicionar pelo menos um inspetor para criar a partida.
@@ -15,6 +19,7 @@
 
 		<div class="row" >
 			<div class="col">
+				<h4>Dificuldade</h4>
 				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
 				<label>
 			   		<input type="radio" name="options" id="option1" autocomplete="off" (click)="clickAtivo(1)"  [disabled]="true" > Fácil
@@ -32,6 +37,7 @@
 			</div>
 			<div class="col">
 				<div>
+					<h4>Artefatos</h4>
 					<ul class="list-group">
 						<ng-container  *ngFor="let artefato of ArtefatoList, let i = index">
 							<ng-container *ngIf="difValue == 0; else elseBlock"></ng-container>
@@ -40,10 +46,12 @@
 										<div class="custom-control custom-checkbox" >
 										<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
 										<label class="custom-control-label" for="{{ artefato._id }}"
-										(mouseover)="onMouse=true"  (mouseover)="on=i"
-                     >{{ artefato.title }}</label>
-                     <div *ngIf= "onMouse && on==i" > <mat-card> <div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="buttonclose()">Fechar</button></div><div [innerHTML]="artefato.content"></div>
-                     </mat-card></div>
+										
+					 >{{ artefato.title }}</label>
+					 <div><button class="btn btn-info" (click)="click(i)">Info</button></div>
+                     <div *ngIf= "showArtefato[i]" > <mat-card> <div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="click(i)">Fechar</button></div><div [innerHTML]="artefato.content"></div>
+					 </mat-card></div>
+					 
                     </div>
 								</ng-container>
 
@@ -51,11 +59,12 @@
 										<div class="custom-control custom-checkbox" >
 										<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
 										<label class="custom-control-label" for="{{ artefato._id }}"
-										(mouseover)="onMouse=true"  (mouseover)="on=i"
-                     >{{ artefato.title }}</label>
-                     <div *ngIf= "onMouse && on==i" > <mat-card><div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="buttonclose()">Fechar</button></div> <div [innerHTML]="artefato.content"></div>
-                      </mat-card></div>
-
+										
+					 >{{ artefato.title }}</label>
+					 <div><button class="btn btn-info" (click)="click(i)">Info</button></div>
+                     <div *ngIf= "showArtefato[i]" > <mat-card> <div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="click(i)">Fechar</button></div><div [innerHTML]="artefato.content"></div>
+					 </mat-card></div>
+					
                     </div>
 								</ng-container>
 
@@ -63,12 +72,13 @@
 										<div class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input" id="{{ artefato._id }}" [(ngModel)]="artefato.isActive">
 										<label class="custom-control-label" for="{{ artefato._id }}"
-										(mouseover)="onMouse=true"  (mouseover)="on=i"
-                     >{{ artefato.title }}</label>
-                     <div *ngIf= "onMouse && on==i" > <mat-card><div class="posicao"> <button mat--raised-button class="btn btn-primary" (click)="buttonclose()">Fechar</button></div> <div [innerHTML]="artefato.content"></div>
-                      </mat-card>
-                    </div>
+										
+										>{{ artefato.title }}</label>
+										<div><button class="btn btn-info" (click)="click(i)">Info</button></div>
+										<div *ngIf= "showArtefato[i]" > <mat-card> <div class="posicao"> <button mat-raised-button class="btn btn-primary" (click)="click(i)">Fechar</button></div><div [innerHTML]="artefato.content"></div>
+										</mat-card></div>
 										</div>
+										
 								</ng-container>
              </ng-template>
 							</ng-container>
@@ -79,6 +89,7 @@
 				<div> <button type="button" class="btn btn-primary" routerLink="/fipplan/add" routerLinkActive="active" > Adicionar </button> </div>
 			</div>
 			<div class="col">
+				<h4>Inspetores</h4>
 				<div>
 					<ng-container  *ngFor="let user of ListuserList, let i = index">
 						<div class="custom-control custom-checkbox">

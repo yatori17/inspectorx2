@@ -28,6 +28,7 @@ export class FipCreateComponent implements OnInit {
   ListuserArrCheck: Array<string> = [];
   ArtefatoArrCheck: Array<string> = [];
   InspecListFail: boolean;
+  showArtefato: Array<boolean>=[];
   ArtifListFail: boolean;
 
 constructor(private router: Router, public auth: AuthService, private dbhelp: DbhelpService) {this.changeText=false; }
@@ -45,17 +46,19 @@ constructor(private router: Router, public auth: AuthService, private dbhelp: Db
     this.ArtefatoList[1].content;
   }
 
-  buttonclose(){
-    this.onMouse=false;
-  }
+ 
   clickAtivo(value: number) {
     //Isso vai modificar a dificuldade em algum momento
   	this.difValue = value;
     for (const artefato of this.ArtefatoList){
       artefato.isActive = false;
+      this.showArtefato.push(false);
     }
     this.ArtefatoArrCheck = [];
   	console.log('clickAtivo: ' + this.difValue);
+  }
+  click(i){
+    this.showArtefato[i]= !this.showArtefato[i];
   }
 
   private _createListuserArray() {
