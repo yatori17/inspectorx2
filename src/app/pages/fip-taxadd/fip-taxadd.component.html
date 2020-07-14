@@ -1,16 +1,33 @@
 <form [formGroup]="form" class="form-group">
-    <label for="titulo">Titulo</label>
-    <textarea class="form-control" id="titulo" rows="1" [(ngModel)]="titleValue" [ngModelOptions]="{standalone: true}"></textarea>
+  <h3>Add Defect Taxonomy</h3>
+    <label for="titulo">title</label>
+    <textarea class="form-control" placeholder="Title of defect taxonomy" id="titulo" rows="1" [(ngModel)]="titleValue" [ngModelOptions]="{standalone: true}"></textarea>
     <br>
     <div formArrayName="taxonomy" *ngFor="let creds of form.controls.taxonomy?.value; let i = index; trackBy:trackByFn">
-		<ng-container [formGroupName]="i">
-            <input placeholder="Nome" formControlName="display">
-            <input placeholder="Descrição" formControlName="description">
+      <ng-container [formGroupName]="i">
+            <input placeholder="Defect" formControlName="display">
+            <input placeholder="Description" formControlName="description">
         </ng-container>
 	</div>
         <br>
-	<button type="button" class="btn btn-dark" (click)="addCreds()">Adicionar linha</button>
+	<button type="button" class="btn btn-dark" (click)="addCreds()">Add New Line</button>
     <br>
 </form>
 
-	<button type="button" class="btn btn-dark" (click)="addtoDB()">Adicionar taxonomia</button>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Save {{titleValue}}?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Press Ok to save this taxonomy</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="addtoDB();c('Save click')">Ok</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-dark" (click)="open(content)">Save Taxonomy</button>
+

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { DbhelpService } from './../../service/dbhelp.service';
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -16,11 +17,14 @@ export class FipTaxaddComponent  {
   form: FormGroup;
   titleValue: string;
 
-  constructor(private router: Router, private fb: FormBuilder, private dbhelp: DbhelpService) {
+  constructor(private router: Router, private fb: FormBuilder, private dbhelp: DbhelpService,private modalService: NgbModal) {
     this.form = this.fb.group({
       published: true,
       taxonomy: this.fb.array([]),
     });
+  }
+  open(content) {
+    this.modalService.open(content);
   }
 
   addCreds() {
