@@ -13,6 +13,12 @@ import { QuillEditorComponent } from 'ngx-quill';
 import * as QuillNamespace from 'quill';
 const Quill: any = QuillNamespace;
 
+import {  NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { element } from '@angular/core/src/render3/instructions';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+
+
 @Component({
   selector: 'app-fip-add',
   templateUrl: './fip-add.component.html',
@@ -33,23 +39,35 @@ export class FipAddComponent implements OnInit {
   taxvalue: string;
   qtyDefect: number;
   taxselected: any;
+  description: String = '';
 
-  constructor(public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
+  constructor(public auth: AuthService,private router:Router, private sanitizer: DomSanitizer, private service: SplitArtifactService,
+    private dbhelp: DbhelpService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
-  	this.titleValue = 'titulo';
-	  this.contentValue = 'valor';
 
     this.dbhelp._getTaxonomia().then(res=> {
       this.TaxonomiaList = res;
       console.log(this.TaxonomiaList);
-    })
+    });
+  }
+  open(content) {
+    this.modalService.open(content);
   }
 
   public changeTaxonomy(){
     this.types = this.taxselected.value;
     console.log(this.types);
   }
+  public descript(content){
+    //this.description = content.description;
+    const result = this.types.find( type => type.display === content).description;
+
+    this.description = result;
+    console.log(this.description)
+  }
+
 
 
 
@@ -102,6 +120,10 @@ export class FipAddComponent implements OnInit {
                                 this.defTaxonomyArray,
                                 this.qtyDefect
                                 );
-  }        
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['fipplan/add']);
+});
+  }
+
 
 }
