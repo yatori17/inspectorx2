@@ -12,7 +12,7 @@ const listuserSchema = new Schema({
   userId: { type: String, required: true , unique: true},
   title: { type: String, required: true }	,
   online:{ type: Boolean},
-  xp:{ type: Number}
+  xp:{ type: Number, default: 0}
  });
 
 module.exports = mongoose.model('Listuser', listuserSchema);
