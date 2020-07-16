@@ -5,6 +5,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
+import {ListuserModel } from './../../core/models/listuser.model';
 
 
 @Component({
@@ -17,6 +18,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading: boolean;
   error: boolean;
   query: '';
+  ListuserSub: Subscription;
+  UserSub: Subscription;
+  User: ListuserModel;
+
 
   constructor(
     private title: Title,
@@ -26,11 +31,44 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
-    console.log('Teste');
+    if(this.auth.loggedIn){
+      this.getUser(this.auth.userProfile.sub);
+    }
+  }
+
+
+  public getUser(id: string){
+    this.UserSub= this.api.getUserById$(id).subscribe(
+        res=>{
+          if(!res.userId){ this._addUser()}
+        },err =>{ console.log(err)}
+      );
+    }
+
+  private _addUser() {
+      return new Promise(resolve => {
+     const listuserModelo = new ListuserModel(
+      this.auth.userProfile.sub,
+      this.auth.userProfile.name
+      );
+    this.ListuserSub = this.api
+      .postUsuarioOnline$(listuserModelo)
+      .subscribe(
+        res => {
+
+
+        },
+        err => {
+          console.log(err);
+          }
+        );
+      });
   }
 
 
   ngOnDestroy() {
+    if(this.UserSub) this.UserSub.unsubscribe();
+    if(this.ListuserSub)this.ListuserSub.unsubscribe();
   }
 
 }

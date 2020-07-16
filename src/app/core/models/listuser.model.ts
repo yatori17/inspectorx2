@@ -4,6 +4,8 @@ export class ListuserModel {
     public userId: string,
     public title: string,
     public isActive?: boolean,
+    public online?: boolean,
+    public xp?: number,
     public _id?: string
   ) { }
 }

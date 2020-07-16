@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { DbhelpService } from './../../service/dbhelp.service';
 import { ArtefatoModel } from '../../core/models/artefato.model';
-
+import {ListuserModel} from '../../core/models/listuser.model';
 @Component({
   selector: 'app-fip-create',
   templateUrl: './fip-create.component.html',
@@ -24,6 +24,7 @@ export class FipCreateComponent implements OnInit {
   on: number= -1;
   partidanome: string = null;
   ListuserList: any;
+  userList: Array<ListuserModel>;
   ArtefatoList: any;
   ListuserArrCheck: Array<string> = [];
   ArtefatoArrCheck: Array<string> = [];
@@ -46,7 +47,7 @@ constructor(private router: Router, public auth: AuthService, private dbhelp: Db
     this.ArtefatoList[1].content;
   }
 
- 
+
   clickAtivo(value: number) {
     //Isso vai modificar a dificuldade em algum momento
   	this.difValue = value;

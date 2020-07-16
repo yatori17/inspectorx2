@@ -16,6 +16,7 @@ const Partfip = require('./models/Partfip');
 const Respfip = require('./models/Respfip');
 const Conferefip = require('./models/Conferefip');
 const Taxonomia = require('./models/Taxonomia');
+const UserProf = require ('./models/Userprofile');
 //const Resposta = require('./models/Partida');
 
 /*
@@ -88,7 +89,7 @@ module.exports = function(app, config) {
       res.send(partidasArr);
       });
   });
-   
+
 
    //Post partidas
    app.post('/api/partidas/new', (req, res) => {
@@ -102,7 +103,7 @@ module.exports = function(app, config) {
     console.log(req.originalUrl);
     console.log(req.body);
      console.log(partidaObj);
-   
+
      partidaObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -132,12 +133,12 @@ module.exports = function(app, config) {
     console.log(req.originalUrl);
     console.log(req.body);
      console.log(respostaObj);
-   
+
      respostaObj.save(err => {
         if (err){
           return res.status(500).send(err);
         } else {
- 
+
         return res.status(200).send(respostaObj);
         }
          });
@@ -164,6 +165,7 @@ module.exports = function(app, config) {
 
    //FULLINSPECTIONPROCESS
 
+
    //Post artefato
    app.post('/api/artefatos/new', (req, res) => {
     console.log("artefatos");
@@ -179,7 +181,7 @@ module.exports = function(app, config) {
       qtydefect: req.body.qtydefect
       });
      console.log(artefatoObj);
-   
+
      artefatoObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -198,7 +200,7 @@ module.exports = function(app, config) {
       title: req.body.title
       });
      console.log(listuserObj);
-   
+
      listuserObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -206,7 +208,21 @@ module.exports = function(app, config) {
         return res.status(200).send(listuserObj);
         }
          });
-     });   
+     });
+     // Get an user
+     app.get('/api/listusers/:userId', (req, res) => {
+      Listuser.find({ userId: req.params.userId }, (err, user) => {
+        if (err) {
+          return res.status(500).send({message: err.message});
+        }
+        if (user) {
+          user.forEach(user => {
+            res.send(user);
+          });
+        }
+        res.send(user);
+        });
+    });
 
       //Post partfip
    app.post('/api/partfip/new', (req, res) => {
@@ -220,7 +236,7 @@ module.exports = function(app, config) {
       inspetor: req.body.inspetor
       });
      console.log(partfipObj);
-   
+
      partfipObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -246,7 +262,7 @@ module.exports = function(app, config) {
       artefatotitle: req.body.artefatotitle
       });
      console.log(respfipObj);
-   
+
      respfipObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -254,7 +270,7 @@ module.exports = function(app, config) {
         return res.status(200).send(respfipObj);
         }
          });
-     }); 
+     });
 
          //Post Conferefip
    app.post('/api/conferefip/new', (req, res) => {
@@ -271,7 +287,7 @@ module.exports = function(app, config) {
       dettaxonomy: req.body.dettaxonomy,
       });
      console.log(conferefipObj);
-   
+
      conferefipObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -279,7 +295,7 @@ module.exports = function(app, config) {
         return res.status(200).send(conferefipObj);
         }
          });
-     }); 
+     });
 
    //POST taxonomia
       app.post('/api/taxonomia/new', (req, res) => {
@@ -290,7 +306,7 @@ module.exports = function(app, config) {
       value: req.body.value,
       });
      console.log(taxonomiaObj);
-   
+
      taxonomiaObj.save(err => {
         if (err){
           return res.status(500).send(err);
@@ -319,7 +335,6 @@ module.exports = function(app, config) {
       res.send(listusersArr);
       });
   });
-
    //REMOVE usuarioonline
      app.post('/api/listusers/del/:userId', (req, res) => {
     Listuser.remove({userId: req.params.userId}, (err, listusers) => {
@@ -332,12 +347,12 @@ module.exports = function(app, config) {
         console.log("deletado!");
         return res.status(200).send();
       }
-        
-      
-      
+
+
+
       res.send(listusersArr);
       });
-  });     
+  });
 
    //GET artefato
      app.get('/api/artefatos', (req, res) => {
@@ -485,7 +500,7 @@ module.exports = function(app, config) {
       });
   });
 
-                  //GET taxonomia 
+                  //GET taxonomia
      app.get('/api/taxonomia/', (req, res) => {
     Taxonomia.find({}, (err, taxonomia) => {
       let taxonomiaArr = [];
@@ -518,8 +533,8 @@ module.exports = function(app, config) {
   });
 
      /* partida.save((err) => {
-        if (err) { 
-          return res.status(500).send({message: err.message}); 
+        if (err) {
+          return res.status(500).send({message: err.message});
         }
         res.send(partida);
       });*/
@@ -545,10 +560,10 @@ module.exports = function(app, config) {
       });
   });
 
-    
-    
+
+
       /*Partida.collection('partidas').save(partida, (err, result) => {
-        if (err) { 
+        if (err) {
           return console.log(err)
         };
         console.log('saved to database');
@@ -562,6 +577,63 @@ module.exports = function(app, config) {
   app.get('/api/', (req, res) => {
     res.send('API works');
   });
+  //UserProf
+  app.get('/api/userprof/:userId', (req, res) => {
+    UserProf.find({ userId: req.params.userId }, (err, userProfs) => {
+      let userProfsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (userProfs) {
+        userProfs.forEach(userProfs => {
+          userProfsArr.push(userProfs);
+        });
+      }
+      res.send(userProfsArr);
+      });
+  });
+
+  app.post('/api/userprofs/new', (req, res) => {
+    console.log("update");
+
+     var userProfObj = new UserProf({
+      userId: req.body.userId,
+      name: req.body.name,
+      xp: req.body.xp
+      });
+      console.log(req.originalUrl);
+      console.log(req.body);
+      console.log(userProfObj);
+
+     userProfObj.save(err => {
+        if (err){
+          return res.status(500).send(err);
+        } else {
+
+        return res.status(200).send(userProfObj);
+        }
+         });
+     });
+     app.put('/api/listusers/:_id',  (req, res) => {
+       console.log("Updating")
+      Listuser.findById({_id: req.params._id}, (err, userProf) => {
+        if (err) {
+          return res.status(500).send({message: err.message});
+        }
+        if (!userProf) {
+          return res.status(400).send({message: 'Perfil não encontrado.'});
+        }
+
+        userProf.online = req.body.online;
+        userProf.xp= req.body.xp;
+        userProf.save(err => {
+          if (err) {
+            return res.status(500).send({message: err.message});
+          }
+          res.send(userProf);
+        });
+      });
+    });
 
 
 

@@ -104,8 +104,6 @@ export class ApiService {
 
         // POST usuarioonline
   postUsuarioOnline$(listuser: ListuserModel): Observable<ListuserModel> {
-    console.log('listuser post: ');
-    console.log(listuser);
     return this.http
       .post<ArtefatoModel>(`${ENV.BASE_API}listusers/new`, listuser, {
             headers: new HttpHeaders().set('Authorization', this._authHeader)
@@ -114,6 +112,21 @@ export class ApiService {
         catchError((error) => this._handleError(error))
         );
       }
+      //Get User
+      getUserById$(_id: string): Observable<ListuserModel> {
+        return this.http
+          .get(`${ENV.BASE_API}listusers/${_id}`)
+          .pipe(
+            catchError((error) => this._handleError(error))
+            );
+      }
+      //Put User
+      putUser$(_id: string,user: ListuserModel): Observable<ListuserModel>{
+        return this.http.put(`${ENV.BASE_API}listusers/${_id}`, user).pipe(
+          catchError((error)=> this._handleError(error))
+                  );
+      }
+
 
 
        // REMOVE usuarioonline
