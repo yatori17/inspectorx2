@@ -27,6 +27,9 @@ export class CrawlendComponent implements OnInit {
 	partidaID: string;
 	types: Array<any>;
   dific: string;
+  xp: number = 0;
+  total: number = 0;
+  acerto: number = 0;
 
   public jones = [
   { value: 1, display: 'Dados', description: 'Ocorre quando uma estrutura de dados é manipulada de forma incorreta (por exemplo, quando se tenta acessar um índice inexistente de um vetor/matriz).' },
@@ -55,7 +58,7 @@ export class CrawlendComponent implements OnInit {
   		this.partidaID = params['id'];
   	});
 
-  	this._getRespostaList(this.partidaID);
+  	this._getRespostaList(this.partidaID).then(res =>{ console.log("Eu estou aqui",res); this.summarize(this.respostaList);});
   	this.codeLine = [];
   	this.codeArray = [];
 
@@ -92,6 +95,7 @@ export class CrawlendComponent implements OnInit {
     });
 
   }
+
 
   private _toRoute() {
       this.navRouting (this.respostaList[0].modo, this.questionList[1].difficulty.toLowerCase(), this.partidaID, this.respostaList.length + 1);
@@ -135,6 +139,15 @@ export class CrawlendComponent implements OnInit {
   		if (typeNum == element.value) { return element.display; }
   	}
   }
+  summarize(Resps: Array<RespostaModel>){
+    for(const respostas of Resps){
+      if(respostas.tipoAcerto){
+        this.acerto+= 1;
+      }
+      this.total+=1;
+    }
+    this.xp= this.acerto * 2 + (this.total - this.acerto);
+  }
 
   private _getRespostaList(idPartida: string) {
     return new Promise(resolve => {
@@ -147,6 +160,7 @@ export class CrawlendComponent implements OnInit {
         //this.resolvequestList = res;
         this.loading = false;
        // resolve(this.resolvequestList);
+       resolve(this.respostaList);
        console.log(this.respostaList);
 
       },

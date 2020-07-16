@@ -7,7 +7,8 @@ import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import { DbhelpService } from './../../service/dbhelp.service';
+import { ListuserModel } from './../../core/models/listuser.model';
 
 @Component({
   selector: 'app-game',
@@ -45,6 +46,10 @@ export class GameComponent implements OnInit, AfterViewInit {
   taxID: number;
   inspecao: number;
   indexestoDelete: Array<any>;
+  User : ListuserModel;
+  userSub : Subscription;
+  xp: number = 0 ;
+
 
   types: Array<any>;
 
@@ -69,7 +74,12 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   html: SafeHtml;
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, private sanitizer: DomSanitizer) {
+  constructor(private route: ActivatedRoute,
+    private auth:AuthService,
+    private router: Router,
+    private api: ApiService,
+    private sanitizer: DomSanitizer,
+    private db: DbhelpService) {
   	// this.gamemode = route.snapshot.paramMap.get('id');
     // this.partidaID = route.snapshot.paramMap.get('id2');
     //this.numquestao = route.snapshot.paramMap.get('id3');
@@ -96,6 +106,10 @@ export class GameComponent implements OnInit, AfterViewInit {
    }
 
   ngOnInit() {
+     this.db._getUserById(this.auth.userProfile.sub).then(
+       res =>{
+         this.User = this.db.ListuserModelo;
+
    this.route.params.forEach(params => {
      this.gamemode = params['id'];
      this.partidaID = params['id2'];
@@ -113,7 +127,10 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     this.questionIndex = ((Number(this.numquestao)) - 1);
   if (this.questionIndex > 10 - 1) {
+
+        this.db._editUserById(this.User._id, this.User).then(res=>{
         this.router.navigate(['/', 'crawlend', this.partidaID]);
+      });
     }
     this._getQuestionList().then(questionList => {
       console.log(questionList);
@@ -192,7 +209,8 @@ export class GameComponent implements OnInit, AfterViewInit {
 
 
    });
-
+  }
+  );
 
 
 
@@ -265,7 +283,9 @@ export class GameComponent implements OnInit, AfterViewInit {
           console.log(element.display + ' =no= ' + value2);
           console.log('ERROU O RADIO VALUE');
         }
-
+        if(this.tipoCerto ) this.User.xp+= 2;
+        else this.User.xp += 1;
+        console.log("modo: ", this.inspecao);
       this._createResposta();
       }
     }

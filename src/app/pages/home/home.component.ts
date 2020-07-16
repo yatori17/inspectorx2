@@ -6,6 +6,7 @@ import { ApiService } from './../../core/api.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import {ListuserModel } from './../../core/models/listuser.model';
+import { DbhelpService } from './../../service/dbhelp.service';
 
 
 @Component({
@@ -27,12 +28,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     private title: Title,
     private api: ApiService,
     private router: Router,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    private db: DbhelpService) { }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
     if(this.auth.loggedIn){
-      this.getUser(this.auth.userProfile.sub);
+      this.db._getUserById(this.auth.userProfile.sub).then(res=>{
+          this.User = this.db.ListuserModelo;
+          if(!this.db.ListuserModelo._id){ this._addUser();}
+      })
     }
   }
 
@@ -40,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public getUser(id: string){
     this.UserSub= this.api.getUserById$(id).subscribe(
         res=>{
+          this.User = res;
           if(!res.userId){ this._addUser()}
         },err =>{ console.log(err)}
       );
@@ -55,8 +61,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       .postUsuarioOnline$(listuserModelo)
       .subscribe(
         res => {
-
-
+          this.User = res;
+          resolve(this.User);
         },
         err => {
           console.log(err);

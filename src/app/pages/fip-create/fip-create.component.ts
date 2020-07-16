@@ -8,6 +8,7 @@ import { AuthService } from './../../auth/auth.service';
 import { DbhelpService } from './../../service/dbhelp.service';
 import { ArtefatoModel } from '../../core/models/artefato.model';
 import {ListuserModel} from '../../core/models/listuser.model';
+import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-fip-create',
   templateUrl: './fip-create.component.html',
@@ -32,7 +33,11 @@ export class FipCreateComponent implements OnInit {
   showArtefato: Array<boolean>=[];
   ArtifListFail: boolean;
 
-constructor(private router: Router, public auth: AuthService, private dbhelp: DbhelpService) {this.changeText=false; }
+constructor(private router: Router, public auth: AuthService, private dbhelp: DbhelpService,
+  config: NgbPopoverConfig) {
+    this.changeText=false;
+    config.placement = 'right';
+    config.triggers = 'hover'; }
 
   ngOnInit() {
     this.dbhelp._getListuser().then(res =>{

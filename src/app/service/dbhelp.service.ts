@@ -93,11 +93,41 @@ myBool: boolean;
         );
       });
     }
+    _getUserById(id: string){
+      return new Promise( resolve => {
+        this.loading = true;
+        this.ListuserSub = this.api.getUserById$(id).subscribe(
+          res=>{
+            this.ListuserModelo = res;
+            this.loading = false;
+            resolve(this.ListuserModelo);
+          }, err =>
+          {
+            this.loading = false;
+            this.error = true;
+          }
+        );
+      })
+    }
+    _editUserById(id : string, user: ListuserModel){
+      return new Promise(resolve =>{
+      this.loading = true;
+        this.ListuserSub = this.api.putUser$(id,user).subscribe(
+          res =>{
+            console.log("Resposta", res);
+            this.loading = false;
+          }, err =>{
+            this.loading = false;
+            this.error = true;
+          }
+        )
+        resolve(this.ListuserModelo);
+      })
+    }
 
     _getArtefatoByUse(id: string) {
       console.log(id);
       return new Promise<ArtefatoModel[]>(resolve => {
-        console.log('iniciou artefatobyid');
         this.loading = true;
         this.ArtefatoSub = this.api.getArtefatoById$(id).subscribe(
         res => {
