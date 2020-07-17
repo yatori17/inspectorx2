@@ -6,22 +6,22 @@
 
 		<div class="row">
 			<div class="col">
-				
+
 				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
 				<label [ngClass]="calculateClasses()">
-			   		<input type="radio" name="options" id="option1" autocomplete="off" (click)="moderadorAtivo()"  > Moderador
+			   		<input type="radio" name="options" id="option1" autocomplete="off" (click)="moderadorAtivo()"  > Moderator
 			    </label>
 			    <label [ngClass]="calculateClasses2()">
-			    	<input type="radio" name="options" id="option2" autocomplete="off" (click)="inspetorAtivo()" > Inspetor
+			    	<input type="radio" name="options" id="option2" autocomplete="off" (click)="inspetorAtivo()" > Inspector
 			    </label>
 				</div>
 		</div>
 		<div class="row mt-3">
 			<div class="col">
-				<h5>Etapas do Processo de inspeção</h5>
-				<button class="btn btn-primary" routerLink="/fipplan" routerLinkActive="active" [disabled]=!modinspbool>Planejamento</button>
-				<button class="btn btn-primary" routerLink="/fipdetect" routerLinkActive="active" [disabled]=modinspbool>Detecção</button>
-				<button class="btn btn-primary" routerLink="/fipdiscrim" routerLinkActive="active" [disabled]=!modinspbool>Avaliação</button>
+				<h5>Inspection Process Stages</h5>
+				<button class="btn btn-primary" routerLink="/fipplan" routerLinkActive="active" [disabled]=!modinspbool>Planning</button>
+				<button class="btn btn-primary" routerLink="/fipdetect" routerLinkActive="active" [disabled]=modinspbool>Detection</button>
+				<button class="btn btn-primary" routerLink="/fipdiscrim" routerLinkActive="active" [disabled]=!modinspbool>Discrimination</button>
 			</div>
 		</div>
 </div>

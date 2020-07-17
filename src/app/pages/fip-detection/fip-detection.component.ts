@@ -3,13 +3,15 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { RespfipModel } from './../../core/models/respfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
-import { Subscription } from 'rxjs';
+import { Subscription, config } from 'rxjs';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 //Service
 import { SplitArtifactService } from './../../service/split-artifact.service';
 import { DbhelpService } from './../../service/dbhelp.service';
+import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-fip-detection',
@@ -24,13 +26,13 @@ export class FipDetectionComponent implements OnInit {
 
   ArtefatoList: any;
   TaxonomiaList: any;
- 
+
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
-  
+
   PartfipList: any;
-  
+
 
 
   RespfipList: RespfipModel[];
@@ -55,19 +57,30 @@ export class FipDetectionComponent implements OnInit {
   detDescriptArray: Array<string> = [];
   detTaxonomyArray: Array<string> = [];
   disableArray: Array<boolean> = [];
+  description: String = '';
 
 
   types: Array<any>;
 
 
 
-   constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) {}
+   constructor(private route: ActivatedRoute,
+    private router: Router,
+    private api: ApiService,
+    public auth: AuthService,
+    config: NgbPopoverConfig,
+    private sanitizer: DomSanitizer,
+    private service: SplitArtifactService,
+    private dbhelp: DbhelpService) {
+    config.placement = 'left';
+    config.triggers = 'hover';
+   }
 
   ngOnInit() {
 
     this.dbhelp._getArtefato().then(res => {
       this.ArtefatoList = res;
-    })    
+    })
 
     this.dbhelp._getPartfip().then(res => {
       this.PartfipList = res;
@@ -97,7 +110,16 @@ export class FipDetectionComponent implements OnInit {
     }
     });
   }
-
+  public lookfor(element: string){
+    if(!element){
+      this.description='';
+      return;
+    }
+    const result = this.types.find( type => type.display === element).description;
+    if(!result){
+      this.description = '';
+    }else this.description = result;
+  }
 
   public checkArtefatoRespondido(artif: string) {
       for (let _i = 0; _i < this.Respfip2List.length; _i++) {
