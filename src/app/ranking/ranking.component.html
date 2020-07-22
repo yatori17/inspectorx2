@@ -1,0 +1,30 @@
+<ng-template [ngIf]="users.length">
+  <div class="card" style="width: 300px;">
+    <div class="card-header" style="background-color: #a805fb;text-align: center;" >
+      <span><i class="fa fa-trophy" style="color: gold;"></i></span>
+      <span style="color: aliceblue;"> Ranking </span>
+      <span><i class="fa fa-trophy" style="color: gold;"></i></span>
+    </div>
+  
+    <div class="scroll">
+    <table class="table table-striped" >
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Xp</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          {{ user.title }}
+        </td>
+        <td>{{ user.xp }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</ng-template>

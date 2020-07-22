@@ -13,6 +13,7 @@ import { DbhelpService } from './service/dbhelp.service';
 import { AppRoutingModule } from './app-routing.module';
 import {MatButtonModule} from '@angular/material/button';
 
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -43,7 +44,7 @@ import { FipResultsComponent } from './pages/fip-results/fip-results.component';
 import { ArtefatonamerPipe } from './artefatonamer.pipe';
 import { ArtefatoconferePipe } from './artefatoconfere.pipe';
 import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
-
+import { RankingComponent } from './ranking/ranking.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
     FipResultsComponent,
     ArtefatonamerPipe,
     ArtefatoconferePipe,
-    FipTaxaddComponent
+    FipTaxaddComponent,
+    RankingComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +86,7 @@ import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
     MatButtonModule,
     NgbModule.forRoot(),
     QuillModule
+    
   ],
   providers: [
   	Title,
