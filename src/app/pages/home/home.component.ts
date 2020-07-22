@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import {ListuserModel } from './../../core/models/listuser.model';
 import { DbhelpService } from './../../service/dbhelp.service';
-
+import {ChatService } from './../../service/chat.service';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +29,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private router: Router,
     public auth: AuthService,
-    private db: DbhelpService) { }
+    private db: DbhelpService,
+    private chat: ChatService
+    ) { }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);

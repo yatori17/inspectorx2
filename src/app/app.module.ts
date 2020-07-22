@@ -11,7 +11,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './auth/auth.service';
 import { DbhelpService } from './service/dbhelp.service';
 import { AppRoutingModule } from './app-routing.module';
+import { ChatService } from './service/chat.service';
+
 import {MatButtonModule} from '@angular/material/button';
+
+
 
 
 import { AppComponent } from './app.component';
@@ -45,6 +49,7 @@ import { ArtefatonamerPipe } from './artefatonamer.pipe';
 import { ArtefatoconferePipe } from './artefatoconfere.pipe';
 import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
 import { RankingComponent } from './ranking/ranking.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +78,8 @@ import { RankingComponent } from './ranking/ranking.component';
     ArtefatonamerPipe,
     ArtefatoconferePipe,
     FipTaxaddComponent,
-    RankingComponent
+    RankingComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -86,14 +92,15 @@ import { RankingComponent } from './ranking/ranking.component';
     MatButtonModule,
     NgbModule.forRoot(),
     QuillModule
-    
+
   ],
   providers: [
   	Title,
     AuthService,
     ApiService,
     DatePipe,
-    DbhelpService
+    DbhelpService,
+    ChatService
   ],
   bootstrap: [AppComponent]
 })
