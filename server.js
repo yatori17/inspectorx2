@@ -19,6 +19,15 @@ const http = require('http');
 // Config
 const config = require('./server/config');
 
+// Socket utils
+const formatMessage = require('./server/utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./server/utils/utils');
+
 /*
  |--------------------------------------
  | MongoDB
@@ -85,12 +94,55 @@ const socketIO = require('socket.io');
 
 const io = socketIO(server);
 
-io.on('connection', (socket)=> {
-  console.log("User connected")
-  socket.on('new-message', (message) => {
-    io.emit(message);
+io.on('connection', (socket)=>{
+  console.log("user connected")
+  socket.on('joinRoom', ({username, room})=>{
+      const user = userJoin(socket.id, username, room);
+      socket.join(user.room);
+      console.log(user)
+
+
+      //Messages to the actual user
+      socket.emit('new-message', formatMessage('bot', `Welcome to the chat, ${user.username}`));
+      //message to the people of the chat
+      socket.broadcast.to(user.room)
+      .emit(
+          'new-message',formatMessage("bot", `${user.username} has joined the meeting`));
+
+      io.to(user.room).emit('roomUsers',{
+          room: user.room,
+          users: getRoomUsers(user.room)
+      });
+  });
+
+  //Listening for messages
+  socket.on('new-message', (message) =>{
+      const user = getCurrentUser(socket.id);
+      console.log(message)
+
+      io.to(user.room).emit('new-message',formatMessage(user.username, message));
+  });
+
+  //Disconnect the chat
+  socket.on('disconnect', () => {
+      const user = userLeave(socket.id);
+
+      if(user){
+          io.to(user.room).emit(
+              'new-message', formatMessage("bot",`${user.username} has left the chat`)
+          );
+          io.to(user.room).emit('roomUsers',{
+              room: user.room,
+              users: getRoomUsers(user.room)
+          });
+      }
+
+
+  })
+  socket.on('status',(status)=>{
+      io.emit('status',status);
+  })
 });
-})
 
 
 /*
