@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbhelpService } from '../service/dbhelp.service';
 import { ListuserModel } from '../core/models/listuser.model';
-import {faTrophy} from '@fortawesome/free-solid-svg-icons'
+
 
 @Component({
   selector: 'app-ranking',
@@ -10,7 +10,7 @@ import {faTrophy} from '@fortawesome/free-solid-svg-icons'
 })
 export class RankingComponent implements OnInit {
   users: ListuserModel[]=[];
-  Trophy= faTrophy;
+  
 
   constructor(private dbservice: DbhelpService) { }
 
