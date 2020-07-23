@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   UserSub : Subscription;
   Status: Subscription
   users: any[]=[];
+  mostra: boolean = false;
   show: boolean = false;
 
   constructor(private chat: ChatService, private auth: AuthService) { }
@@ -44,6 +45,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
   }
 
+   public change(){
+    this.mostra = !this.mostra;
+  }
 
   sendMessage(){
 

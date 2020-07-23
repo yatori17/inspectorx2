@@ -1,6 +1,19 @@
 
-  <div class="card bg-light mb-3" style="max-width: 25rem;">
-    <div class="card-header" style="text-align: center; " ><h5>Chat</h5></div>
+  <div class="card bg-light mb-3" style="max-width: 20rem;">
+    <div class="card-header" style="height: 40px;">
+    Chat
+
+    <span *ngIf= "mostra" style="float: right;">
+      <button type="button" (click)="change()" class="btn btn-link"><i class="fa fa-minus" aria-hidden="true"></i></button>
+  </span>
+
+  <span *ngIf= "!mostra" style="float: right;">
+    <button type="button" (click)="change()" class="btn btn-link"><i class="fa fa-expand" aria-hidden="true"></i>
+    </button>
+  </span>
+
+    </div>
+    <div *ngIf ="mostra">
       <span style="margin: 5px;"><button (click)= 'hide()' class='btn btn-info'><i class="fa fa-users" aria-hidden="true"></i>
         Users</button></span>
       <div *ngIf="show">
@@ -28,6 +41,7 @@
         <button class="btn btn-primary" (click)= "sendMessage()">Send</button>
       </div>
     </div>
+  </div>
 
     </div>
   </div>
