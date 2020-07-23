@@ -12,6 +12,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const cors = require('cors');
+const http = require('http');
+
+
 
 // Config
 const config = require('./server/config');
@@ -22,7 +25,7 @@ const config = require('./server/config');
  |--------------------------------------
  */
 
-mongoose.connect(config.MONGO_URI, { useMongoClient: true });
+mongoose.connect(config.MONGO_URI);
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
@@ -51,12 +54,14 @@ app.use(cors());
 // Set port
 const port = process.env.PORT || '8083';
 app.set('port', port);
+console.log(port);
 
 // Set static path to Angular app in dist
 // Don't run in dev
 if (process.env.NODE_ENV !== 'dev') {
   app.use('/', express.static(path.join(__dirname, './dist')));
 }
+
 
 /*
  |--------------------------------------
@@ -74,12 +79,28 @@ if (process.env.NODE_ENV !== 'dev') {
   });
 }
 
+// SocketIO
+const server = http.Server(app);
+const socketIO = require('socket.io');
+
+const io = socketIO(server);
+
+io.on('connection', (socket)=> {
+  console.log("User connected")
+  socket.on('new-message', (message) => {
+    io.emit(message);
+});
+})
+
+
 /*
  |--------------------------------------
  | Server
  |--------------------------------------
  */
 if (process.env.NODE_ENV == 'dev'){
-app.listen(port, () => console.log(`Server running on localhost:${port}`)); 
+server.listen(port, () => console.log(`Server running on localhost:${port}`));
 } else { //LOCAL
-app.listen(process.env.PORT || 8080); }
+server.listen(process.env.PORT || 8080);
+console.log(`server running on port 8080`)
+}
