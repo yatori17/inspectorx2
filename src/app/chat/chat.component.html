@@ -1,3 +1,33 @@
-<p>
-  chat works!
-</p>
+
+  <div class="card bg-light mb-3" style="max-width: 25rem;">
+    <div class="card-header" style="text-align: center; " ><h5>Chat</h5></div>
+      <span style="margin: 5px;"><button (click)= 'hide()' class='btn btn-info'><i class="fa fa-users" aria-hidden="true"></i>
+        Users</button></span>
+      <div *ngIf="show">
+        <ng-template [ngIf]=users.length>
+        <li *ngFor = "let user of users[users.length-1].users">
+          <ol>
+            <i class="fa fa-circle" style="color: green;" ></i>
+            {{user.username}}
+          </ol>
+        </li>
+
+      </ng-template>
+      </div>
+      <h6 style="text-align: center;">Messages</h6>
+
+      <div class= "scroll">
+        <div class="card-body" >
+
+        <div *ngFor = "let message of messages">
+          <p style="background-color: white; ">[{{message.time}}] <strong>{{message.username}}</strong>: {{message.text}}</p>
+        </div>
+
+      <div style="width: max-content;">
+        <input [(ngModel)]= "message.content" (keyup)="$event.keyCode ==13 && sendMessage()"/>
+        <button class="btn btn-primary" (click)= "sendMessage()">Send</button>
+      </div>
+    </div>
+
+    </div>
+  </div>

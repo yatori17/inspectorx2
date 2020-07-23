@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ListuserSub: Subscription;
   UserSub: Subscription;
   User: ListuserModel;
+  aux: string="OASS"
 
 
   constructor(
@@ -30,7 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     public auth: AuthService,
     private db: DbhelpService,
-    private chat: ChatService
     ) { }
 
   ngOnInit() {

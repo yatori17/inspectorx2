@@ -4,19 +4,21 @@ import { Observable } from 'rxjs';
 
 
 export class ChatService{
-  private url = ENV.BASE_API;
+  private url = ENV.BASE_URI;
   private socket;
 
   constructor(){
-    this.socket = io(this.url);
-    console.log(this.url)
+    this.socket = io("http://localhost:8080");
+    console.log(this.url);
 }
 public joinChat(data){
-    this.socket.emit('joinRoom',data);
+  console.log(data);
+  this.socket.emit('joinRoom',data);
 }
 public sendMessage(message){
     this.socket.emit('new-message', message);
 }
+
 
 public getStatus = () => {
     return Observable

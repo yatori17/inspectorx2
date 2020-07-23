@@ -7,7 +7,7 @@
 
 <div class="container">
   <div class="alert alert-dark" role="alert">
-  	<h2 style="text-align: center;">Defect Detection</h2>
+  	<h2 style="text-align: center;">Defect Discrimination</h2>
   </div>
 	<div class="row" >
 		<div class="col-2">
@@ -97,7 +97,10 @@
 		</ng-template>
 		</ng-container>
 	</ng-container>
-	</div>
+  </div>
+  <ng-template [ngIf]="partida">
+    <app-chat [Partida]= "partida"></app-chat>
+  </ng-template>
 
 	<button class="btn btn-primary" (click)="results()">Resultados</button>
 </div>

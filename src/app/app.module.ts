@@ -50,6 +50,7 @@ import { ArtefatoconferePipe } from './artefatoconfere.pipe';
 import { FipTaxaddComponent } from './pages/fip-taxadd/fip-taxadd.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { ChatComponent } from './chat/chat.component';
+import { DataSharingService } from './service/datasharing.service';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { ChatComponent } from './chat/chat.component';
     ApiService,
     DatePipe,
     DbhelpService,
-    ChatService
+    ChatService,
+    DataSharingService
   ],
   bootstrap: [AppComponent]
 })

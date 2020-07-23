@@ -58,9 +58,16 @@ export class FipDiscrimComponent implements OnInit {
     types: Array<any>;
 
 
-  constructor(private router: Router, public auth: AuthService, private sanitizer: DomSanitizer, private service: SplitArtifactService, private dbhelp: DbhelpService) { }
+  constructor(private router: Router,
+    public auth: AuthService,
+    private sanitizer: DomSanitizer,
+    private service: SplitArtifactService,
+    private dbhelp: DbhelpService,
+    ) { }
 
   ngOnInit() {
+
+
 
 
   	this.dbhelp._getPartfipBy_User(this.auth.userProfile.sub).then(res => {
@@ -85,7 +92,7 @@ export class FipDiscrimComponent implements OnInit {
      if (this.linearray[q] == true && this.detTaxonomyArray[q] == null){
       this.avisoFaltouResposta = true;
       console.log("Faltou resposta")
-     } 
+     }
    }
 
      if (this.avisoFaltouResposta == false){
@@ -99,11 +106,14 @@ export class FipDiscrimComponent implements OnInit {
                                  false,
                                  'teste');
     }
-    
+
     this.router.navigate(['/', 'fullinspec']);
-    
+
   }
-  
+  async change(){
+    this.partida = this.selectedValue.title;
+  }
+
 
   public artefatoarray(arr: any) {
     	console.log('artefato array');
@@ -157,16 +167,17 @@ export class FipDiscrimComponent implements OnInit {
   }
 
     checkcheck() {
+      this.change();
     this.disableArray = [];
     this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
       console.log('Passo 1');
-      
+
       for (let _k = 0; _k <= this.ArtefatoArray.length; _k++) {
         console.log('Passo 2 ' + _k);
         console.log(res);
         console.log(res.length);
         for (let _i = 0; _i < res.length; _i++) {
-          
+
           if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
              this.disableArray[_k] = true;
              console.log('trueeee');
@@ -179,6 +190,6 @@ export class FipDiscrimComponent implements OnInit {
     }
     });
   }
-  
+
 
 }
