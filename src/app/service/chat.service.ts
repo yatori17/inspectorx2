@@ -8,7 +8,7 @@ export class ChatService{
   private socket;
 
   constructor(){
-    this.socket = io("http://localhost:8080");
+    this.socket = io(this.url);
     console.log(this.url);
 }
 public joinChat(data){
