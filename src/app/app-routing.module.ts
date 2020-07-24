@@ -15,6 +15,7 @@ import { FipResultsComponent } from './pages/fip-results/fip-results.component';
 import { RankingfipComponent } from './pages/rankingfip/rankingfip.component';
 
 import { PartidasComponent } from './pages/partidas/partidas.component';
+import { FipDiscrimInspComponent } from './pages/fip-discrim-insp/fip-discrim-insp.component';
 
 
 
@@ -66,6 +67,10 @@ const routes: Routes = [{
 {
 	path: 'fipdiscrim',
 	component: FipDiscrimComponent
+},
+{
+  path: 'fipdiscriminsp',
+  component: FipDiscrimInspComponent
 },
 {
 	path: 'fipresults/:id',
