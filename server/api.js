@@ -401,6 +401,20 @@ module.exports = function(app, config) {
       res.send(partfipsArr);
       });
   });
+  app.get('/api/partfipss/:id', (req, res) => {
+    Partfip.find({ inspetor: req.params.id }, (err, partfips) => {
+      let partfipsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
+      }
+      if (partfips) {
+        partfips.forEach(partfips => {
+          partfipsArr.push(partfips);
+        });
+      }
+      res.send(partfipsArr);
+      });
+  });
 
 
    //GET artefato
