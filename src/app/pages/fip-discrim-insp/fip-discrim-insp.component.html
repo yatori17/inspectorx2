@@ -1,3 +1,94 @@
-<p>
-  fip-discrim-insp works!
-</p>
+<div class="container">
+  <div class="alert alert-dark" role="alert">
+  	<h2 style="text-align: center;">Defect Discrimination(Inspector)</h2>
+  </div>
+
+	<div class="row" >
+		<div class="col" >
+      <h3>Review</h3>
+			<div>
+				<select [(ngModel)]="selectedValue" (ngModelChange)="setArtifactArray(selectedValue.artefato); getAnswers() " size="5">
+					<option *ngFor="let partida of partidaFipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
+				</select>
+      </div>
+        <div class="sticky-top">
+          <ng-template [ngIf]="partida">
+            <app-chat [Partida]= "partida"></app-chat>
+          </ng-template>
+        </div>
+    </div>
+    <ng-container *ngIf="selectedValue">
+    <div class="col">
+      <h3>Artifacts</h3>
+			<div>
+				<select [(ngModel)]="selectedArtifact"  (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
+					<option *ngFor="let artefato of artifactArray; let i = index" [ngValue]="artefato" > {{ artefato | artefatonamer | async }}</option>
+				</select>
+			</div>
+    </div>
+    <div class="col">
+      <ng-container *ngIf="selectedArtifact">
+      <ng-container *ngIf="selectedValue.inspetor.length == RespfipList.length; else elseBlock">
+        <div style="text-align: center;">
+          <h3>Artifact Content</h3>
+          </div>
+              <div>
+                <!--<a>{{ ArtefatoIdList[0].title }}</a>!-->
+                <div class="container border border-primary rounded">
+                  <table class="table bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+
+                           <th scope="col">Answer</th>
+                         <th scope="col">Código</th>
+                       </tr>
+
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor = "let line of defLine; let i = index">
+                      <tr>
+                        <td scope="row">
+                          <ng-container *ngIf="booleanArray[i]">
+
+
+                          </ng-container>
+                        </td>
+                        <ng-container *ngFor= "let inspetor of RespfipList; let k = index">
+                        <td>
+                          <ng-container *ngIf="booleanArray[i]">
+                            <ng-container *ngIf="linearray[i]">
+                              <ng-container *ngIf="inspetor.dettaxonomy[i] != null">
+                              </ng-container>
+                            </ng-container>
+                          <label *ngIf= "inspetor.userId == user">
+                            <strong>{{inspetor.dettaxonomy[i]}} </strong></label>
+                          <button *ngIf="inspetor.detdescript[i]!=null" type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
+                          </ng-container>
+                        </td>
+                        </ng-container>
+                        <td class="ql-editor" [innerHTML]="HTMLSanitizer(line)">
+
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+
+      </ng-container>
+
+      </ng-container>
+
+      <ng-container>
+        <ng-template #elseBlock>
+        Waiting for answers
+      </ng-template>
+    </ng-container>
+
+    </div>
+  </ng-container>
+
+  </div>
+</div>

@@ -39,6 +39,15 @@ export class ApiService {
         catchError((error) => this._handleError(error))
         );
   }
+  //GetPartidabyInspector
+  getPartidaByInspector$(id: string) : Observable<PartfipModel[]>{
+    return this.http
+          .get(`${ENV.BASE_API}partfipss/${id}`)
+          .pipe(
+            catchError((error)=> this._handleError(error))
+          );
+  }
+
 
   // GET list of ALL partidas
   getPartidas$(): Observable<PartidaModel[]> {

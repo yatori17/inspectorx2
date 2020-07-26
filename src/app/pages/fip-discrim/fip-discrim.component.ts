@@ -28,7 +28,7 @@ export class FipDiscrimComponent implements OnInit {
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
 
-  RespfipList: RespfipModel[];
+  RespfipList: RespfipModel[] = [];
 
   RespfipArray: Array<string> = [];
   ArtefatoArray: Array<string> = [];
@@ -161,30 +161,21 @@ export class FipDiscrimComponent implements OnInit {
         }
       }
     });
-
-
-
   }
 
     checkcheck() {
       this.change();
     this.disableArray = [];
     this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
-      console.log('Passo 1');
 
       for (let _k = 0; _k <= this.ArtefatoArray.length; _k++) {
-        console.log('Passo 2 ' + _k);
-        console.log(res);
-        console.log(res.length);
         for (let _i = 0; _i < res.length; _i++) {
 
           if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
              this.disableArray[_k] = true;
-             console.log('trueeee');
              break;
           } else {
               this.disableArray[_k] = false;
-              console.log('falseeee');
             }
       }
     }

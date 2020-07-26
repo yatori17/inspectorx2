@@ -14,14 +14,12 @@ export class ArtefatonamerPipe implements PipeTransform {
 
   transform(value: string) {
 
-    console.log("artefato namer começando")
-
     return this.dbhelp._getArtefatoByUse(value).then(res => {
       this.Results = res[0].title;
       console.log(this.Results);
       return this.Results
     })
-    
+
   }
 
 }

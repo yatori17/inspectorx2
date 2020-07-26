@@ -226,6 +226,23 @@ myBool: boolean;
           );
       });
     }
+    _getPartidaByInspector (id: string){
+      return new Promise(resolve =>{
+        this.loading = true;
+        this.PartfipSub = this.api.getPartidaByInspector$(id)
+        .subscribe(
+          res => {
+            this.PartfipList = res ;
+            resolve( this.PartfipList);
+          },
+          err =>{
+            console.log(err);
+            this.loading = false;
+            this.error = true;
+          }
+        )
+      })
+    }
 
    _getRespfipBy_Partida(partida: string) {
     return new Promise(resolve => {
