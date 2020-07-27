@@ -10,7 +10,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 //Service
 import { SplitArtifactService } from './../../service/split-artifact.service';
 import { DbhelpService } from './../../service/dbhelp.service';
-import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPopoverConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { resolve } from 'url';
+import { ListuserModel } from './../../core/models/listuser.model';
 
 
 @Component({
@@ -38,7 +40,7 @@ export class FipDetectionComponent implements OnInit {
   RespfipList: RespfipModel[];
 
 
-
+  xp: number=0;
   Respfip2List: any;
 
   ArtefatoArray: any[] = [];
@@ -58,6 +60,7 @@ export class FipDetectionComponent implements OnInit {
   detTaxonomyArray: Array<string> = [];
   disableArray: Array<boolean> = [];
   description: String = '';
+  User: ListuserModel;
 
 
   types: Array<any>;
@@ -71,7 +74,8 @@ export class FipDetectionComponent implements OnInit {
     config: NgbPopoverConfig,
     private sanitizer: DomSanitizer,
     private service: SplitArtifactService,
-    private dbhelp: DbhelpService) {
+    private dbhelp: DbhelpService,
+    private modalService: NgbModal) {
     config.placement = 'left';
     config.triggers = 'hover';
    }
@@ -82,25 +86,45 @@ export class FipDetectionComponent implements OnInit {
       this.ArtefatoList = res;
     })
 
-    this.dbhelp._getPartfip().then(res => {
-      this.PartfipList = res;
-    });
+    this.dbhelp._getPartidaByInspector(this.auth.userProfile.sub).then(
+      res => {
+        this.PartfipList = this.dbhelp.PartfipList;
+      }
+    )
+    this.dbhelp._getUserById(this.auth.userProfile.sub).then(
+      res => {
+        this.User = this.dbhelp.ListuserModelo;
+      }
+    )
 
 
   }
 
+  open(content) {
+    this.modalService.open(content);
+  }
+  public artifactCheck(){
+    if(this.disableArray.length != this.ArtefatoArray.length) return false;
+    if(this.disableArray.length > 0){
+      for(const artifacts of this.disableArray){
+       if(artifacts == false){
+          return false;
+        }
+      }
+      return true;
+  }else return false;
+  }
+
+
   checkcheck() {
+    this.selectedArtifact = null;
     this.disableArray = [];
     this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
-      console.log('Passo 1');
-      for (let _k = 0; _k <= this.ArtefatoArray.length; _k++) {
-        console.log('Passo 2');
-        console.log(res);
-         console.log(res.length);
+      for (let _k = 0; _k < this.ArtefatoArray.length; _k++) {
            for (let _i = 0; _i < res.length; _i++) {
+             console.log("TO AQUI ESSAS")
           if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
              this.disableArray[_k] = true;
-             console.log('trueeee');
              break;
           } else {
               this.disableArray[_k] = false;
@@ -136,19 +160,17 @@ export class FipDetectionComponent implements OnInit {
   }
 
     public artefatoarray(arr: any) {
-    	console.log('artefato array');
     	this.ArtefatoArray = arr;
     }
 
       public _modelchangeartefato(id: string) {
-    console.log('zerar?');
     this.linearray = [];
     this.detDescriptArray = [];
     this.detTaxonomyArray = [];
 
     this.dbhelp._getArtefatoByUse(id).then(res => {
-      console.log(res[0].content);
       this.ArtefatoIdList = res;
+      console.log(this.ArtefatoIdList);
       this.defLine = this.service.splitartifact(res[0].content);
 
 
@@ -167,11 +189,18 @@ export class FipDetectionComponent implements OnInit {
 
 
     public executarResp() {
-
+      this.xp = 0;
     for(var _i = 0; _i < this.defLine.length; _i++){
       if (this.linearray[_i] == false){
         this.detDescriptArray[_i] = null;
         this.detTaxonomyArray[_i] = null;
+      }else{
+        if(this.ArtefatoIdList.length > 0){
+          if(this.ArtefatoIdList[0].defecttaxonomy[_i] === this.detTaxonomyArray[_i]){
+            this.User.xp += 5;
+            this.xp+= 5;
+          }
+        }
       }
     }
       this.dbhelp._createRespfip(this.auth.userProfile.sub,
@@ -182,11 +211,17 @@ export class FipDetectionComponent implements OnInit {
                                  this.detDescriptArray,
                                  this.detTaxonomyArray,
                                  true,
-                                 this.ArtefatoIdList[0].title);
-
-
-    this.router.navigate(['/', 'fullinspec']);
-
+                                 this.ArtefatoIdList[0].title,
+                                 this.xp);
+      var index =this.ArtefatoArray.findIndex( element => element == this.selectedArtifact);
+      this.dbhelp._editUserById(this.User._id,this.User);
+      if(index >=0){
+        this.disableArray[index] = true;
+        this.selectedArtifact = null;
+      }
+    }
+    public nextStage(){
+      this.router.navigate(['/fipdiscriminsp']);
     }
 
 }

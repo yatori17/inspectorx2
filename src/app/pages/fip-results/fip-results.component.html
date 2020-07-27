@@ -1,22 +1,29 @@
-	<div> Moderador: {{ moderador }} </div>
+  <div class="container">
+    <div class="alert alert-dark" role="alert">
+      <h2 style="text-align: center;">Results</h2>
+    </div>
+    <div> <strong>Moderator:</strong> {{ moderador }} </div>
 	<ng-container *ngFor="let respfip of ModResp; let k = index">
-		<div> Artefato: {{ respfip.artefatoId | artefatonamer | async }} </div>
+		<div> <strong>Artifact:</strong> {{ respfip.artefatoId | artefatonamer | async }} </div>
 		<ng-container *ngFor="let line of ModResp[k].detbool; let j = index">
-				<div *ngIf="ModResp[k].detbool[j]"> Linha {{j+1}}: {{ ModResp[k].dettaxonomy[j] }} | {{ ModResp[k].artefatoId | artefatoconfere:ModResp[k].dettaxonomy:j | async }} </div>
-				
-		</ng-container>
-		</ng-container>
-		<br>
+				<div *ngIf="ModResp[k].detbool[j]"> Line {{j+1}}: {{ ModResp[k].dettaxonomy[j] }} | {{ ModResp[k].artefatoId | artefatoconfere:ModResp[k].dettaxonomy:j | async }} </div>
 
+		</ng-container>
+		</ng-container>
+    <br>
+
+<h6>Respostas dos inpetores</h6>
 <ng-container *ngFor="let inspetor of InspectorArray; let i = index">
-	<div> Inspetor: {{ inspetor }} </div>
+	<div> <strong>Inspector:</strong> {{ inspetor }} </div>
 	<ng-container *ngFor="let respfip of RespfipArr[i]; let k = index">
-		<div> Artefato: {{ respfip.artefatoId | artefatonamer | async }} </div>
+		<div> <strong>Artifact:</strong> {{ respfip.artefatoId | artefatonamer | async }} </div>
 		<ng-container *ngFor="let line of RespfipArr[i][k].detbool; let j = index">
-			
-				<div *ngIf="RespfipArr[i][k].detbool[j]"> Linha {{j+1}}: {{ RespfipArr[i][k].dettaxonomy[j] }} | {{ RespfipArr[i][k].artefatoId | artefatoconfere:RespfipArr[i][k].dettaxonomy:j | async }} </div>
-				
+
+				<div *ngIf="RespfipArr[i][k].detbool[j]"> Line {{j+1}}: {{ RespfipArr[i][k].dettaxonomy[j] }} | {{ RespfipArr[i][k].artefatoId | artefatoconfere:RespfipArr[i][k].dettaxonomy:j | async }} </div>
+
 		</ng-container>
 		</ng-container>
 		<br>
 </ng-container>
+</div>
+

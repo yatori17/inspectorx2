@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { PartfipModel } from './../../core/models/partfip.model';
 import { ArtefatoModel } from './../../core/models/artefato.model';
 import { RespfipModel } from './../../core/models/respfip.model';
 
-import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 //Service
 import { SplitArtifactService } from './../../service/split-artifact.service';
 import { DbhelpService } from './../../service/dbhelp.service';
+import { ListuserModel } from './../../core/models/listuser.model';
 
 @Component({
   selector: 'app-fip-discrim',
@@ -25,13 +24,11 @@ export class FipDiscrimComponent implements OnInit {
 
   PartfipList: any;
 
-  ArtefatoIdList: ArtefatoModel[];
-  ArtefatoIdModelo: ArtefatoModel;
-
   RespfipList: RespfipModel[] = [];
 
   RespfipArray: Array<string> = [];
   ArtefatoArray: Array<string> = [];
+  ArtifactArray: ArtefatoModel[]=[];
 
   partida: string;
   artefato: string;
@@ -40,6 +37,7 @@ export class FipDiscrimComponent implements OnInit {
   tempInicio: string;
   tempFinal: string;
   defLine: Array<string>;
+  user: ListuserModel;
   linearray: Array<boolean> = [];
   detDescriptArray: Array<string> = [];
   detTaxonomyArray: Array<string> = [];
@@ -68,10 +66,12 @@ export class FipDiscrimComponent implements OnInit {
   ngOnInit() {
 
 
-
-
+    this.dbhelp._getUserById(this.auth.userProfile.sub).then(
+      res => {
+        this.user = this.dbhelp.ListuserModelo;
+      }
+    )
   	this.dbhelp._getPartfipBy_User(this.auth.userProfile.sub).then(res => {
-        console.log(this.PartfipList);
         this.PartfipList = res;
     });
   }
@@ -86,14 +86,21 @@ export class FipDiscrimComponent implements OnInit {
   }
 
   public buttonCriarResposta(){
+    var xp =0;
     this.avisoFaltouResposta = false;
-
+    console.log(this.linearray);
     for (var q = 0; q<this.linearray.length; q++){
      if (this.linearray[q] == true && this.detTaxonomyArray[q] == null){
       this.avisoFaltouResposta = true;
-      console.log("Faltou resposta")
+     }
+
+     if(this.linearray[q] && this.detTaxonomyArray[q] === this.ArtifactArray[0].defecttaxonomy[q]){
+       xp += 5;
+       this.user.xp+=5;
+       console.log("VAMOS LA")
      }
    }
+   this.dbhelp._editUserById(this.user._id, this.user);
 
      if (this.avisoFaltouResposta == false){
     this.dbhelp._createRespfip(this.auth.userProfile.sub,
@@ -104,10 +111,16 @@ export class FipDiscrimComponent implements OnInit {
                                  this.detDescriptArray,
                                  this.detTaxonomyArray,
                                  false,
-                                 'teste');
+                                 'teste',
+                                 xp);
+
+    var index = this.ArtefatoArray.findIndex( element => this.selectedArtifact == element);
+    if(index >= 0){
+      this.disableArray[index] = true;
+      this.selectedArtifact = null;
+    }
     }
 
-    this.router.navigate(['/', 'fullinspec']);
 
   }
   async change(){
@@ -116,12 +129,11 @@ export class FipDiscrimComponent implements OnInit {
 
 
   public artefatoarray(arr: any) {
-    	console.log('artefato array');
-    	this.ArtefatoArray = arr;
+      this.ArtefatoArray = arr;
+      this.selectedArtifact = null;
   /*   this._getRespfip().then(Respfip2List =>{
     console.log(this.Respfip2List);
     });*/
-    	console.log(this.ArtefatoArray);
     }
 
       private HTMLSanitizer(code: string) {
@@ -136,19 +148,19 @@ export class FipDiscrimComponent implements OnInit {
   }
 
   public _modelchangeartefato(id: string) {
-    console.log('zerar?');
     this.linearray = [];
     this.detDescriptArray = [];
     this.detTaxonomyArray = [];
     this.booleanArray = [];
     this.dbhelp._getArtefatoByUse(id).then(res => {
-      console.log(res[0].content);
       this.defLine = this.service.splitartifact(res[0].content);
+      this.ArtifactArray = res;
+      console.log(this.ArtifactArray);
       });
 
     this.dbhelp._getRespfipBy_Partida_Artefato(this.selectedValue._id, id, true).then(res=>{
       this.RespfipList = res;
-
+      if(res.length >0 ){
       for (var j=0; j<res[0].detbool.length; j++){
         this.booleanArray.push(false);
         this.detTaxonomyArray.push(null);
@@ -159,7 +171,8 @@ export class FipDiscrimComponent implements OnInit {
         for (var i=0; i<res[0].detbool.length; i++){
           this.booleanArray[i] = this.booleanArray[i] || res[k].detbool[i];
         }
-      }
+
+      }}
     });
   }
 
@@ -168,7 +181,7 @@ export class FipDiscrimComponent implements OnInit {
     this.disableArray = [];
     this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
 
-      for (let _k = 0; _k <= this.ArtefatoArray.length; _k++) {
+      for (let _k = 0; _k < this.ArtefatoArray.length; _k++) {
         for (let _i = 0; _i < res.length; _i++) {
 
           if (this.ArtefatoArray[_k] == res[_i].artefatoId) {
@@ -180,6 +193,23 @@ export class FipDiscrimComponent implements OnInit {
       }
     }
     });
+  }
+
+
+  public nextStage(){
+    this.router.navigate(['/', 'fipresults', this.selectedValue._id]);
+  }
+
+  public artifactCheck(){
+    if(this.disableArray.length != this.ArtefatoArray.length) return false;
+    if(this.disableArray.length > 0){
+      for(let artifacts of this.disableArray){
+       if(artifacts==false){
+          return false;
+        }
+      }
+      return true;
+  } else return false;
   }
 
 

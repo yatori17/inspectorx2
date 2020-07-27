@@ -259,7 +259,8 @@ module.exports = function(app, config) {
       detdescript: req.body.detdescript,
       dettaxonomy: req.body.dettaxonomy,
       inspector: req.body.inspector,
-      artefatotitle: req.body.artefatotitle
+      artefatotitle: req.body.artefatotitle,
+      xp: req.body.xp
       });
      console.log(respfipObj);
 

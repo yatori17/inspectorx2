@@ -8,6 +8,8 @@ import { RespfipModel } from './../../core/models/respfip.model';
 import { SplitArtifactService } from '../../service/split-artifact.service';
 import { PartfipModel } from '../../core/models/partfip.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { resolve } from 'url';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-fip-discrim-insp',
@@ -18,6 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class FipDiscrimInspComponent implements OnInit {
 
+  ArtifactModelList: ArtefatoModel[]=[];
   partidaFipList: PartfipModel[] = [];
   selectedValue: any;
   artifactArray: Array<any> = [];
@@ -32,15 +35,23 @@ export class FipDiscrimInspComponent implements OnInit {
   RespfipList: RespfipModel[]=[];
   resposta: boolean = false;
   user: string= '';
+  RespfipArr: RespfipModel[]=[];
+  ArtefatoArr: ArtefatoModel[]=[];
+  xp: number =0;
+  rate: number =0;
 
 
   constructor(
     private auth: AuthService,
     private db: DbhelpService,
     private service: SplitArtifactService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public modalService: NgbModal
   ) {
     this.user = this.auth.userProfile.sub;
+  }
+  open(content) {
+    this.modalService.open(content);
   }
 
   ngOnInit() {
@@ -50,15 +61,27 @@ export class FipDiscrimInspComponent implements OnInit {
       }
     )
   }
+  public artifactCheck(){
+    if(this.disableArray.length != this.artifactArray.length) return false;
+    if(this.disableArray.length > 0){
+      for(const artifacts of this.disableArray){
+       if(artifacts == false){
+          return false;
+        }
+      }
+      return true;
+  }else return false;
+  }
 
   setArtifactArray(arr: any){
     this.artifactArray = arr;
     this.partida = this.selectedValue.title;
+    this.selectedArtifact = null;
   }
   getAnswers(){
     this.disableArray = [];
-     this.db._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(res => {
-      for (let _k = 0; _k <= this.artifactArray.length; _k++) {
+     this.db._getRespfipBy_User_Partida(this.selectedValue.userId, this.selectedValue._id).then(res => {
+      for (let _k = 0; _k < this.artifactArray.length; _k++) {
         for (let _i = 0; _i < res.length; _i++) {
 
           if (this.artifactArray[_k] == res[_i].artefatoId) {
@@ -69,11 +92,23 @@ export class FipDiscrimInspComponent implements OnInit {
             }
     }
   }
-     });
+  });
 
 }
+getScore(){
+  this.xp = 0; this.rate = 0;
+  this.db._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.selectedValue._id).then(
+    res=>{
+      console.log(res)
+      this.RespfipArr = res;
+      for(let respostas of this.RespfipArr){
+        if(respostas.xp) this.xp+= respostas.xp;
+      }
+    }
+  )
+}
+
 public _modelchangeartefato(id: string) {
-  console.log('zerar?');
   this.linearray = [];
   this.detDescriptArray = [];
   this.detTaxonomyArray = [];
@@ -84,9 +119,7 @@ public _modelchangeartefato(id: string) {
 
   this.db._getRespfipBy_Partida_Artefato(this.selectedValue._id, id, true).then(res=>{
     this.RespfipList = res;
-    console.log(res);
-    if(res.length == this.artifactArray.length) this.resposta = true;
-
+    if(res.length > 0){
     for (var j=0; j<res[0].detbool.length; j++){
       this.booleanArray.push(false);
       this.detTaxonomyArray.push(null);
@@ -98,6 +131,7 @@ public _modelchangeartefato(id: string) {
         this.booleanArray[i] = this.booleanArray[i] || res[k].detbool[i];
       }
     }
+  }
   });
 }
 private HTMLSanitizer(code: string) {

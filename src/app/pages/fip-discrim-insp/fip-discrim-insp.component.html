@@ -7,7 +7,7 @@
 		<div class="col" >
       <h3>Review</h3>
 			<div>
-				<select [(ngModel)]="selectedValue" (ngModelChange)="setArtifactArray(selectedValue.artefato); getAnswers() " size="5">
+				<select [(ngModel)]="selectedValue" (ngModelChange)="setArtifactArray(selectedValue.artefato); getAnswers(); " size="5">
 					<option *ngFor="let partida of partidaFipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
 				</select>
       </div>
@@ -22,10 +22,33 @@
       <h3>Artifacts</h3>
 			<div>
 				<select [(ngModel)]="selectedArtifact"  (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
-					<option *ngFor="let artefato of artifactArray; let i = index" [ngValue]="artefato" > {{ artefato | artefatonamer | async }}</option>
+					<option *ngFor="let artefato of artifactArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]"> {{ artefato | artefatonamer | async }}</option>
 				</select>
 			</div>
     </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Score in {{selectedValue.title}} </h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Experience points recieved in this review: {{this.xp}} points</p>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="c('Save Click');">Ok</button>
+              </div>
+            </ng-template>
+    <ng-container *ngIf ="artifactCheck(); ">
+      <div class="col">
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Well done!</h4>
+          You already completed all the stages available in this review, click <button type="button" class="btn btn-link" (click)="getScore();open(content)">here</button> to see your score in this review
+        </div>
+      </div>
+    </ng-container>
     <div class="col">
       <ng-container *ngIf="selectedArtifact">
       <ng-container *ngIf="selectedValue.inspetor.length == RespfipList.length; else elseBlock">
@@ -39,7 +62,6 @@
                   <thead>
                     <tr>
                       <th scope="col"></th>
-
                            <th scope="col">Answer</th>
                          <th scope="col">Código</th>
                        </tr>
@@ -48,12 +70,7 @@
                   <tbody>
                     <ng-container *ngFor = "let line of defLine; let i = index">
                       <tr>
-                        <td scope="row">
-                          <ng-container *ngIf="booleanArray[i]">
 
-
-                          </ng-container>
-                        </td>
                         <ng-container *ngFor= "let inspetor of RespfipList; let k = index">
                         <td>
                           <ng-container *ngIf="booleanArray[i]">

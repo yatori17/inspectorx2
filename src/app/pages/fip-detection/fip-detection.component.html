@@ -6,20 +6,29 @@
 		<div class="col">
 			<div>
         <h3>Review</h3>
-				<select [(ngModel)]="selectedValue" (ngModelChange)="artefatoarray(selectedValue.artefato); checkcheck()" size="5">
+				<select [(ngModel)]="selectedValue" (ngModelChange)="artefatoarray(selectedValue.artefato); checkcheck();" size="5">
 					<option *ngFor="let partida of PartfipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
 				</select>
 			</div>
-		</div>
-		<ng-container *ngIf="selectedValue"><!-- Fazer com que ngIf também aguarde pelo carregamento pra só exibir na DOM quando a promise ser cumprida!-->
-		<div class="col">
+    </div>
+
+      <div class="col">
 			<div>
         <h3>Artifacts</h3>
 				<select [(ngModel)]="selectedArtifact" (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
 					<option *ngFor="let artefato of ArtefatoArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]" > {{ artefato | artefatonamer | async }}</option>
 				</select>
 			</div>
-		</div>
+      </div>
+      <ng-container *ngIf="selectedValue"><!-- Fazer com que ngIf também aguarde pelo carregamento pra só exibir na DOM quando a promise ser cumprida!-->
+        <ng-container *ngIf ="artifactCheck(); ">
+          <div class="col">
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Well done!</h4>
+              You already completed the Defect Detection stage in this review, go to the <button type="button" class="btn btn-link" (click)="nextStage()">Defect Discrimination stage</button> to finish the Inspection Process
+            </div>
+          </div>
+        </ng-container>
 		<ng-container *ngIf="selectedArtifact">
 		<div class="col">
 			<div class="row">
@@ -49,7 +58,8 @@
 			</div>
 
 		</div>
-		</ng-container>
+    </ng-container>
+
 		</ng-container>
 	</div>
 </div>

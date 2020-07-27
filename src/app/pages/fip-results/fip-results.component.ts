@@ -63,8 +63,8 @@ export class FipResultsComponent implements OnInit {
 
      this.dbhelp._getPartfipById(this.partidaid).then(res => {
        this.InspectorArray = res[0].inspetor;
-       this.moderador = res[0].userId;
-        this.dbhelp._getRespfipBy_User_Partida(this.moderador, this.partidaid).then(res =>{
+       this.moderador = this.auth.userProfile.name;
+        this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.partidaid).then(res =>{
           this.ModResp = res;
         })
 

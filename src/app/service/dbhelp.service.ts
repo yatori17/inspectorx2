@@ -134,7 +134,6 @@ myBool: boolean;
           this.ArtefatoList = res;
           this.loading = false;
           resolve(this.ArtefatoList);
-          console.log(this.ArtefatoList);
         },
         err => {
           console.error(err);
@@ -349,7 +348,7 @@ myBool: boolean;
     });
    }
 
-   _createRespfip(userId: string, partidaId: string, artefatoId: string, comment: string, detbool: Array<boolean>, detdescript: Array<string>, dettaxonomy: Array<string>, inspector: boolean, artefatotitle: string,) {
+   _createRespfip(userId: string, partidaId: string, artefatoId: string, comment: string, detbool: Array<boolean>, detdescript: Array<string>, dettaxonomy: Array<string>, inspector: boolean, artefatotitle: string,xp: number) {
     return new Promise(resolve => {
 		const respfipModelo = new RespfipModel(
       		userId,
@@ -360,7 +359,8 @@ myBool: boolean;
       		detdescript,
       		dettaxonomy,
       		inspector,
-      		artefatotitle,
+          artefatotitle,
+          xp
     	);
 
     this.RespfipSub = this.api.postRespfip$(respfipModelo).subscribe(

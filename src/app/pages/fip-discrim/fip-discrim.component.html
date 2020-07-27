@@ -36,6 +36,15 @@
 			</div>
     </div>
 
+    <ng-container *ngIf ="artifactCheck(); ">
+      <div class="col">
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Well done!</h4>
+          You already completed the Defect Discrimination stage in this review, go to the <button type="button" class="btn btn-link" (click)="nextStage()">Results </button> to see the results of this review
+        </div>
+      </div>
+    </ng-container>
+
 
 
 

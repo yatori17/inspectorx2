@@ -17,7 +17,8 @@ const respfipSchema = new Schema({
   detdescript: { type: [String]},
   dettaxonomy: { type: [String]},
   inspector: { type: Boolean },
-  artefatotitle: { type: String }
+  artefatotitle: { type: String },
+  xp: {type: Number}
  });
 
 module.exports = mongoose.model('Respfip', respfipSchema);
