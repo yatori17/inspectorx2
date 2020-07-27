@@ -22,8 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ListuserSub: Subscription;
   UserSub: Subscription;
   User: ListuserModel;
-  aux: string="OASS"
-
+  access: boolean = false;
 
   constructor(
     private title: Title,
@@ -41,6 +40,9 @@ export class HomeComponent implements OnInit, OnDestroy {
           if(!this.db.ListuserModelo._id){ this._addUser();}
       })
     }
+  }
+  show(){
+    this.access = !this.access;
   }
 
 

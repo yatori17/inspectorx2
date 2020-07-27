@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { DbhelpService } from '../../service/dbhelp.service';
 import { ArtefatoModel } from './../../core/models/artefato.model';
@@ -10,6 +10,8 @@ import { PartfipModel } from '../../core/models/partfip.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { resolve } from 'url';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { timer, of } from 'rxjs';
+import { switchMap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fip-discrim-insp',
@@ -50,16 +52,28 @@ export class FipDiscrimInspComponent implements OnInit {
   ) {
     this.user = this.auth.userProfile.sub;
   }
-  open(content) {
-    this.modalService.open(content);
-  }
+
+
 
   ngOnInit() {
     this.db._getPartidaByInspector(this.auth.userProfile.sub).then(
       res => {
         this.partidaFipList = this.db.PartfipList;
       }
-    )
+    );
+
+  }
+
+
+
+  public checkChanges(){
+    if(this.selectedValue != null){
+      this.getAnswers();
+    }
+  }
+
+  open(content) {
+    this.modalService.open(content);
   }
   public artifactCheck(){
     if(this.disableArray.length != this.artifactArray.length) return false;

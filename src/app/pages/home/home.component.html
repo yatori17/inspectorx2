@@ -11,12 +11,14 @@
 		</div>
 	</div>
 </span>
-
 <a *ngIf="auth.loggedIn">
+  <div class="container">
+
+
   <div class= "alert alert-dark">
   <h2 class="text-center">Game Mode</h2>
 </div>
-<div class="row" style="text-align: center;">
+<div class="row" >
   <div class="col-sm-6 col-md-12 p-2">
     <a class="btn btn-primary" routerLink="/fullinspec" routerLinkActive="active">Full Inspection Process</a>
       <!--<button class="btn btn-primary" disabled>Full Inspection Process</button>!-->
@@ -28,13 +30,20 @@
     <a class="btn btn-primary" routerLink="/crawler-dif" routerLinkActive="active">Defect Crawler</a>
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div>
+  <div class="col-sm-6 col-md-12 p-2">
+    <button class="btn btn-link" (click)="show()">Click here to see the Ranking</button>
+  <ng-template [ngIf]= "access">
+  <app-ranking></app-ranking>
+  </ng-template>
+  </div>
 </div>
+
+</div>
+
 </a>
-<ng-template [ngIf]="aux">
-<div >
- <!-- Ranking  <app-ranking></app-ranking> -->
-</div>
-</ng-template>
+
+
+
 <!-- src/app/header/header.component.html -->
 
 

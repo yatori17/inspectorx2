@@ -54,6 +54,7 @@ export class FipResultsComponent implements OnInit {
   RespfipArr: Array<any> = [];
   moderador: string;
   ModResp: any;
+  xp: number = 0;
 
  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private dbhelp: DbhelpService) { }
 
@@ -66,6 +67,9 @@ export class FipResultsComponent implements OnInit {
        this.moderador = this.auth.userProfile.name;
         this.dbhelp._getRespfipBy_User_Partida(this.auth.userProfile.sub, this.partidaid).then(res =>{
           this.ModResp = res;
+          for(let resps of res){
+            if(resps.xp) this.xp+= resps.xp;
+          }
         })
 
        for (let _i = 0; _i < this.InspectorArray.length; _i++) {
@@ -75,7 +79,6 @@ export class FipResultsComponent implements OnInit {
          });
        }
 
-       console.log('NAO SEI');
      });
   	});
   }

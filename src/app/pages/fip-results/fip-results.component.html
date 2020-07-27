@@ -2,9 +2,14 @@
     <div class="alert alert-dark" role="alert">
       <h2 style="text-align: center;">Results</h2>
     </div>
+    <div class="col">
+      <div class="alert alert-success" role="alert">
+        Congratulations you received {{this.xp}} points
+      </div>
+    </div>
     <div> <strong>Moderator:</strong> {{ moderador }} </div>
 	<ng-container *ngFor="let respfip of ModResp; let k = index">
-		<div> <strong>Artifact:</strong> {{ respfip.artefatoId | artefatonamer | async }} </div>
+    <div> <strong>Artifact:</strong> {{ respfip.artefatoId | artefatonamer | async }} </div>
 		<ng-container *ngFor="let line of ModResp[k].detbool; let j = index">
 				<div *ngIf="ModResp[k].detbool[j]"> Line {{j+1}}: {{ ModResp[k].dettaxonomy[j] }} | {{ ModResp[k].artefatoId | artefatoconfere:ModResp[k].dettaxonomy:j | async }} </div>
 
