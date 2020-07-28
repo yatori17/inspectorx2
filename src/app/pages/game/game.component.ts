@@ -121,15 +121,13 @@ export class GameComponent implements OnInit, AfterViewInit {
      this.indexestoDelete = [];
 
 
-      console.log('Modo de jogo: ' + this.gamemode);
-     console.log('ID da Partida: ' + this.partidaID);
-     console.log('Numero da questao: ' + this.numquestao);
+
 
     this.questionIndex = ((Number(this.numquestao)) - 1);
   if (this.questionIndex > 10 - 1) {
 
         this.db._editUserById(this.User._id, this.User).then(res=>{
-        this.router.navigate(['/', 'crawlend', this.partidaID]);
+        this.router.navigate(['/', 'crawlend', this.partidaID, this.gamemode]);
       });
     }
     this._getQuestionList().then(questionList => {
@@ -283,9 +281,12 @@ export class GameComponent implements OnInit, AfterViewInit {
           console.log(element.display + ' =no= ' + value2);
           console.log('ERROU O RADIO VALUE');
         }
-        if(this.tipoCerto ) this.User.xp+= 2;
-        else this.User.xp += 1;
-        console.log("modo: ", this.inspecao);
+        if(this.tipoCerto){
+          if(this.gamemode === "facil") this.User.xp+=1;
+          else if(this.gamemode ==="medio" )this.User.xp+=2;
+          else this.User.xp+=3;
+        }
+
       this._createResposta();
       }
     }

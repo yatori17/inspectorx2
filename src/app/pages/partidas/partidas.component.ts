@@ -26,7 +26,6 @@ export class PartidasComponent implements OnInit {
 
   ngOnInit() {
   	this._getPartidaList().then(partidaList => {
-  	console.log(this.partidaList);
   	});
 
   }

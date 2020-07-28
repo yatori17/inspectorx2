@@ -41,7 +41,7 @@ const routes: Routes = [{
 	component: FullinspecComponent
 },
 {
-	path: 'crawlend/:id',
+	path: 'crawlend/:id/:id2',
 	component: CrawlendComponent
 },
 {

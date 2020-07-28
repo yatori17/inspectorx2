@@ -29,6 +29,7 @@ export class CrawlendComponent implements OnInit {
   dific: string;
   xp: number = 0;
   total: number = 0;
+  gamemode: string ='';
   acerto: number = 0;
 
   public jones = [
@@ -55,10 +56,12 @@ export class CrawlendComponent implements OnInit {
 
   ngOnInit() {
   	this.route.params.forEach(params => {
-  		this.partidaID = params['id'];
-  	});
+      this.partidaID = params['id'];
+      this.gamemode = params['id2'];
+    });
 
-  	this._getRespostaList(this.partidaID).then(res =>{ console.log("Eu estou aqui",res); this.summarize(this.respostaList);});
+
+  	this._getRespostaList(this.partidaID).then(res =>{ if(this.gamemode) this.summarize(this.respostaList); });
   	this.codeLine = [];
   	this.codeArray = [];
 
@@ -74,6 +77,7 @@ export class CrawlendComponent implements OnInit {
              if (this.respostaList[k].idPergunta == this.questionList[_i].question) {
                  this.setnumber = this.questionList[_i].question;
                  this.dific = this.questionList[_i].difficulty;
+                 console.log(this.dific)
                  this.codeLine[this.setnumber] = this.questionList[_i].code;
                  this.codeArray[this.setnumber] = this.codeLine[this.setnumber].split('//QUEBRALINHA');
 
@@ -81,6 +85,7 @@ export class CrawlendComponent implements OnInit {
          }
 
       }
+
       if (this.respostaList[0].modo == 1) {
         this.types = this.jones;
       }
@@ -139,6 +144,7 @@ export class CrawlendComponent implements OnInit {
   		if (typeNum == element.value) { return element.display; }
   	}
   }
+  ngafter
   summarize(Resps: Array<RespostaModel>){
     for(const respostas of Resps){
       if(respostas.tipoAcerto){
@@ -146,7 +152,10 @@ export class CrawlendComponent implements OnInit {
       }
       this.total+=1;
     }
-    this.xp= this.acerto * 2 + (this.total - this.acerto);
+    console.log(this.gamemode)
+    if(this.gamemode ==='facil') this.xp = this.acerto;
+    else if(this.gamemode ==='medio') this.xp = this.acerto * 2;
+    else if(this.gamemode ==='dificil' ) this.xp = this.acerto * 3;
   }
 
   private _getRespostaList(idPartida: string) {
