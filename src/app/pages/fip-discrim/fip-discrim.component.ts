@@ -84,6 +84,11 @@ export class FipDiscrimComponent implements OnInit {
 
     this.router.navigate(['/', 'fipresults', this.selectedValue._id]);
   }
+  public refresh(){
+    if(this.selectedArtifact){
+      this._modelchangeartefato(this.selectedArtifact);
+    }
+  }
 
   public buttonCriarResposta(){
     var xp =0;

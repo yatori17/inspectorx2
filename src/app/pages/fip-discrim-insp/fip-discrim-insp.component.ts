@@ -64,6 +64,13 @@ export class FipDiscrimInspComponent implements OnInit {
 
   }
 
+  public refresh(){
+    if(this.selectedValue){
+      this.getAnswers();
+      this.selectedArtifact = null;
+    }
+  }
+
 
 
   public checkChanges(){

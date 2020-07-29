@@ -99,6 +99,13 @@ export class FipDetectionComponent implements OnInit {
 
 
   }
+  public refreshreview(){
+    this.dbhelp._getPartidaByInspector(this.auth.userProfile.sub).then(
+      res =>{
+        this.PartfipList = this.dbhelp.PartfipList;
+      }
+    )
+  }
 
   open(content) {
     this.modalService.open(content);

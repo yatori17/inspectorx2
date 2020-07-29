@@ -5,7 +5,8 @@
 
 	<div class="row" >
 		<div class="col" >
-      <h3>Review</h3>
+      <h3>Review <button (click)="refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i>
+      </button></h3>
 			<div>
 				<select [(ngModel)]="selectedValue" (ngModelChange)="setArtifactArray(selectedValue.artefato); getAnswers(); " size="5">
 					<option *ngFor="let partida of partidaFipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
@@ -53,7 +54,8 @@
       <ng-container *ngIf="selectedArtifact">
       <ng-container *ngIf="selectedValue.inspetor.length == RespfipList.length; else elseBlock">
         <div style="text-align: center;">
-          <h3>Artifact Content</h3>
+          <h3>Artifact Content
+          </h3>
           </div>
               <div>
                 <!--<a>{{ ArtefatoIdList[0].title }}</a>!-->
