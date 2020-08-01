@@ -17,8 +17,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "src/assets"
             ],
             "styles": [
               "src/assets/scss/styles.scss",
@@ -76,9 +75,8 @@
               "node_modules/quill/dist/quill.snow.css"
             ],
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
-            ]
+              "src/assets"
+                        ]
           }
         },
         "lint": {

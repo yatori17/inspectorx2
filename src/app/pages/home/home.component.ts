@@ -15,7 +15,7 @@ import {ChatService } from './../../service/chat.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  pageTitle = 'Intro';
+  pageTitle = 'InspectorX2';
   loading: boolean;
   error: boolean;
   query: '';

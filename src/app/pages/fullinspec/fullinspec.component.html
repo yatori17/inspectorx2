@@ -19,7 +19,7 @@
 		<div class="row mt-3">
 			<div class="col">
 				<h5>Inspection Process Stages</h5>
-				<button class="btn btn-primary" routerLink="/fipplan" routerLinkActive="active" [disabled]=!modinspbool>Planning</button>
+				<button class="btn btn-primary" routerLink="/fipcreate" routerLinkActive="active" [disabled]=!modinspbool>Planning</button>
 				<button class="btn btn-primary" routerLink="/fipdetect" routerLinkActive="active" [disabled]=modinspbool>Detection</button>
 				<button *ngIf="modinspbool" class="btn btn-primary" routerLink="/fipdiscrim" routerLinkActive="active" [disabled]=!modinspbool>Discrimination</button>
         <button *ngIf="!modinspbool" class="btn btn-primary" routerLink="/fipdiscriminsp" routerLinkActive="active" [disabled]=modinspbool>Discrimination</button>
