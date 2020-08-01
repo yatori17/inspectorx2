@@ -19,13 +19,13 @@
         <a
           routerLink="/partidas"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">Partidas</a></span>
+          [routerLinkActiveOptions]="{ exact: true }">Matches</a></span>
       </li> 
       <li><span *ngIf="auth.loggedIn">
-      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Adicionar artefato </a> 
+      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Artifact </a> 
       </span></li>
       <li><span *ngIf="auth.loggedIn">
-      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Adicionar taxonomia </a> 
+      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Taxonomy </a> 
       </span></li>
     </ul>
     
