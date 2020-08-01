@@ -1,30 +1,36 @@
 <ng-container *ngIf="!modoinspecao">
+  <div class= "alert alert-dark">
+    <h2 class="text-center">Defect Crawler</h2>
+  </div>
   <div class="row">
     <div class="col-sm-6 col-md-12 p-2">
-      <button class="btn btn-primary" (click)="inspecao(1)">Inspeção de Código</button>
+      <button class="btn btn-primary" (click)="inspecao(1)">Code Inspection</button>
     </div>
     <div class="col-sm-6 col-md-12 p-2">
-       <button class="btn btn-primary" (click)="inspecao(2)">Inspeção de Requisitos</button>
+       <button class="btn btn-primary" (click)="inspecao(2)">Requirements Inspection</button>
     </div>
    </div>
 </ng-container>
 
 <ng-container *ngIf="modoinspecao">
+  <div class= "alert alert-dark">
+    <h2 class="text-center">Difficulty</h2>
+  </div>
 
 <div class="row">
   <div class="col-sm-6 col-md-12 p-2">
-    <button class="btn btn-primary" (click)="clickFacil()">Ranking Fácil</button>
+    <button class="btn btn-primary" (click)="clickFacil()">Ranking Easy</button>
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div>
 
   <ng-container *ngIf="modoinspecao == 1">
   <div class="col-sm-6 col-md-12 p-2">
-    <button class="btn btn-secondary"(click)="clickMedio()">Ranking Médio</button>
+    <button class="btn btn-secondary"(click)="clickMedio()">Ranking Medium</button>
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div> 
   
   <div class="col-sm-6 col-md-12 p-2">
-    <button class="btn btn-danger" disabled (click)="clickDificil()">Ranking Difícil!</button>
+    <button class="btn btn-danger" disabled (click)="clickDificil()">Ranking Difficult!</button>
   <div class="clearfix hidden-xs hidden-sm"></div>
   </div>
     </ng-container>

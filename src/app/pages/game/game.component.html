@@ -34,8 +34,8 @@
             <div class="w-100 p-3">
                 <div class="card" style="width: 100%;">
                   <div class="card-body">
-                     <h5 class="card-title">Linha de código com erro:</h5>
-                    <ng-container *ngIf = "indexofcodeLine == null; else outroBloco"> Selecione uma linha de código. </ng-container>
+                     <h5 class="card-title">Code line with error:</h5>
+                    <ng-container *ngIf = "indexofcodeLine == null; else outroBloco"> Select a code line  </ng-container>
                     <ng-template #outroBloco>
                     <div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[indexofcodeLine])" > </div>
                     </ng-template>
@@ -48,7 +48,7 @@
                <div class="col-xs-12 col-md-6">
                 <ng-container *ngIf="!(gamemode == 'facil');">
             <div class="m-1 span6 offset4">
-        			     <button type="button" class="btn btn-outline-secondary" (click)="_getAnswerForm(indexofcodeLine)" [disabled]="checkedAnswer">Responder</button>
+        			     <button type="button" class="btn btn-outline-secondary" (click)="_getAnswerForm(indexofcodeLine)" [disabled]="checkedAnswer">Answer</button>
             </div>
           </ng-container>
           </div>
@@ -71,10 +71,10 @@
             </div>
             <div class="m-1">
 
-						  <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Responder </button>  		 	
+						  <button  type="button" class="btn btn-outline-secondary" (click)="_getRadioForm(resultadoTipo)" [disabled]="checkedRadio"> Answer </button>  		 	
       		 </div>
           </div>
-   			 <ng-template #elseBlock>Aguardando inserção do trecho</ng-template>
+   			 <ng-template #elseBlock>Waiting for insertion of the section</ng-template>
   		</div>
     </div>
 
@@ -86,8 +86,8 @@
             <div *ngIf="respostaCerta; else resposta">
             <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">Linha de código com erro:</h5>
-              <div>Correta</div>
+              <h5 class="card-title">Code line with error:</h5>
+              <div>Correct</div>
             </div>   
             </div>
              </div>
@@ -96,7 +96,7 @@
               <div class="pt-3">
             <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">Linha de código com erro:</h5>
+              <h5 class="card-title">Code line with error:</h5>
               <div class="oneline" [innerHTML]="HTMLSanitizer(codeLine[questionList[questionIndex].trecho])"></div>
             </div>   
             </div>
@@ -109,7 +109,7 @@
             <div class="card" style="width: 100%;">
             <div class="card-body">
               <h5 class="card-title">Tipo:</h5>
-              <div>Correto</div>
+              <div>Correct</div>
             </div>   
             </div>
           </div>
@@ -119,7 +119,7 @@
               <div class="pt-3">
             <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">Tipo:</h5>
+              <h5 class="card-title">Type:</h5>
               <div>{{questionList[questionIndex].type}}</div>
             </div>   
             </div>
@@ -129,13 +129,13 @@
             <div class="pt-3">
             <div class="card" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">Explicação:</h5>
+              <h5 class="card-title">Explanation:</h5>
               <div> {{ questionList[questionIndex].description }}
             </div>
             </div>
           </div>
           <div class="pt-3">
-            <button  type="button" class="btn btn-outline-secondary" (click)="_nextQuestion()"> Próximo </button>
+            <button  type="button" class="btn btn-outline-secondary" (click)="_nextQuestion()"> Next </button>
           </div>
         </div> 
       </div>
