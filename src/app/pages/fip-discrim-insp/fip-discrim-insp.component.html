@@ -82,7 +82,7 @@
                             </ng-container>
                           <label *ngIf= "inspetor.userId == user">
                             <strong>{{inspetor.dettaxonomy[i]}} </strong></label>
-                          <button *ngIf="inspetor.detdescript[i]!=null" type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
+                          <button *ngIf="inspetor.detdescript[i]!=null && inspetor.userId == user" type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
                           </ng-container>
                         </td>
                         </ng-container>

@@ -1,6 +1,6 @@
 		<ng-container *ngIf=avisoFaltouResposta>
 			<div class="alert alert-warning" role="alert">
-  				Você precisa selecionar uma taxonomia nas respostas marcadas.
+				You need to select one of the taxonomies in the checked answers.
 			</div>
     </ng-container>
 
@@ -69,7 +69,7 @@
      								<ng-container *ngFor= "let inspec of RespfipList; let l = index">
      									<th scope="col">{{ l + 1 }}</th>
      								</ng-container>
-     								<th scope="col">Código</th>
+     								<th scope="col">Code</th>
    								</tr>
 							</thead>
 							<tbody>
@@ -91,7 +91,7 @@
 										</ng-container>
 										</ng-container>
 											<label class="form-check-label" for="check {{i}}{{k}}">{{inspetor.dettaxonomy[i]}}</label>
-											<button *ngIf="inspetor.detdescript[i]!=null" type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comentário</button>
+											<button *ngIf="inspetor.detdescript[i]!=null" type="button" class="btn btn-primary btn-sm" placement="right"ngbPopover="{{inspetor.detdescript[i]}}" >Comment</button>
 											</ng-container>
 										</td>
 										</ng-container>
@@ -110,23 +110,23 @@
 
 
 				<div class="row form-group">
-					<label for="textarea">Inserir comentários</label>
+					<label for="textarea">Insert Comments</label>
     				<textarea class="form-control" id="textarea" rows="3"></textarea>
     			</div>
-				<button class="btn btn-primary" type="submit" (click)="buttonCriarResposta()">Criar resposta</button>
+				<button class="btn btn-primary" type="submit" (click)="buttonCriarResposta()">Create answer</button>
 			</div>
 
 		</div>
 		</ng-container>
 		<ng-template #elseBlock>
-			Aguardando resposta dos inspetores
+			Waiting for inspector's detection
 		</ng-template>
 		</ng-container>
 	</ng-container>
   </div>
 
 
-  <button class="btn btn-primary" (click)="results()">Resultados</button>
+  <button class="btn btn-primary" (click)="results()">Results</button>
 
 
 </div>
