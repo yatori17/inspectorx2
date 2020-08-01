@@ -4,11 +4,11 @@
     Chat
 
     <span *ngIf= "mostra" style="float: right;">
-      <button type="button" (click)="change()" class="btn btn-link"><i class="fa fa-minus" aria-hidden="true"></i></button>
+      <button type="button" (click)="change()" class="btn btn-link" style="padding: 10px;"><i class="fa fa-minus" aria-hidden="true"></i></button>
   </span>
 
   <span *ngIf= "!mostra" style="float: right;">
-    <button type="button" (click)="change()" class="btn btn-link"><i class="fa fa-expand" aria-hidden="true"></i>
+    <button type="button" (click)="change()" class="btn btn-link" style="padding: 10px;"><i class="fa fa-expand" aria-hidden="true"></i>
     </button>
   </span>
 
@@ -18,12 +18,12 @@
         Users</button></span>
       <div *ngIf="show">
         <ng-template [ngIf]=users.length>
-        <li *ngFor = "let user of users[users.length-1].users">
-          <ol>
+        <div *ngFor = "let user of users[users.length-1].users" class="element">
+         
             <i class="fa fa-circle" style="color: green;" ></i>
             {{user.username}}
-          </ol>
-        </li>
+         
+        </div>
 
       </ng-template>
       </div>
