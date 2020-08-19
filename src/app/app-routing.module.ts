@@ -16,6 +16,7 @@ import { RankingfipComponent } from './pages/rankingfip/rankingfip.component';
 
 import { PartidasComponent } from './pages/partidas/partidas.component';
 import { FipDiscrimInspComponent } from './pages/fip-discrim-insp/fip-discrim-insp.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 
@@ -27,6 +28,10 @@ const routes: Routes = [{
 {
 	path: 'callback',
 	component: CallbackComponent
+},
+{
+	path:'profile',
+	component: ProfileComponent
 },
 {
 	path: 'game/:modoinsp/:id/:id2/:id3',

@@ -7,9 +7,12 @@
     </h1>
     <div class="header-page-authStatus">
       <a *ngIf="!auth.loggedIn" (click)="auth.login()">Log In</a>
-      <span *ngIf="auth.loggedIn">
+      <div *ngIf="auth.loggedIn">
+        <span >
+          <button class="btn btn-link" routerLink="profile" ><i class="fa fa-user-circle fa-2x"></i></button>
+        </span>
         {{auth.userProfile?.name}} <span class="opacity-half">|</span> <a (click)="auth.logout()">Log Out</a>
-      </span>
+      </div>
     </div>
   </div>
 

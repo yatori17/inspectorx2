@@ -1,0 +1,35 @@
+<ng-template [ngIf]="this.loaded">
+  <div class="card bg-light mb-3" style="max-width: 25rem;">
+    <div class="card-header"><h4>Profile</h4></div>
+    <div class="card-body">
+      <h5 class="card-title"><span style="color:darkcyan;"><i class="fa fa-user-circle"></i> </span>
+        User: {{User.title}}</h5>
+        <h5 style="text-decoration-color: gray;"> <span style="color:goldenrod;"> 
+          <i class="fa fa-star"></i>
+        </span>Total XP: {{User.xp}}</h5>
+          <button class="btn btn-info" (click)="open(content)"><i class="fa fa-edit"></i></button>
+        
+    </div>
+  </div>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile Update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" [(ngModel)]="name"  placeholder="Enter with a new username}">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="updateProfile();c('Save Click');">Save</button>
+    </div>
+  </ng-template>
+
+  
+  
+</ng-template>
