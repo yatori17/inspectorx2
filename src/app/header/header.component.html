@@ -3,15 +3,19 @@
   <div class="header-page bg-primary">
     <a class="toggle-offcanvas bg-primary" (click)="toggleNav()"><span></span></a>
     <h1 class="header-page-siteTitle">
-      <a routerLink="/">InspectorX</a>
+      <a routerLink="/" data-toggle="tooltip" data-placement="bottom" title="InspectorX homepage">InspectorX</a>
     </h1>
     <div class="header-page-authStatus">
       <a *ngIf="!auth.loggedIn" (click)="auth.login()">Log In</a>
       <div *ngIf="auth.loggedIn">
-        <span >
-          <button class="btn btn-link" routerLink="profile" ><i class="fa fa-user-circle fa-2x"></i></button>
-        </span>
-        {{auth.userProfile?.name}} <span class="opacity-half">|</span> <a (click)="auth.logout()">Log Out</a>
+
+
+          <span><button class="btn btn-link btn-sm" data-toggle="tooltip" data-placement="bottom" title="Profile" style="background-color: aliceblue;border-radius: 5px;" routerLink="profile" ><i class="fa fa-user-circle fa-2x"></i></button>
+          </span>
+         <span class="opacity-half">|</span> <a (click)="auth.logout()">Log Out</a>
+
+
+
       </div>
     </div>
   </div>
@@ -23,14 +27,14 @@
           routerLink="/partidas"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">Matches</a></span>
-      </li> 
+      </li>
       <li><span *ngIf="auth.loggedIn">
-      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Artifact </a> 
+      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Artifact </a>
       </span></li>
       <li><span *ngIf="auth.loggedIn">
-      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Taxonomy </a> 
+      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Taxonomy </a>
       </span></li>
     </ul>
-    
+
   </nav>
 </header>
