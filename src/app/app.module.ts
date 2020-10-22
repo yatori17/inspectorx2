@@ -53,6 +53,7 @@ import { ChatComponent } from './chat/chat.component';
 import { DataSharingService } from './service/datasharing.service';
 import { FipDiscrimInspComponent } from './pages/fip-discrim-insp/fip-discrim-insp.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ManagerComponent } from './pages/manager/manager.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     RankingComponent,
     ChatComponent,
     FipDiscrimInspComponent,
-    ProfileComponent
+    ProfileComponent,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,

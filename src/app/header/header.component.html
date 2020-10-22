@@ -29,11 +29,22 @@
           [routerLinkActiveOptions]="{ exact: true }">Matches</a></span>
       </li>
       <li><span *ngIf="auth.loggedIn">
-      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Artifact </a>
+      <a routerLink="/fipplan/add" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add Artifact </a>
       </span></li>
       <li><span *ngIf="auth.loggedIn">
-      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> Add Taxonomy </a>
+      <a routerLink="/fipplan/taxadd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add Taxonomy </a>
       </span></li>
+      <li><span *ngIf="auth.loggedIn">
+
+
+        <a routerLink="fipplan/manager" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <i class="fa fa-cogs" aria-hidden="true"></i>
+        Manager</a>
+        </span></li>
     </ul>
 
   </nav>
