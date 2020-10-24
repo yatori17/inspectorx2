@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { DbhelpService } from './../../service/dbhelp.service';
+import {AuthService } from './../../auth/auth.service';
+import { TaxonomiaModel } from './../../core/models/taxonomia.model';
+import { NgbModal ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder,FormControl, Validators, FormArray } from '@angular/forms';
+import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+
 
 @Component({
   selector: 'app-manager',
@@ -7,9 +14,85 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagerComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  constructor(private auth: AuthService,
+              private db: DbhelpService,
+              private modal: NgbModal,
+              private fb: FormBuilder
+    ) {
+      this.form = this.fb.group({
+        published: true,
+        title: this.fb.control('', Validators.required),
+        taxonomy: this.fb.array([]),
+      });
 
+
+    }
+  id: string='';
+  saveNumber: number;
+  aTaxonomy: TaxonomiaModel;
+  Taxonomy: Array<TaxonomiaModel> = [{title: " ", value:[{display: " a", description: ""}]}];
+  closeResult ='';
   ngOnInit() {
+    this.db._getTaxonomia().then(
+      res=>{
+        this.Taxonomy= this.db.TaxonomiaList;
+      }
+    )
+  }
+  open(content, i) {
+    this.fillArray(i);
+    this.modal.open(content, ).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  fillArray(i){
+    this.saveNumber = i;
+    this.id = this.Taxonomy[i]._id;
+      console.log(this.Taxonomy[i])
+    this.form.controls.title.setValue(this.Taxonomy[i].title)
+    const taxonomies = this.form.controls.taxonomy as FormArray;
+    for(let j of this.Taxonomy[i].value){
+      console.log(j)
+      taxonomies.push(this.fb.group({
+        display: j.display,
+        description: j.description
+      }));
+      console.log(this.form)
+    }
+  }
+  trackByFn(index: any, item: any) {
+    return index;
+ }
+ onSubmit(){
+
+    console.log(this.form.controls.taxonomy.value)
+    this.db._editTaxonomyById(this.id,new TaxonomiaModel(this.form.controls.title.value,
+      this.form.controls.taxonomy.value));
+    this.Taxonomy[this.saveNumber] = new TaxonomiaModel(this.form.controls.title.value,
+      this.form.controls.taxonomy.value);
+    const taxonomies = this.form.controls.taxonomy as FormArray;
+    while(taxonomies.length) taxonomies.removeAt(0);
+ }
+
+
+
+  private getDismissReason(reason: any): string {
+    const taxonomies = this.form.controls.taxonomy as FormArray;
+    while(taxonomies.length) taxonomies.removeAt(0);
+    this.form.reset();
+
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }

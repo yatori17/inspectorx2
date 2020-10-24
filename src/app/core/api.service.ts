@@ -213,6 +213,40 @@ export class ApiService {
               catchError((error) => this._handleError(error))
               );
         }
+        //Edit artifact
+        editArtifact$(_id: string,artifact: ArtefatoModel): Observable<ArtefatoModel>{
+          return this.http.put(`${ENV.BASE_API}artefatos/${_id}`, artifact).pipe(
+            catchError((error)=> this._handleError(error))
+                    );
+        }
+        //Edit taxonomy
+        editTaxonomy$(_id: string,taxonomy: TaxonomiaModel): Observable<TaxonomiaModel>{
+          console.log(taxonomy)
+          return this.http.put(`${ENV.BASE_API}taxonomia/${_id}`, taxonomy).pipe(
+            catchError((error)=> this._handleError(error))
+                    );
+        }
+        //Delete Artifact
+        deleteArtifact$(id: string): Observable<ArtefatoModel> {
+          return this.http
+            .delete(`${ENV.BASE_API}artefatos/${id}`, {
+              headers: new HttpHeaders().set('Authorization', this._authHeader)
+            })
+            .pipe(
+              catchError((error) => this._handleError(error))
+            );
+        }
+        //Delete Taxonomy
+        deleteTaxonomy$(id: string): Observable<TaxonomiaModel> {
+          return this.http
+            .delete(`${ENV.BASE_API}taxonomia/${id}`, {
+              headers: new HttpHeaders().set('Authorization', this._authHeader)
+            })
+            .pipe(
+              catchError((error) => this._handleError(error))
+            );
+        }
+
 
 
         //GET usuario

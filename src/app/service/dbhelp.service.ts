@@ -124,6 +124,38 @@ myBool: boolean;
         resolve(this.ListuserModelo);
       })
     }
+    //Edit artifact
+    _editArtifactById(id : string, artifact: ArtefatoModel){
+      return new Promise(resolve =>{
+      this.loading = true;
+        this.ArtefatoSub = this.api.editArtifact$(id,artifact).subscribe(
+          res =>{
+            console.log("Artifact edited", res);
+            this.loading = false;
+          }, err =>{
+            this.loading = false;
+            this.error = true;
+          }
+        )
+        resolve(this.ArtefatoModelo);
+      })
+    }
+     //Edit taxonomy
+     _editTaxonomyById(id : string, taxonomy: TaxonomiaModel){
+      return new Promise(resolve =>{
+      this.loading = true;
+        this.TaxonomiaSub = this.api.editTaxonomy$(id,taxonomy).subscribe(
+          res =>{
+            console.log("taxonomy edited", res);
+            this.loading = false;
+          }, err =>{
+            this.loading = false;
+            this.error = true;
+          }
+        )
+        resolve(this.TaxonomiaModelo);
+      })
+    }
 
     _getArtefatoByUse(id: string) {
       console.log(id);

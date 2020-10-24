@@ -191,6 +191,7 @@ module.exports = function(app, config) {
          });
      });
 
+
    //Post usuarionline
    app.post('/api/listusers/new', (req, res) => {
     console.log("Listuser");
@@ -639,6 +640,7 @@ module.exports = function(app, config) {
           return res.status(400).send({message: 'Perfil não encontrado.'});
         }
 
+        userProf.title= req.body.title;
         userProf.online = req.body.online;
         userProf.xp= req.body.xp;
         userProf.save(err => {
@@ -650,6 +652,57 @@ module.exports = function(app, config) {
       });
     });
 
+    app.put('/api/taxonomia/:id', (req,res)=>{
+      console.log("TAXONOMY PUT");
+      Taxonomia.findById({_id: req.params.id},(err, taxonomy)=>{
+        if(err) return res.status(500).send({message: err.message});
+        if(!taxonomy) return res.status(400).send({message: 'Taxonomy not found'});
+
+        taxonomy.title=req.body.title;
+        taxonomy.value= req.body.value;
+        taxonomy.save(err=>{
+          if(err) return res.status(500).send({message: err.message});
+          res.send(taxonomy);
+        });
+      });
+    });
+    //Delete taxonomy
+    app.delete('/api/taxonomia/:id', (req, res) => {
+      console.log('taxonomia Remove')
+      Taxonomia.findByIdAndRemove({_id: req.params.id}, (err, event) => {
+       if (err) return next(err);
+       res.json(event);
+       });
+     });
+
+     //Edit artifact
+    app.put('/api/artefatos/:id',(req,res)=>{
+      console.log("Edit artifact");
+      Artefato.findById({_id: req.params.id}, (err, artifact)=>{
+        if(err) return res.status(500).send({message: err.message});
+        if(!artifact) return res.status(400).send({message: 'Artifact not found'});
+        artifact.title= req.body.title,
+        artifact.taxid= req.body.taxid,
+        artifact.content= req.body.content,
+        artifact.defectbool= req.body.defectbool,
+        artifact.defectdescript= req.body.defectdescript,
+        artifact.defecttaxonomy= req.body.defecttaxonomy,
+        artifact.qtydefect= req.body.qtydefect;
+        artifact.save(err=>{
+          if(err) return res.status(500).send({message: err.message});
+          res.send(artifact);
+        })
+      });
+
+  });
+  //Delete taxonomy
+  app.delete('/api/artefatos/:id', (req, res) => {
+    console.log('Remove artifact')
+    Artefato.findByIdAndRemove({_id: req.params.id}, (err, event) => {
+     if (err) return next(err);
+     res.json(event);
+     });
+   });
 
 
 };
