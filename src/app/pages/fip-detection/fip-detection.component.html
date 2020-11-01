@@ -1,12 +1,15 @@
 <div class="container">
-  <div class="alert alert-dark" role="alert">
-  	<h2 style="text-align: center;">Defect Detection</h2>
+  <div class="alert alert-dark" style="text-align: center;" role="alert">
+    <h2 style="display: inline-block;">Defect Detection</h2>
+    <a style="color: blueviolet;" (click)="open(content)"><i class="fa fa-info-circle"></i></a>
   </div>
 	<div class="row" >
 		<div class="col">
 			<div>
-        <h3>Review</h3>
-				<select [(ngModel)]="selectedValue" (ngModelChange)="artefatoarray(selectedValue.artefato); checkcheck();" size="5">
+        <div>
+        <h4 style="display: inline-block;">Review </h4> <a  ngbTooltip="{{reviews}}" ><i class="fa fa-question-circle"></i></a>
+      </div>
+        <select [(ngModel)]="selectedValue" (ngModelChange)="artefatoarray(selectedValue.artefato); checkcheck();" size="5">
 					<option *ngFor="let partida of PartfipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
 				</select>
 			</div>
@@ -14,11 +17,12 @@
 
       <div class="col">
 			<div>
-        <h3>Artifacts</h3>
-				<select [(ngModel)]="selectedArtifact" (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
+        <h4 style="display: inline-block;">Artifacts </h4> <a  ngbTooltip="{{artifacts}}" ><i class="fa fa-question-circle"></i></a>
+      </div>
+        <select [(ngModel)]="selectedArtifact" (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
 					<option *ngFor="let artefato of ArtefatoArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]" > {{ artefato | artefatonamer | async }}</option>
 				</select>
-			</div>
+
       </div>
       <ng-container *ngIf="selectedValue"><!-- Fazer com que ngIf também aguarde pelo carregamento pra só exibir na DOM quando a promise ser cumprida!-->
         <ng-container *ngIf ="artifactCheck(); ">
@@ -33,7 +37,7 @@
 		<div class="col">
 			<div class="row">
       <div style="text-align: center;">
-        <h3>Artifact Content</h3>
+        <h4 style="display: inline-block;">Artifact Content</h4> <a  ngbTooltip="{{content}}" ><i class="fa fa-question-circle"></i></a>
       </div>
 					<div >
 					<!--	<a>{{ ArtefatoIdList[0].title }}</a>!-->
@@ -61,5 +65,21 @@
     </ng-container>
 
 		</ng-container>
-	</div>
+  </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Full Inspection Process</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>
+        blablabla </p>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Ok</button>
+    </div>
+  </ng-template>
 </div>

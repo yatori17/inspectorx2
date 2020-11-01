@@ -62,6 +62,10 @@ export class FipDetectionComponent implements OnInit {
   description: String = '';
   User: ListuserModel;
 
+  artifacts="Artifacts choosen by the Moderator for this review"
+  reviews="Reviews available";
+  content="You must inspect the software artifact aiming identify defects or anomalies.";
+
 
   types: Array<any>;
 

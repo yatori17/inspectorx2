@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   User: ListuserModel;
   access: boolean = false;
 
+  fip = "This is a multi-player game mode based in a simulation of the Software Inspection Process. The players are separetad in one moderator and inspectors, and the goal is serach for defects in software artifacts ";
+  defc= "It is a game mode based in the discrimination process of proposed by Sauer of software inspection process. One player must look for erros or anomalies in software artifacts"
+
   constructor(
     private title: Title,
     private api: ApiService,

@@ -1,11 +1,14 @@
 <div class="container">
-	<div  style="width: auto; text-align: center;" class="alert alert-dark" role="alert">
+	<div  style="width: auto; text-align: center; align-content: center;" class="alert alert-dark" role="alert" >
 
-	<h2 class="text-center">Full Inspection Process</h2>
+  <h2 class="text-center" style="display: inline-block;">Full Inspection Process </h2>
+  <a style="color: blueviolet;" (click)="open(content)"><i class="fa fa-info-circle"></i></a>
+
 		</div>
 
 		<div class="row">
 			<div class="col">
+        <h5>Roles</h5>
 
 				<div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
 				<label [ngClass]="calculateClasses()">
@@ -18,12 +21,34 @@
 		</div>
 		<div class="row mt-3">
 			<div class="col">
-				<h5>Inspection Process Stages</h5>
+        <h5>Inspection Process Stages</h5>
 				<button class="btn btn-primary" routerLink="/fipcreate" routerLinkActive="active" [disabled]=!modinspbool>Planning</button>
-				<button class="btn btn-primary" routerLink="/fipdetect" routerLinkActive="active" [disabled]=modinspbool>Detection</button>
+        <button class="btn btn-primary" routerLink="/fipdetect" routerLinkActive="active" [disabled]=modinspbool>Detection</button>
 				<button *ngIf="modinspbool" class="btn btn-primary" routerLink="/fipdiscrim" routerLinkActive="active" [disabled]=!modinspbool>Discrimination</button>
         <button *ngIf="!modinspbool" class="btn btn-primary" routerLink="/fipdiscriminsp" routerLinkActive="active" [disabled]=modinspbool>Discrimination</button>
 
       </div>
-		</div>
+    </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Full Inspection Process</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          It is a multi-player game mode that aims simulate a software inspection process proposed by Sauer.
+          <img src="../../../assets//images//sauer.png">
+          The stages in color green, are the stages included in InspectorX 2.0</p>
+          <p>The stages: Follow-up and rework are not included</p>
+          <p>The player can assume two roles: <strong>Moderator</strong> and <strong>Inspector</strong></p>
+          <p><strong>Moderator: </strong> Responsible for the planning and Discrimination stages</p>
+          <p><strong>Inspector: </strong> Responsible for the Detection and Discrimination stages</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Ok</button>
+      </div>
+    </ng-template>
+
 </div>

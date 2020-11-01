@@ -1,12 +1,13 @@
 <div class="container">
-  <div class="alert alert-dark" role="alert">
-  	<h2 style="text-align: center;">Defect Discrimination(Inspector)</h2>
+  <div class="alert alert-dark" style="text-align: center;" role="alert">
+    <h2 style="display: inline-block;">Defect Discrimination(Inspector)</h2>
+    <a style="color: blueviolet;" (click)="open(content)"><i class="fa fa-info-circle"></i></a>
   </div>
 
 	<div class="row" >
 		<div class="col" >
-      <h3>Review <button (click)="refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i>
-      </button></h3>
+      <h3 style="display: inline-block;">Review
+      </h3><a  ngbTooltip="{{review}}" ><i class="fa fa-question-circle"></i></a> <button (click)="refresh()" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> </button>
 			<div>
 				<select [(ngModel)]="selectedValue" (ngModelChange)="setArtifactArray(selectedValue.artefato); getAnswers(); " size="5">
 					<option *ngFor="let partida of partidaFipList; let i = index" [ngValue]="partida"> {{ partida.title }}</option>
@@ -20,7 +21,7 @@
     </div>
     <ng-container *ngIf="selectedValue">
     <div class="col">
-      <h3>Artifacts</h3>
+      <h3 style="display: inline-block;">Artifacts </h3><a  ngbTooltip="{{artifacts}}" ><i class="fa fa-question-circle"></i></a>
 			<div>
 				<select [(ngModel)]="selectedArtifact"  (ngModelChange)="_modelchangeartefato(selectedArtifact)" size="5">
 					<option *ngFor="let artefato of artifactArray; let i = index" [ngValue]="artefato" [disabled]="disableArray[i]"> {{ artefato | artefatonamer | async }}</option>
@@ -54,8 +55,9 @@
       <ng-container *ngIf="selectedArtifact">
       <ng-container *ngIf="selectedValue.inspetor.length == RespfipList.length; else elseBlock">
         <div style="text-align: center;">
-          <h3>Artifact Content
+          <h3 style="display: inline-block;">Artifact Content
           </h3>
+          <a  ngbTooltip="{{contentA}}" ><i class="fa fa-question-circle"></i></a>
           </div>
               <div>
                 <!--<a>{{ ArtefatoIdList[0].title }}</a>!-->
@@ -110,4 +112,20 @@
   </ng-container>
 
   </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Full Inspection Process</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>
+        blablabla </p>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Ok</button>
+    </div>
+  </ng-template>
 </div>

@@ -41,6 +41,9 @@ export class FipDiscrimInspComponent implements OnInit {
   ArtefatoArr: ArtefatoModel[]=[];
   xp: number =0;
   rate: number =0;
+  artifacts="Artifacts disabled means that the moderator finished the discrimination stage"
+  review="Reviews in progress";
+  contentA="You can not change your answer";
 
 
   constructor(

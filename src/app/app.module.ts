@@ -54,6 +54,8 @@ import { DataSharingService } from './service/datasharing.service';
 import { FipDiscrimInspComponent } from './pages/fip-discrim-insp/fip-discrim-insp.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ManagerComponent } from './pages/manager/manager.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatFormField } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,8 @@ import { ManagerComponent } from './pages/manager/manager.component';
     MatCardModule,
     MatButtonModule,
     NgbModule.forRoot(),
-    QuillModule
+    QuillModule,
+    MatStepperModule,
 
   ],
   providers: [

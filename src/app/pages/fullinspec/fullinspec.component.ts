@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ListuserModel } from './../../core/models/listuser.model';
 import { ApiService } from './../../core/api.service';
 import { AuthService } from './../../auth/auth.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-fullinspec',
@@ -23,7 +24,11 @@ export class FullinspecComponent implements OnInit {
   User: ListuserModel;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private api: ApiService,
+    public auth: AuthService,
+    public modalService: NgbModal) { }
 
   ngOnInit() {
     this.modinspbool = true;
@@ -35,6 +40,9 @@ export class FullinspecComponent implements OnInit {
     //this._removeUser();
     this.moderadorAtivo();
     if(this.UserSub) this.UserSub.unsubscribe();
+  }
+  open(content) {
+   this.modalService.open(content);
   }
 
 

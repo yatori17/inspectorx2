@@ -8,7 +8,7 @@ import { AuthService } from './../../auth/auth.service';
 import { DbhelpService } from './../../service/dbhelp.service';
 import { ArtefatoModel } from '../../core/models/artefato.model';
 import {ListuserModel} from '../../core/models/listuser.model';
-import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-fip-create',
   templateUrl: './fip-create.component.html',
@@ -32,9 +32,15 @@ export class FipCreateComponent implements OnInit {
   InspecListFail: boolean;
   showArtefato: Array<boolean>=[];
   ArtifListFail: boolean;
+  diff = "It is the level of difficulty of the software artifacts";
+  artifacts= "It is the software artifacts available for level";
+  inspectors= "Inspectors available. The degree of expertise of the Inspectors are directly linked to the success of a inspection"
 
 constructor(private router: Router, public auth: AuthService, private dbhelp: DbhelpService,
-  config: NgbPopoverConfig) {
+  config: NgbPopoverConfig,
+  public modalService: NgbModal
+
+  ) {
     this.changeText=false;
     config.placement = 'right';
     config.triggers = 'hover'; }
@@ -48,6 +54,9 @@ constructor(private router: Router, public auth: AuthService, private dbhelp: Db
       this.ArtefatoList = res;
     })
   }
+  open(content) {
+    this.modalService.open(content);
+   }
   onClick(){
     this.ArtefatoList[1].content;
   }

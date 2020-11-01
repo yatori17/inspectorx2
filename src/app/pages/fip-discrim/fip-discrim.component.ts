@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SplitArtifactService } from './../../service/split-artifact.service';
 import { DbhelpService } from './../../service/dbhelp.service';
 import { ListuserModel } from './../../core/models/listuser.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-fip-discrim',
@@ -52,6 +53,9 @@ export class FipDiscrimComponent implements OnInit {
   selectedArtifact: any;
 
   avisoFaltouResposta: boolean = false;
+  artifacts="Artifacts disabled means that the artifact was inspected"
+  review="Reviews in progress";
+  content="You must inspect the software artifact and select chose the defect";
 
     types: Array<any>;
 
@@ -61,6 +65,7 @@ export class FipDiscrimComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private service: SplitArtifactService,
     private dbhelp: DbhelpService,
+    public modalService: NgbModal
     ) { }
 
   ngOnInit() {
@@ -74,6 +79,9 @@ export class FipDiscrimComponent implements OnInit {
   	this.dbhelp._getPartfipBy_User(this.auth.userProfile.sub).then(res => {
         this.PartfipList = res;
     });
+  }
+  open(content) {
+    this.modalService.open(content);
   }
 
   public results() {
