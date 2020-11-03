@@ -157,6 +157,24 @@ myBool: boolean;
       })
     }
 
+    //Delete taxonomy
+
+    _deleteTaxonomyById(id: string){
+      return new Promise(resolve=>{
+        this.loading =true;
+        this.TaxonomiaSub = this.api.deleteTaxonomy$(id).subscribe(
+          res =>{
+            console.log("Taxonomy deleted", res);
+            this.loading = false;
+          }, err=>{
+            this.loading = false;
+            this.error= true;
+          }
+        )
+        resolve(this.TaxonomiaModelo);
+      })
+    }
+
     _getArtefatoByUse(id: string) {
       console.log(id);
       return new Promise<ArtefatoModel[]>(resolve => {

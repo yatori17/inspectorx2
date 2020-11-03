@@ -56,6 +56,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ManagerComponent } from './pages/manager/manager.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatFormField } from '@angular/material';
+import { ManageArtifactComponent } from './pages/manage-artifact/manage-artifact.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MatFormField } from '@angular/material';
     ChatComponent,
     FipDiscrimInspComponent,
     ProfileComponent,
-    ManagerComponent
+    ManagerComponent,
+    ManageArtifactComponent
   ],
   imports: [
     BrowserModule,

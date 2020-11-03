@@ -5,6 +5,7 @@ import { TaxonomiaModel } from './../../core/models/taxonomia.model';
 import { NgbModal ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder,FormControl, Validators, FormArray } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class ManagerComponent implements OnInit {
   constructor(private auth: AuthService,
               private db: DbhelpService,
               private modal: NgbModal,
-              private fb: FormBuilder
+              private fb: FormBuilder,
+              private router: Router
     ) {
       this.form = this.fb.group({
         published: true,
@@ -39,6 +41,11 @@ export class ManagerComponent implements OnInit {
         this.Taxonomy= this.db.TaxonomiaList;
       }
     )
+  }
+  openA(content1, i) {
+    this.aTaxonomy = this.Taxonomy[i];
+    this.modal.open(content1);
+    this.saveNumber =i;
   }
   open(content, i) {
     this.fillArray(i);
@@ -67,6 +74,11 @@ export class ManagerComponent implements OnInit {
   }
   trackByFn(index: any, item: any) {
     return index;
+ }
+
+ deleteTaxonomy(){
+      this.db._deleteTaxonomyById(this.aTaxonomy._id);
+      if(this.saveNumber > -1) this.Taxonomy.splice(this.saveNumber,1);
  }
  onSubmit(){
 
