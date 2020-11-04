@@ -1,0 +1,106 @@
+<table class="table table-striped ">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">N</th>
+    <th scope="col">Review Name</th>
+    <th scope="col">Hit Hate</th>
+    <th scope="col">Xp</th>
+    <th scope="col">xp bonus</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let partida of historico; let i=index">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      <button class="btn btn-link" (click)="result(partida.id); open(content)">
+      {{partida.name}}
+    </button>
+
+    </td>
+    <td>{{partida.hithate}}</td>
+    <td>{{partida.xp}}
+
+    </td>
+    <td>
+      {{partida.extraxp}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Match's Artifacts</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click');  pop();">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="btn-group btn-group-toggle" *ngFor="let artifacs of ArtefatoArray; let i index">
+      <label class="btn-primary" ngbButtonLabel>
+        <input type="checkbox" (click)="getArtifact(i)"> {{artifacs.title}}
+      </label>
+      </div>
+      <h6>In a real review, you can not see the correct answers, if the artifacts were inspected incorrectly, the costs would increase </h6>
+      <div *ngFor="let booleanA of booleanArray; let i=index;">
+        <ng-template [ngIf]="booleanArray[i]">
+          <div>
+            <p>
+              <strong>Line:</strong> {{i + 1}}
+            </p>
+            <p>
+              <strong>Defect:</strong> {{defect[i]}}
+            </p>
+            <p>
+              <strong>Correct?:</strong> {{correctAnswers[i]}}
+            </p>
+            <p>
+              <strong>XP gained with this artifact:</strong> {{xp}}
+            </p>
+            <br>
+          </div>
+
+        </ng-template>
+      </div>
+    <div class="allline" *ngFor="let line of defLine; let i=index" >
+      <div *ngIf="!correctAnswers[i] && !booleanArray[i]">
+        <div class="codigo"  [innerHTML]="HTMLSanitizer(line)"></div>
+      </div>
+      <div *ngIf="correctAnswers[i]" >
+        <div class="codigo" (click)= "Update()">
+        <div class="correct"  [innerHTML]="HTMLSanitizer(line)"></div>
+        <ng-template [ngIf]="description">
+          <div>
+            <p>
+              Defect: {{tax[i]}}
+            </p>
+            <p>
+              Description: {{answer[i]}}
+            </p>
+          </div>
+        </ng-template>
+      </div>
+      </div>
+      <div *ngIf="!correctAnswers[i] && booleanArray[i]" >
+        <div class="codigo">
+        <div class="error"  [innerHTML]="HTMLSanitizer(line)"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click'); pop();">Close</button>
+  </div>
+</ng-template>
+
+
+<div class="d-flex justify-content-between p-2">
+  <!-- <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
+  </ngb-pagination> -->
+
+  <!-- <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select> -->
+</div>
+

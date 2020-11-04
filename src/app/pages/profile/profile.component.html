@@ -1,16 +1,24 @@
 <ng-template [ngIf]="this.loaded">
+  <div class="row">
+  <div class="col">
   <div class="card bg-light mb-3" style="max-width: 25rem;">
     <div class="card-header"><h4>Profile</h4></div>
     <div class="card-body">
       <h5 class="card-title"><span style="color:darkcyan;"><i class="fa fa-user-circle"></i> </span>
         User: {{User.title}}</h5>
-        <h5 style="text-decoration-color: gray;"> <span style="color:goldenrod;"> 
+        <h5 style="text-decoration-color: gray;"> <span style="color:goldenrod;">
           <i class="fa fa-star"></i>
         </span>Total XP: {{User.xp}}</h5>
           <button class="btn btn-info" (click)="open(content)"><i class="fa fa-edit"></i></button>
-        
+        </div>
+
     </div>
   </div>
+<div class="col">
+  <app-historic>
+
+  </app-historic>
+</div>
 
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -30,6 +38,6 @@
     </div>
   </ng-template>
 
-  
-  
+
+</div>
 </ng-template>

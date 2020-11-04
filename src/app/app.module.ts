@@ -57,6 +57,7 @@ import { ManagerComponent } from './pages/manager/manager.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatFormField } from '@angular/material';
 import { ManageArtifactComponent } from './pages/manage-artifact/manage-artifact.component';
+import { HistoricComponent } from './pages/profile/historic/historic.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ManageArtifactComponent } from './pages/manage-artifact/manage-artifact
     FipDiscrimInspComponent,
     ProfileComponent,
     ManagerComponent,
-    ManageArtifactComponent
+    ManageArtifactComponent,
+    HistoricComponent
   ],
   imports: [
     BrowserModule,

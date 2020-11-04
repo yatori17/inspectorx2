@@ -1,0 +1,31 @@
+.allline > * > .codigo {
+  display: block;
+  unicode-bidi: embed;
+  font-family: monospace;
+  white-space: pre-wrap;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.allline > * > .codigo:hover {
+background-color: #007bff;
+color: white;
+transition: 0.2s;
+  border-radius: 5px;
+}
+.allline > * > .codigo > .correct:hover {
+  background-color: green;
+  color: white;
+  transition: 0.2s;
+    border-radius: 5px;
+  }
+  .allline > * > .codigo > .error:hover {
+    background-color: red;
+    color: white;
+    transition: 0.2s;
+      border-radius: 5px;
+    }
+
+    .summarized{
+
+    }
