@@ -1,3 +1,97 @@
-<p>
-  manage-artifact works!
-</p>
+<div class="container">
+  <h2>Manage Artifacts</h2>
+  <ul class="list-group">
+
+    <li class="list-group-item"
+      *ngFor="let artifacts of ArtifactArray; let i = index"
+    >
+  {{artifacts.title}}
+  <span class="itens">
+  <button class="btn btn-warning" (click)="open(content,i)">
+  <i class="fa fa-edit"></i>
+  </button>
+  <button class="btn btn-danger">
+    <i class="fa fa-trash" (click)="openA(content1,i)" ></i>
+    </button>
+  </span>
+
+  </li>
+  </ul>
+
+  <ng-template #content let-modal="modal" let-d="dismiss" let-close="close">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Artifact Update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <div class="input-group">
+            <input id="title" type="text" class="form-control" formControlName="title" >
+          </div>
+          <br>
+          <label for='taxselected'>Taxonomy</label>
+          <select class="form-control" id="taxselect" formControlName="taxonomy" [value]="form.controls.taxonomy.value"><option *ngFor = "let tax of TaxonomyArray" >{{tax.title}}</option></select>
+          <br>
+          <label for= "contentValue">Content</label>
+          <quill-editor formControlName="contentValue"></quill-editor>
+
+          <div>
+            <button type="button" class="btn btn-secondary" (click)="button(this.contentValue)">Edit defect</button>
+          </div>
+
+
+
+        </div>
+      </form>
+      <ng-container *ngFor = "let line of defLine; let i = index" >
+
+        <div class="form-check col-sm"  style="margin: 0px;">
+          <input type="checkbox" class="form-check-input" id="{{i}}" [(ngModel)]="linearray[i]">
+          <label class="form-check-label ql-editor" style="margin: 0px; padding: 0px;" for="{{i}}" [innerHTML]="HTMLSanitizer(line)"></label>
+          <ng-container *ngIf="linearray[i]">
+            <div class="form-group col-sm">
+              <select class="form-control" id="taxonomy" required  [(ngModel)]="defTaxonomyArray[i]" (change)="descript(defTaxonomyArray[i])">
+              <option  *ngFor = "let type of Taxonomy.value" [value]="type.display" name="taxonomy" >{{ type.display }}</option>
+              </select>
+              <div>
+                {{this.description}}
+              </div>
+            </div>
+            <div class="col-sm"><textarea class="form-control" id="{{i}}" rows="1" [(ngModel)]="defDescriptArray[i]" ></textarea></div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="close('Save click'); onSubmit()" [formGroup]="form">Save</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #content1 let-modal="modal" let-d="dismiss" let-close="close">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Delete Artifact</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>
+        Are you sure you want to delete the Artifact <strong>{{Artifact.title}}</strong> ?
+      </p>
+
+      <p>All information associated to this Artifact will be permanently deleted. This operation can not be undone.
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="close('Save click')">Cancel</button>
+      <button type="button" class="btn btn-outline-danger" (click)="close('Save click');deleteArtifact()">Delete</button>
+    </div>
+  </ng-template>
+
+</div>

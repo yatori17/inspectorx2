@@ -6,6 +6,7 @@ import { NgbModal ,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder,FormControl, Validators, FormArray } from '@angular/forms';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { Router } from '@angular/router';
+import { DISABLED } from '@angular/forms/src/model';
 
 
 @Component({
@@ -22,13 +23,6 @@ export class ManagerComponent implements OnInit {
               private fb: FormBuilder,
               private router: Router
     ) {
-      this.form = this.fb.group({
-        published: true,
-        title: this.fb.control('', Validators.required),
-        taxonomy: this.fb.array([]),
-      });
-
-
     }
   id: string='';
   saveNumber: number;
@@ -40,7 +34,12 @@ export class ManagerComponent implements OnInit {
       res=>{
         this.Taxonomy= this.db.TaxonomiaList;
       }
-    )
+    );
+    this.form = this.fb.group({
+      published: true,
+      title: this.fb.control('', Validators.required),
+      taxonomy: this.fb.control({value: '',disabled:true})
+    });
   }
   openA(content1, i) {
     this.aTaxonomy = this.Taxonomy[i];
@@ -75,6 +74,8 @@ export class ManagerComponent implements OnInit {
   trackByFn(index: any, item: any) {
     return index;
  }
+
+
 
  deleteTaxonomy(){
       this.db._deleteTaxonomyById(this.aTaxonomy._id);

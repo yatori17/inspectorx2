@@ -45,6 +45,13 @@
           <i class="fa fa-cogs" aria-hidden="true"></i>
         Taxonomy Manager</a>
         </span></li>
+        <li><span *ngIf="auth.loggedIn">
+
+
+          <a routerLink="fipplan/artifactmanager" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+          Artifact Manager</a>
+          </span></li>
     </ul>
 
   </nav>

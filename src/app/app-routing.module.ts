@@ -18,6 +18,7 @@ import { PartidasComponent } from './pages/partidas/partidas.component';
 import { FipDiscrimInspComponent } from './pages/fip-discrim-insp/fip-discrim-insp.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ManagerComponent } from './pages/manager/manager.component';
+import { ManageArtifactComponent } from './pages/manage-artifact/manage-artifact.component';
 
 
 
@@ -61,8 +62,12 @@ const routes: Routes = [{
 {
   path: 'fipplan/manager',
   component: ManagerComponent
-}
-,
+},
+{
+  path: 'fipplan/artifactmanager',
+  component: ManageArtifactComponent
+},
+
 {
 	path: 'fipplan/taxadd',
 	component: FipTaxaddComponent

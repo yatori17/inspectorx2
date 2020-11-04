@@ -174,6 +174,21 @@ myBool: boolean;
         resolve(this.TaxonomiaModelo);
       })
     }
+    _deleteArtifactById(id: string){
+      return new Promise(resolve=>{
+        this.loading =true;
+        this.TaxonomiaSub = this.api.deleteArtifact$(id).subscribe(
+          res =>{
+            console.log("Artifact deleted", res);
+            this.loading = false;
+          }, err=>{
+            this.loading = false;
+            this.error= true;
+          }
+        )
+        resolve(this.ArtefatoModelo);
+      })
+    }
 
     _getArtefatoByUse(id: string) {
       console.log(id);
