@@ -38,7 +38,7 @@ export class ManagerComponent implements OnInit {
     this.form = this.fb.group({
       published: true,
       title: this.fb.control('', Validators.required),
-      taxonomy: this.fb.control({value: '',disabled:true})
+      taxonomy: this.fb.array([])
     });
   }
   openA(content1, i) {
@@ -57,11 +57,11 @@ export class ManagerComponent implements OnInit {
 
 
   fillArray(i){
+    const taxonomies = this.form.controls.taxonomy as FormArray;
     this.saveNumber = i;
     this.id = this.Taxonomy[i]._id;
       console.log(this.Taxonomy[i])
     this.form.controls.title.setValue(this.Taxonomy[i].title)
-    const taxonomies = this.form.controls.taxonomy as FormArray;
     for(let j of this.Taxonomy[i].value){
       console.log(j)
       taxonomies.push(this.fb.group({

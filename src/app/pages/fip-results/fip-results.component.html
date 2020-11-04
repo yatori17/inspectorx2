@@ -3,14 +3,51 @@
       <h2 style="text-align: center;">Results</h2>
     </div>
     <div class="col">
+      <ng-template [ngIf]="xp">
       <div class="alert alert-success" role="alert">
         Congratulations you received {{this.xp}} points
       </div>
+    </ng-template>
+    <ng-template [ngIf]="xp==0">
+      <div class="alert alert-info" role="alert">
+        I'm sorry, but you could not get any xp points, you can play the defect crawler mode and improve your abilities      </div>
+    </ng-template>
     </div>
     <div> <strong>Moderator:</strong> {{ moderador }} </div>
 	<ng-container *ngFor="let respfip of ModResp; let k = index">
-    <div> <strong>Artifact:</strong> {{ respfip.artefatoId | artefatonamer | async }} </div>
-		<ng-container *ngFor="let line of ModResp[k].detbool; let j = index">
+    <div> <strong>Artifact:</strong> <button (click)="getArtifact(respfip.artefatoId)" class="btn btn-link">{{ respfip.artefatoId | artefatonamer | async }} </button></div>
+    <ng-template [ngIf]="ArtefatoArray.length">
+    <div class="card" style="width: 40rem;">
+      <div class="card-header" style="text-align: center;">
+        <i class="fa fa-file" style="color: steelblue;"></i>
+          Content
+        <i class="fa fa-file" style="color: steelblue; "></i>
+      </div>
+      <div class="card-body" *ngFor="let line of defLine; let i= index" class="list-group list-group-flush">
+        <ng-template [ngIf]="booleanArray.length">
+          <ng-template [ngIf]="description.length">
+            <ng-template [ngIf]= "taxonomy.length">
+
+        <div *ngIf="booleanArray[i]" ngbTooltip="{{description[i]}}" >
+        <div class="defectLine"  [innerHTML]="HTMLSanitizer(line)"></div>
+      </div>
+      <div *ngIf="!booleanArray[i] && ModResp[k].detbool[i]"  ngbTooltip="{{ModResp[k].dettaxonomy[i]}}">
+
+        <div class="defectErrorLine" [innerHTML]="HTMLSanitizer(line)">
+        </div>
+      </div>
+      <div *ngIf= "!booleanArray[i] && !ModResp[k].detbool[i]">
+        <div [innerHTML]="HTMLSanitizer(line)"></div>
+      </div>
+    </ng-template>
+  </ng-template>
+       </ng-template>
+      </div>
+
+    </div>
+  </ng-template>
+
+    <ng-container *ngFor="let line of ModResp[k].detbool; let j = index">
 				<div *ngIf="ModResp[k].detbool[j]"> Line {{j+1}}: {{ ModResp[k].dettaxonomy[j] }} | {{ ModResp[k].artefatoId | artefatoconfere:ModResp[k].dettaxonomy:j | async }} </div>
 
 		</ng-container>
@@ -30,5 +67,6 @@
 		</ng-container>
 		<br>
 </ng-container>
+
 </div>
 

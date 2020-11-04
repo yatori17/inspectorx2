@@ -7,12 +7,15 @@ import { AuthService } from './../../auth/auth.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DbhelpService } from './../../service/dbhelp.service';
+import { RespfipModel } from './../../core/models/respfip.model';
+import { SplitArtifactService } from '../../service/split-artifact.service';
+
 
 @Component({
   selector: 'app-fip-results',
   templateUrl: './fip-results.component.html',
   styleUrls: ['./fip-results.component.scss'],
-  providers: [DbhelpService]
+  providers: [DbhelpService, SplitArtifactService]
 })
 export class FipResultsComponent implements OnInit {
  	myBool: boolean;
@@ -21,14 +24,17 @@ export class FipResultsComponent implements OnInit {
 
   PartfipList: PartfipModel[];
 
+  defLine: Array<String>= [];
 
-
+  booleanArray: Array<boolean>=[];
+  description: Array<String> = [];
+  taxonomy: Array<String> = [];
   ArtefatoIdSub: Subscription;
   ArtefatoIdList: ArtefatoModel[];
   ArtefatoIdModelo: ArtefatoModel;
 
   RespfipArray: Array<string> = [];
-  ArtefatoArray: Array<string> = [];
+  ArtefatoArray: Array<ArtefatoModel> = [];
 
   partida: string;
   artefato: string;
@@ -56,7 +62,17 @@ export class FipResultsComponent implements OnInit {
   ModResp: any;
   xp: number = 0;
 
- constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, public auth: AuthService, private sanitizer: DomSanitizer, private dbhelp: DbhelpService) { }
+ constructor(private route: ActivatedRoute,
+  private router: Router,
+  private api: ApiService,
+  public auth: AuthService,
+  private sanitizer: DomSanitizer,
+  private dbhelp: DbhelpService,
+  public service: SplitArtifactService
+
+
+
+   ) { }
 
   ngOnInit() {
    this.route.params.forEach(params => {
@@ -79,8 +95,27 @@ export class FipResultsComponent implements OnInit {
          });
        }
 
-     });
-  	});
+
+     })
+    });
+
+
+
+  }
+  getArtifact(artefaoid){
+    this.dbhelp._getArtefatoByUse(artefaoid).then(
+      res =>{
+        this.ArtefatoArray = res;
+        this.defLine = this.service.splitartifact(res[0].content);
+        this.booleanArray = this.ArtefatoArray[0].defectbool;
+        this.taxonomy = this.ArtefatoArray[0].defecttaxonomy;
+        this.description= this.ArtefatoArray[0].defectdescript;
+        console.log(this.booleanArray)
+      }
+    )
+  }
+  private HTMLSanitizer(code: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(code);
   }
 
 
