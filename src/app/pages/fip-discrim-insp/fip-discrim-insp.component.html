@@ -37,7 +37,9 @@
               </div>
               <div class="modal-body">
                 <p>Experience points  in this review: {{this.xp}} points</p>
-
+                <div>
+                  <button class="btn btn-link" (click)="goToProfile(); c('Close modal')" >Click here to check a detailed view of your  matches </button>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="c('Save Click');">Ok</button>
@@ -114,14 +116,14 @@
   </div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Full Inspection Process</h4>
+      <h4 class="modal-title" id="modal-basic-title">Discrimination Stage</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <p>
-        blablabla </p>
+        It is a important stage that consists in a reunion with everyone involved in the software inspection process. The main goal is select the real defects and discard false positives  </p>
 
     </div>
     <div class="modal-footer">

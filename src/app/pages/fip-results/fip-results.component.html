@@ -28,7 +28,7 @@
           <ng-template [ngIf]="description.length">
             <ng-template [ngIf]= "taxonomy.length">
 
-        <div *ngIf="booleanArray[i]" ngbTooltip="{{description[i]}}" >
+        <div *ngIf="booleanArray[i]" ngbTooltip="{{description[i]}}">
         <div class="defectLine"  [innerHTML]="HTMLSanitizer(line)"></div>
       </div>
       <div *ngIf="!booleanArray[i] && ModResp[k].detbool[i]"  ngbTooltip="{{ModResp[k].dettaxonomy[i]}}">

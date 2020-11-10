@@ -16,8 +16,8 @@ export class ProfileComponent implements OnInit {
   name: string='dadsa';
 
   constructor(private db: DbhelpService,
-              private auth: AuthService,
-              private modalService: NgbModal  
+              public auth: AuthService,
+              private modalService: NgbModal
       ) { }
 
 

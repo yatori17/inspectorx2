@@ -12,6 +12,7 @@ import { resolve } from 'url';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { timer, of } from 'rxjs';
 import { switchMap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fip-discrim-insp',
@@ -51,7 +52,8 @@ export class FipDiscrimInspComponent implements OnInit {
     private db: DbhelpService,
     private service: SplitArtifactService,
     private sanitizer: DomSanitizer,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private router: Router
   ) {
     this.user = this.auth.userProfile.sub;
   }
@@ -160,6 +162,9 @@ public _modelchangeartefato(id: string) {
 }
 private HTMLSanitizer(code: string) {
   return this.sanitizer.bypassSecurityTrustHtml(code);
+}
+goToProfile(){
+  this.router.navigate(['profile']);
 }
 
 

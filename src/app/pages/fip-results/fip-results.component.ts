@@ -89,11 +89,13 @@ export class FipResultsComponent implements OnInit {
         })
 
        for (let _i = 0; _i < this.InspectorArray.length; _i++) {
+         console.log(this.InspectorArray)
          this.dbhelp._getRespfipBy_User_Partida(res[0].inspetor[_i], this.partidaid).then(res => {
          console.log(res);
          this.RespfipArr.push(res);
          });
        }
+
 
 
      })

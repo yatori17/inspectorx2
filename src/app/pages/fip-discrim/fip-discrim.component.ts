@@ -55,7 +55,7 @@ export class FipDiscrimComponent implements OnInit {
   avisoFaltouResposta: boolean = false;
   artifacts="Artifacts disabled means that the artifact was inspected"
   review="Reviews in progress";
-  content="You must inspect the software artifact and select chose the defect";
+  content="You must inspect the software artifact and select the real defects and discard the false positives";
 
     types: Array<any>;
 

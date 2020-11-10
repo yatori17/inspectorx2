@@ -37,7 +37,7 @@
 		<div class="col">
 			<div class="row">
       <div style="text-align: center;">
-        <h4 style="display: inline-block;">Artifact Content</h4> <a  ngbTooltip="{{content}}" ><i class="fa fa-question-circle"></i></a>
+        <h4 style="display: inline-block;">Artifact Content</h4> <a  ngbTooltip="{{content}}" placement="top" ><i class="fa fa-question-circle"></i></a>
       </div>
 					<div >
 					<!--	<a>{{ ArtefatoIdList[0].title }}</a>!-->
@@ -68,14 +68,14 @@
   </div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Full Inspection Process</h4>
+      <h4 class="modal-title" id="modal-basic-title">Detection (Discovery) Stage</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <p>
-        blablabla </p>
+        In this stage the inspector inspects the artifacts looking for anomalies and defects in software artifacts </p>
 
     </div>
     <div class="modal-footer">

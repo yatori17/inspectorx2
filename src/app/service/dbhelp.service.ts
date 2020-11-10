@@ -410,6 +410,7 @@ myBool: boolean;
           		console.log(err);
            }
         );
+        resolve(this.PartfipModelo)
     });
    }
 

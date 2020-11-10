@@ -131,8 +131,7 @@ constructor(private router: Router, public auth: AuthService, private dbhelp: Db
           this.difValue,
           this.ArtefatoArrCheck,
           this.ListuserArrCheck
-          );
-      this.router.navigate(['/', 'fullinspec']);
+          ).then( res => this.router.navigate(['fipdiscrim']))
     }
   }
 }
