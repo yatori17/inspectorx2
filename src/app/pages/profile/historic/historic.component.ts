@@ -15,6 +15,7 @@ interface Partidas {
   hithate: number;
   xp: number;
   extraxp : number;
+  date: string;
 }
 
 @Component({
@@ -62,6 +63,7 @@ export class HistoricComponent implements OnInit {
         for(let parts of this.PartidaList){
           this.db._getRespfipBy_User_Partida(this.auth.userProfile.sub, parts._id).then(
             res=>{
+              const date = new Date(parts.createDate);
               if(this.db.RespfipList.length){
 
                this.historico.push({
@@ -69,7 +71,8 @@ export class HistoricComponent implements OnInit {
                 name: parts.title,
                 hithate: 0,
                 xp: 0,
-                extraxp:0
+                extraxp:0,
+                date: date.getFullYear() + "-"+ date.getMonth() + "-" + date.getDay()
               })
             }
 
